@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Збирай монети</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:linear-gradient(135deg,#15152b,#25255a);color:white;min-height:100vh;display:flex;align-items:center;justify-content:center}
+.game{width:min(520px,94vw);background:#17172b;border:1px solid #41416d;border-radius:24px;padding:22px;box-shadow:0 20px 60px #0008;text-align:center}
+h1{margin:0 0 8px;font-size:30px}.sub{color:#aaa;margin-bottom:18px}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px}.card{background:#242445;border-radius:14px;padding:12px}.value{font-size:25px;font-weight:700;margin-top:4px}
+.coin{width:190px;height:190px;border-radius:50%;border:0;margin:25px auto;background:radial-gradient(circle at 35% 30%,#fff59d,#ffd21c 38%,#e49c00 75%);box-shadow:0 12px 30px #ffb30066,inset 0 -10px 15px #a96b00;display:block;font-size:80px;cursor:pointer;transition:.08s;user-select:none}
+.coin:active{transform:scale(.92)}button{font:inherit}.upgrade{width:100%;padding:14px;border:0;border-radius:13px;background:#6d5dfc;color:#fff;font-weight:700;cursor:pointer}.upgrade:disabled{opacity:.45;cursor:not-allowed}
+.msg{height:24px;margin:10px;color:#ffd85a}.small{font-size:13px;color:#888;margin-top:15px}
+</style>
+</head>
+<body>
+<div class="game">
+<h1>🪙 Збирай монети</h1>
+<div class="sub">Натискай на монету та купуй покращення!</div>
+<div class="stats">
+<div class="card">Монети<div class="value" id="coins">0</div></div>
+<div class="card">За клік<div class="value" id="power">1</div></div>
+</div>
+<button class="coin" id="coin">🪙</button>
+<div class="msg" id="msg"></div>
+<button class="upgrade" id="upgrade">⚡ Покращити клік — 25 🪙</button>
+<div class="small">Прогрес автоматично зберігається на цьому пристрої.</div>
+</div>
+<script>
+let coins=Number(localStorage.coins||0), power=Number(localStorage.power||1), cost=Number(localStorage.cost||25);
+const $=id=>document.getElementById(id);
+function save(){localStorage.coins=coins;localStorage.power=power;localStorage.cost=cost}
+function render(){
+ $("coins").textContent=coins.toLocaleString("uk-UA");
+ $("power").textContent=power;
+ $("upgrade").textContent=`⚡ Покращити клік — ${cost.toLocaleString("uk-UA")} 🪙`;
+ $("upgrade").disabled=coins<cost;
+}
+$("coin").onclick=()=>{coins+=power;save();render();};
+$("upgrade").onclick=()=>{
+ if(coins>=cost){coins-=cost;power++;cost=Math.ceil(cost*1.65);save();render();$("msg").textContent="Покращення куплено! 🚀";setTimeout(()=>$("msg").textContent="",900)}
+};
+render();
+</script>
+</body>
+</html>
