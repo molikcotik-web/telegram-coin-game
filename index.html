@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>COIN RUSH MEGA</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;color:#fff;background:linear-gradient(135deg,#11152b,#30205d);min-height:100vh}.app{max-width:600px;margin:auto;padding:15px}.head{display:flex;justify-content:space-between;align-items:center}h1{font-size:25px}.lang,.tab,.buy{border:0;border-radius:11px;padding:10px;background:#29244a;color:#fff;font-weight:bold}.lang{border:1px solid #51477e}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.card,.panel{background:#211d3d;border:1px solid #443b70;border-radius:16px;padding:12px}.card{text-align:center}.card small{color:#aaa}.card b{display:block;font-size:21px;margin-top:4px}.bar{height:9px;background:#111024;border-radius:9px;margin:10px 0;overflow:hidden}.bar i{display:block;height:100%;width:0;background:#8b70ff}.coin{display:block;width:200px;height:200px;margin:18px auto;border:0;border-radius:50%;font-size:80px;background:radial-gradient(circle at 30% 25%,#fffbd0,#ffe34e 35%,#ffad00 70%,#a85e00);box-shadow:0 15px 40px #0008,inset 0 -12px 18px #8b4e00;cursor:pointer;touch-action:manipulation}.coin:active{transform:scale(.92)}.combo{text-align:center;height:25px;color:#ffe55c;font-weight:900}.tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin:12px 0}.tab.active{background:#7058ff}.row{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 0;border-bottom:1px solid #39315d}.row:last-child{border:0}.row small{display:block;color:#999;margin-top:4px}.buy{background:#7058ff;cursor:pointer}.buy:disabled{opacity:.35}.center{text-align:center}.reset{display:block;margin:12px auto;background:none;border:0;color:#777;font-size:11px}
+</style>
+</head>
+<body>
+<div class="app">
+<div class="head"><h1>🪙 COIN RUSH MEGA</h1><select id="lang" class="lang"><option value="uk">🇺🇦 UA</option><option value="en">🇬🇧 EN</option><option value="pl">🇵🇱 PL</option></select></div>
+<div class="stats"><div class="card"><small id="lCoins"></small><b id="coins">0</b></div><div class="card"><small id="lPower"></small><b id="power">1</b></div><div class="card"><small id="lLevel"></small><b id="level">1</b></div></div>
+<div class="bar"><i id="xp"></i></div>
+<button id="coin" class="coin">🪙</button><div id="combo" class="combo"></div>
+<div class="tabs"><button class="tab active" data-page="shop" id="tShop"></button><button class="tab" data-page="quests" id="tQuest"></button><button class="tab" data-page="stats" id="tStats"></button><button class="tab" data-page="profile" id="tProfile"></button></div>
+<div id="panel" class="panel"></div><button id="reset" class="reset"></button>
+</div>
+<script>
+(function(){
+var T={
+uk:{coins:"Монети",power:"За клік",level:"Рівень",shop:"🛒 Магазин",quests:"🎯 Завдання",stats:"📊 Стата",profile:"👤 Профіль",powerUp:"⚡ Сила +1",powerDesc:"Більше монет за клік",auto:"🤖 Автоклікер",autoDesc:"Монети кожні 2 секунди",dbl:"💎 Подвійний клік",dblDesc:"×2 до доходу з кліку",buy:"КУПИТИ",bought:"КУПЛЕНО",claim:"ЗАБРАТИ",done:"ГОТОВО",process:"В ПРОЦЕСІ",reward:"нагорода",clicks:"Кліків",autos:"Автоклікерів",total:"Всього зароблено",best:"Рекорд",yes:"Так",no:"Ні",reset:"Скинути прогрес",confirm:"Скинути весь прогрес?",combo:"🔥 КОМБО x",qs:[["c100","👆 100 кліків",100,100],["m1000","🪙 1 000 монет",1000,250],["l5","⭐ Рівень 5",5,500],["c1000","👆 1 000 кліків",1000,1000]]},
+en:{coins:"Coins",power:"Per click",level:"Level",shop:"🛒 Shop",quests:"🎯 Quests",stats:"📊 Stats",profile:"👤 Profile",powerUp:"⚡ Power +1",powerDesc:"More coins per click",auto:"🤖 Auto clicker",autoDesc:"Coins every 2 seconds",dbl:"💎 Double click",dblDesc:"×2 click income",buy:"BUY",bought:"BOUGHT",claim:"CLAIM",done:"DONE",process:"IN PROGRESS",reward:"reward",clicks:"Clicks",autos:"Auto clickers",total:"Total earned",best:"Best",yes:"Yes",no:"No",reset:"Reset progress",confirm:"Reset all progress?",combo:"🔥 COMBO x",qs:[["c100","👆 100 clicks",100,100],["m1000","🪙 1,000 coins",1000,250],["l5","⭐ Level 5",5,500],["c1000","👆 1,000 clicks",1000,1000]]},
+pl:{coins:"Monety",power:"Za klik",level:"Poziom",shop:"🛒 Sklep",quests:"🎯 Zadania",stats:"📊 Staty",profile:"👤 Profil",powerUp:"⚡ Moc +1",powerDesc:"Więcej monet za klik",auto:"🤖 Auto klikacz",autoDesc:"Monety co 2 sekundy",dbl:"💎 Podwójny klik",dblDesc:"×2 za klik",buy:"KUP",bought:"KUPIONE",claim:"ODBIERZ",done:"GOTOWE",process:"W TOKU",reward:"nagroda",clicks:"Kliknięcia",autos:"Auto klikacze",total:"Łącznie zarobiono",best:"Rekord",yes:"Tak",no:"Nie",reset:"Resetuj postęp",confirm:"Zresetować cały postęp?",combo:"🔥 KOMBO x",qs:[["c100","👆 100 kliknięć",100,100],["m1000","🪙 1 000 monet",1000,250],["l5","⭐ Poziom 5",5,500],["c1000","👆 1 000 kliknięć",1000,1000]]}
+};
+var S={};try{S=JSON.parse(localStorage.getItem("CR_MEGA")||"{}")}catch(e){}
+var coins=S.coins||0,power=S.power||1,clicks=S.clicks||0,auto=S.auto||0,dbl=!!S.dbl,best=S.best||0,total=S.total||0;
+var pCost=S.pCost||25,aCost=S.aCost||150,claimed=S.claimed||{},lang=localStorage.getItem("CR_LANG")||"uk",page="shop",combo=0,timer;
+function $(x){return document.getElementById(x)}function tr(){return T[lang]}function lvl(){return Math.floor(clicks/100)+1}function f(x){return Math.floor(x).toLocaleString()}
+function save(){localStorage.setItem("CR_MEGA",JSON.stringify({coins:coins,power:power,clicks:clicks,auto:auto,dbl:dbl,best:best,total:total,pCost:pCost,aCost:aCost,claimed:claimed}))}
+function top(){var x=tr();$("coins").textContent=f(coins);$("power").textContent=f(power);$("level").textContent=lvl();$("xp").style.width=(clicks%100)+"%";$("lCoins").textContent=x.coins;$("lPower").textContent=x.power;$("lLevel").textContent=x.level;$("tShop").textContent=x.shop;$("tQuest").textContent=x.quests;$("tStats").textContent=x.stats;$("tProfile").textContent=x.profile;$("reset").textContent=x.reset}
+function shop(){var x=tr();$("panel").innerHTML='<div class=row><div><b>'+x.powerUp+'</b><small>'+x.powerDesc+'</small></div><button class=buy id=bp '+(coins<pCost?"disabled":"")+'>'+f(pCost)+' 🪙</button></div><div class=row><div><b>'+x.auto+'</b><small>'+x.autoDesc+'</small></div><button class=buy id=ba '+(coins<aCost?"disabled":"")+'>'+f(aCost)+' 🪙</button></div><div class=row><div><b>'+x.dbl+'</b><small>'+x.dblDesc+'</small></div><button class=buy id=bd '+(dbl?"disabled":"")+'>'+(dbl?x.bought:"500 🪙")+'</button></div>';
+$("bp").onclick=function(){if(coins<pCost)return;coins-=pCost;power++;pCost=Math.ceil(pCost*1.65);save();refresh()};$("ba").onclick=function(){if(coins<aCost)return;coins-=aCost;auto++;aCost=Math.ceil(aCost*1.7);save();refresh()};$("bd").onclick=function(){if(dbl||coins<500)return;coins-=500;dbl=true;save();refresh()}}
+function quests(){var x=tr(),out="";for(var i=0;i<x.qs.length;i++){var q=x.qs[i],v=q[0]=="m1000"?coins:q[0]=="l5"?lvl():clicks,ok=v>=q[2],done=!!claimed[q[0]];out+='<div class=row><div><b>'+q[1]+'</b><small>'+Math.min(v,q[2])+'/'+q[2]+' • '+x.reward+': '+q[3]+' 🪙</small></div><button class=buy data-q="'+q[0]+'" '+(!ok||done?"disabled":"")+'>'+(done?x.done:ok?x.claim:x.process)+'</button></div>'}$("panel").innerHTML=out;var bs=document.querySelectorAll("[data-q]");for(var j=0;j<bs.length;j++)bs[j].onclick=function(){var id=this.dataset.q;if(claimed[id])return;for(var k=0;k<x.qs.length;k++)if(x.qs[k][0]==id){var q=x.qs[k];claimed[id]=1;coins+=q[3];save();refresh();break}}}
+function stats(){var x=tr();$("panel").innerHTML='<div class=center><h2>'+x.stats+'</h2><p>'+x.clicks+': <b>'+f(clicks)+'</b></p><p>'+x.total+': <b>'+f(total)+'</b></p><p>'+x.best+': <b>'+f(best)+'</b></p></div>'}
+function profile(){var x=tr();$("panel").innerHTML='<div class=center><div style="font-size:55px">👤</div><h2>'+x.profile+'</h2><p>'+x.level+': <b>'+lvl()+'</b></p><p>'+x.autos+': <b>'+auto+'</b></p><p>'+x.dbl+': <b>'+(dbl?x.yes:x.no)+'</b></p></div>'}
+function refresh(){top();if(page=="shop")shop();else if(page=="quests")quests();else if(page=="stats")stats();else profile()}
+$("coin").onclick=function(){var gain=power*(dbl?2:1);coins+=gain;clicks++;total+=gain;if(coins>best)best=coins;combo++;$("combo").textContent=combo>2?tr().combo+combo+"!":"";clearTimeout(timer);timer=setTimeout(function(){combo=0;$("combo").textContent=""},1200);save();refresh()}
+var tabs=document.querySelectorAll(".tab");for(var i=0;i<tabs.length;i++)tabs[i].onclick=function(){page=this.dataset.page;for(var j=0;j<tabs.length;j++)tabs[j].classList.remove("active");this.classList.add("active");refresh()}
+$("lang").value=lang;$("lang").onchange=function(){lang=this.value;localStorage.setItem("CR_LANG",lang);refresh()}
+$("reset").onclick=function(){if(confirm(tr().confirm)){localStorage.removeItem("CR_MEGA");location.reload()}}
+setInterval(function(){if(auto){coins+=auto;total+=auto;if(coins>best)best=coins;save();top()}},2000);
+refresh();
+})();
+</script>
+</body>
+</html>
