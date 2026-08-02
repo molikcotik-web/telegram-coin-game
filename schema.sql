@@ -1,0 +1,21 @@
+
+CREATE TABLE IF NOT EXISTS users (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  telegram_id TEXT NOT NULL UNIQUE,
+  name TEXT NOT NULL DEFAULT 'Player',
+  gg INTEGER NOT NULL DEFAULT 0,
+  referrals INTEGER NOT NULL DEFAULT 0,
+  cases_opened INTEGER NOT NULL DEFAULT 0,
+  taps_total INTEGER NOT NULL DEFAULT 0,
+  created_at INTEGER NOT NULL,
+  last_seen INTEGER NOT NULL
+);
+CREATE TABLE IF NOT EXISTS events (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  telegram_id TEXT NOT NULL,
+  type TEXT NOT NULL,
+  amount INTEGER NOT NULL DEFAULT 0,
+  created_at INTEGER NOT NULL
+);
+CREATE INDEX IF NOT EXISTS idx_users_last_seen ON users(last_seen);
+CREATE INDEX IF NOT EXISTS idx_events_type_time ON events(type,created_at);
