@@ -1,0 +1,428 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<title>GG RUSH v10</title>
+<style>
+:root{--bg:#07090e;--card:#101522;--card2:#151b2a;--line:#263049;--muted:#8993ad;--lime:#b6ff00;--lime2:#72d900;--blue:#42cfff;--gold:#ffd84d;--danger:#ff5d79}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}html,body{margin:0;background:#000;color:#fff;font-family:Inter,system-ui,-apple-system,Segoe UI,Arial,sans-serif}body{min-height:100vh}
+button{font:inherit}.app{width:min(520px,100%);min-height:100vh;margin:auto;background:radial-gradient(600px 300px at 50% -50px,#23365b 0,#0c111d 52%,#06080c 100%);padding-bottom:105px;overflow:hidden}
+.top{position:sticky;top:0;z-index:20;padding:12px 14px 10px;display:flex;justify-content:space-between;align-items:center;background:rgba(7,9,14,.82);backdrop-filter:blur(18px);border-bottom:1px solid #1b2335}
+.brand{font-size:22px;font-weight:1000;letter-spacing:-1px}.brand b{color:var(--lime)}.brand small{display:block;color:var(--muted);font-size:9px;letter-spacing:2px;margin-top:-2px}
+.wallet{display:flex;align-items:center;gap:7px;padding:6px 7px 6px 11px;border:1px solid #34405a;border-radius:22px;background:#0e1320;font-weight:950}.wallet .gg{color:var(--lime)}.wallet .plus{width:28px;height:28px;border:0;border-radius:50%;background:var(--lime);font-weight:1000}
+.page{padding:14px}.tab{display:none}.tab.active{display:block}
+.hero{position:relative;overflow:hidden;border:1px solid #2b3650;border-radius:27px;background:linear-gradient(145deg,#172238,#0d121d 65%);padding:18px;margin-bottom:12px;box-shadow:0 18px 55px #0006}.hero:after{content:"";position:absolute;width:170px;height:170px;right:-80px;top:-80px;border-radius:50%;background:#a9ff0010;filter:blur(5px)}
+.eyebrow{color:var(--lime);font-size:10px;font-weight:1000;letter-spacing:2px}.hero h2{font-size:27px;line-height:1.04;margin:7px 0}.hero p{color:var(--muted);margin:0;line-height:1.45;font-size:13px}.balance{margin-top:14px;font-size:35px;font-weight:1000;letter-spacing:-1px}.balance span:first-child{font-size:10px;color:var(--muted);letter-spacing:2px}
+.tap-card{border:1px solid #263550;border-radius:30px;background:radial-gradient(circle at 50% 35%,#1b2946,#0c111b 62%);padding:15px 12px 19px;text-align:center;box-shadow:inset 0 1px #ffffff0b,0 20px 60px #0008;margin-bottom:12px}
+.token-label{font-size:11px;color:var(--lime);font-weight:1000;letter-spacing:2px;margin-bottom:3px}.tap-sub{font-size:11px;color:var(--muted);margin-top:8px}
+.token-wrap{position:relative;width:260px;height:260px;margin:4px auto 0;position:relative;display:grid;place-items:center;cursor:pointer;touch-action:manipulation}
+.token-wrap:before,.token-wrap:after{content:"";position:absolute;border-radius:50%;inset:4px;border:1px solid #b6ff0030;box-shadow:0 0 50px #b6ff0017}.token-wrap:after{inset:19px;border:1px dashed #42cfff42;animation:spin 13s linear infinite}
+.token{width:218px;height:218px;border-radius:50%;border:8px solid #d6ff5d;background:radial-gradient(circle at 32% 25%,#d8ff68,#7ecf00 45%,#376e00 100%);box-shadow:0 0 0 7px #152006,0 0 50px #a9ff0066,0 18px 30px #000;display:grid;place-items:center;position:relative;transition:transform .08s;user-select:none}
+.token:before{content:"";position:absolute;inset:12px;border-radius:50%;border:2px solid #ffffff55;box-shadow:inset 0 0 0 2px #315800}
+.token:active{transform:scale(.91)}.token img{display:none!important}.token span{position:relative;font-size:78px;font-weight:1000;letter-spacing:-7px;color:#ffffff;text-shadow:0 5px 0 #315d00,0 0 22px #ffffff;font-family:Arial Black,Inter,sans-serif}.token small{position:absolute;bottom:47px;font-size:10px;letter-spacing:4px;color:#244300;font-weight:1000}
+@keyframes spin{to{transform:rotate(360deg)}}.float{position:fixed;pointer-events:none;color:var(--lime);font-size:23px;font-weight:1000;text-shadow:0 2px 10px #000;animation:up .65s ease-out forwards;z-index:80}@keyframes up{to{transform:translateY(-100px) scale(1.2);opacity:0}}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.stat{background:#0f1420;border:1px solid var(--line);border-radius:17px;padding:12px 5px;text-align:center}.stat strong{display:block;font-size:19px}.stat small{color:var(--muted);font-size:10px}
+.section{display:flex;align-items:center;justify-content:space-between;margin:19px 2px 9px}.section h3{margin:0;font-size:17px}.section span{font-size:11px;color:var(--muted)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}.mode{border:1px solid var(--line);background:linear-gradient(145deg,#141b2a,#0d121c);border-radius:20px;padding:13px;min-height:145px;position:relative;overflow:hidden}.mode .icon{font-size:31px}.mode h4{margin:7px 0 4px;font-size:14px}.mode p{color:var(--muted);font-size:11px;line-height:1.35;min-height:30px;margin:0 0 9px}.mode button,.darkbtn,.greenbtn{width:100%;border:0;border-radius:12px;padding:10px;font-weight:950;cursor:pointer}.mode button{background:#273149;color:#fff}.greenbtn{background:var(--lime);color:#0a1004}.darkbtn{background:#232b40;color:#fff}
+.card{border:1px solid var(--line);background:#101520;border-radius:21px;padding:15px;margin-bottom:10px}.case{background:radial-gradient(circle at 50% 0,#442365,#111522 55%);border-color:#7545a4;text-align:center}.case-box{font-size:70px;filter:drop-shadow(0 12px 20px #000);animation:floatbox 2.5s ease-in-out infinite}@keyframes floatbox{50%{transform:translateY(-6px) rotate(2deg)}}.reward{min-height:24px;color:var(--gold);font-weight:1000;margin:7px}.case button{width:100%;background:var(--lime);color:#111;border:0;border-radius:14px;padding:13px;font-weight:1000}.case button:disabled{opacity:.3}.case p{color:var(--muted);font-size:11px}
+.refbox{background:linear-gradient(145deg,#122518,#0e141d);border:1px solid #315d3b;border-radius:22px;padding:16px}.refcode{background:#080c13;border:1px dashed #4c5b76;border-radius:13px;padding:12px;margin:10px 0;font-size:10px;word-break:break-all;color:#d9e2f4}.row{display:grid;grid-template-columns:1fr 1fr;gap:8px}.progress{height:9px;background:#252d3f;border-radius:20px;overflow:hidden;margin:13px 0 7px}.progress i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--lime),#42d8ff);border-radius:20px;transition:.3s}
+.profile{text-align:center}.avatar{width:82px;height:82px;border-radius:50%;margin:0 auto 8px;display:grid;place-items:center;background:radial-gradient(circle at 30% 20%,#d8ff6b,#74c900 50%,#1d4400);border:4px solid #caff45;color:#102000;font-size:28px;font-weight:1000;box-shadow:0 0 30px #a9ff0033}
+.langs{display:flex;gap:7px;margin-top:11px}.lang{flex:1;border:1px solid #34405b;background:#151c2c;color:#aab4ca;border-radius:11px;padding:9px;font-size:11px;font-weight:900}.lang.active{background:var(--lime);color:#111;border-color:var(--lime)}
+.nav{position:fixed;bottom:max(10px,env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);width:min(490px,calc(100% - 18px));background:rgba(17,22,34,.94);backdrop-filter:blur(18px);border:1px solid #35405b;border-radius:27px;padding:6px;display:grid;grid-template-columns:repeat(5,1fr);z-index:40;box-shadow:0 15px 45px #000b}.nav button{border:0;background:transparent;color:#7f89a3;border-radius:21px;padding:8px 2px;font-size:10px;font-weight:800;cursor:pointer}.nav button.active{background:linear-gradient(135deg,#caff45,#6ed000);color:#101500}.nav i{display:block;font-style:normal;font-size:20px;margin-bottom:2px}
+.toast{position:fixed;left:50%;bottom:94px;transform:translate(-50%,15px);background:#111827;border:1px solid #3b4966;padding:11px 16px;border-radius:15px;opacity:0;transition:.2s;z-index:100;font-size:12px;font-weight:800;white-space:nowrap}.toast.show{opacity:1;transform:translate(-50%,0)}
+.modal{position:fixed;inset:0;background:#000b;display:none;align-items:flex-end;z-index:70}.modal.show{display:flex}.sheet{width:min(520px,100%);margin:auto;background:linear-gradient(180deg,#1a2031,#0e121b);border:1px solid #465270;border-radius:28px 28px 0 0;padding:22px;text-align:center;box-shadow:0 -20px 70px #000}.openbox{font-size:105px;animation:open .6s cubic-bezier(.2,1.5,.4,1)}@keyframes open{from{transform:scale(.2) rotate(-25deg)}to{transform:scale(1) rotate(0)}}.case-reward{font-size:34px;color:var(--lime);font-weight:1000;margin:7px}.sheet p{color:var(--muted);font-size:12px}.sheet .greenbtn{padding:14px}
+.badge{display:inline-flex;gap:5px;align-items:center;padding:5px 8px;border-radius:9px;background:#a9ff0015;color:var(--lime);font-size:9px;font-weight:1000}.mini-list{display:grid;gap:8px}.mini{display:flex;align-items:center;gap:10px;padding:12px;border:1px solid var(--line);background:#0d131e;border-radius:15px}.mini .mi{font-size:24px}.mini b{font-size:12px}.mini span{display:block;color:var(--muted);font-size:10px;margin-top:2px}
+
+/* v6 visual overhaul */
+body{background:#050505}
+.app{background:linear-gradient(180deg,#17191b 0%,#0b0d0f 48%,#060708 100%);max-width:520px}
+.top{padding:13px 12px;background:#181a1c;border-bottom:1px solid #272a2d}
+.top:before{content:"";position:absolute;left:14px;top:19px;width:10px;height:10px;border-radius:50%;background:#32e68b;box-shadow:0 0 12px #32e68b}
+.brand{padding-left:18px;font-size:19px}
+.brand small{font-size:8px}
+.top-tools{display:flex;gap:8px;align-items:center}
+.iconbtn{width:44px;height:44px;border-radius:50%;border:1px solid #3a3d40;background:#222528;color:#e8e8e8;display:grid;place-items:center;font-size:20px}
+.balance-pill{display:flex;align-items:center;gap:8px;background:#202326;border:1px solid #3a3d40;border-radius:24px;padding:6px 7px 6px 11px;font-size:19px;font-weight:1000;box-shadow:inset 0 0 0 1px #ffffff08}
+.balance-pill .coin-dot{width:24px;height:24px;border-radius:50%;background:#1ea7e7;display:grid;place-items:center;font-size:12px;box-shadow:0 0 12px #1ea7e755}
+.balance-pill .plus{margin-left:2px}
+.page{padding:10px 8px 112px}
+.hero{border-radius:20px;padding:13px 14px;background:linear-gradient(135deg,#202427,#111315);border-color:#303438;box-shadow:none}
+.hero h2{font-size:22px}
+.hero p{font-size:12px}
+.tap-card{margin:0 -1px 10px;border-radius:0 0 24px 24px;padding:7px 4px 16px;background:radial-gradient(circle at 50% 37%,#24282b 0,#181a1c 42%,#151719 75%);border:0;border-top:1px solid #2c3033;min-height:385px}
+.token-label{margin-top:4px;color:#8bff2b;font-size:10px}
+.token-wrap{position:relative;width:285px;height:285px;margin:0 auto;position:relative}
+.token-wrap:before{inset:10px;border:1px solid #7dff2c25;box-shadow:0 0 55px #50ff0020}
+.token-wrap:after{inset:28px;border:1px dashed #38dfff30}
+.token{width:258px;height:258px;background:transparent;border:0;box-shadow:0 0 45px #42ff0055;overflow:visible}
+.token:before{display:none}
+.token img{display:block;width:258px;height:258px;object-fit:contain;border-radius:50%;filter:drop-shadow(0 0 18px #49ff0080);user-select:none;-webkit-user-drag:none}
+.token span,.token small{display:none}
+.token:active{transform:scale(.92)}
+.tap-sub{font-size:11px;color:#a6abb0;margin-top:0}
+
+.multis{display:flex;gap:7px;overflow:hidden;margin-bottom:11px}
+.multi{flex:0 0 auto;padding:8px 13px;border-radius:12px;border:1px solid #536070;background:#253038;color:#b7c3cc;font-weight:1000;font-size:13px}
+.multi.green{border-color:#27c777;color:#55f2a1;background:#153b2b}
+.multi.pink{border-color:#db6a74;color:#ffb0b7;background:#422528}
+.multi.purple{border-color:#9a63db;color:#d6b5ff;background:#332645}
+.betbtn{width:100%;border:0;border-radius:16px;padding:15px;background:linear-gradient(135deg,#19a9e7,#2765e9);color:#fff;font-size:17px;font-weight:1000;box-shadow:0 8px 22px #146de94d}
+.betbtn:active{transform:scale(.98)}
+.player-list{display:grid;gap:8px;margin-top:10px}
+.player{display:flex;align-items:center;justify-content:space-between;border:1px solid #315c65;background:#202b2e;border-radius:17px;padding:10px 12px}
+.player-left{display:flex;align-items:center;gap:10px}.player-avatar{width:42px;height:42px;border-radius:13px;background:linear-gradient(135deg,#354e59,#101519);display:grid;place-items:center;font-size:21px}
+.player-name{font-weight:900}.player-bet{font-size:12px;color:#52dff4;background:#183f46;border-radius:10px;padding:5px 8px;margin-top:3px;display:inline-block}
+.player-win{font-weight:1000;color:#54e6ff;background:#183f46;border-radius:14px;padding:9px 12px}
+.stats{grid-template-columns:repeat(3,1fr);gap:7px;margin:8px 0}
+.stat{background:#1b1e20;border-color:#303437;border-radius:15px;padding:10px 5px}
+.section{margin-top:16px}
+.mode{background:#1b1e20;border-color:#303437;border-radius:18px}
+.card{background:#1b1e20;border-color:#303437}
+.case{background:radial-gradient(circle at 50% 0,#34214c,#171a1d 62%);border-color:#64407e}
+.nav{bottom:max(8px,env(safe-area-inset-bottom));width:calc(100% - 8px);border-radius:23px;background:rgba(31,33,35,.96);border-color:#3b3f42}
+.nav button{font-size:9px;padding:8px 2px}
+.nav button.active{background:#2a2d30;color:#fff;box-shadow:inset 0 0 0 1px #4a4e51}
+@media(max-width:380px){.token-wrap{position:relative;width:245px;height:245px}.token,.token img{width:220px;height:220px}.tap-card{min-height:340px}.hero h2{font-size:20px}}
+
+.leaderboard{display:grid;gap:9px}
+.rank-row{display:flex;align-items:center;gap:10px;padding:11px 12px;border:1px solid #303437;background:#202426;border-radius:17px}
+.rank-num{width:30px;text-align:center;font-size:16px;font-weight:1000;color:#b7c0c9}
+.rank-row:nth-child(1) .rank-num{color:#ffd84d}
+.rank-row:nth-child(2) .rank-num{color:#d8e1e8}
+.rank-row:nth-child(3) .rank-num{color:#d69a62}
+.rank-avatar{width:43px;height:43px;border-radius:14px;display:grid;place-items:center;font-size:22px;background:linear-gradient(145deg,#37454a,#15191b);border:1px solid #475256}
+.rank-info{flex:1;min-width:0}.rank-name{font-weight:950;font-size:13px}.rank-sub{font-size:10px;color:#8993ad;margin-top:3px}
+.rank-score{font-weight:1000;color:#bfff4d;font-size:13px}
+.you-row{border-color:#86b832;background:linear-gradient(90deg,#1e2920,#202426)}
+
+/* GG RUSH v8 premium UI */
+.page{padding-bottom:110px}
+.hero{background:radial-gradient(circle at 80% 10%,#2a3c0c 0,#111724 34%,#0b0e15 75%);border:1px solid #283244;box-shadow:0 18px 50px #0008}
+.tap-card{background:linear-gradient(180deg,#101823,#0a0d13);border:1px solid #2b3748;box-shadow:0 20px 70px #0009}
+.token-wrap{position:relative;margin:14px auto 8px;width:300px;height:300px}
+.token{width:280px;height:280px;display:grid;place-items:center}
+.token img{width:280px;height:280px;filter:drop-shadow(0 0 25px #8cff3d88) drop-shadow(0 0 65px #39e5ff35)}
+.token-wrap:before{border:1px solid #9dff3b55;box-shadow:0 0 75px #66ff0025}
+.token-label{letter-spacing:1.5px;color:#c9d3e0}
+.balance{background:linear-gradient(135deg,#15220d,#101820);border:1px solid #3d5727}
+.balance #bigGG{font-size:38px;font-weight:1000;text-shadow:0 0 22px #b6ff0080}
+.mode{background:linear-gradient(145deg,#121a24,#0c1118);border:1px solid #273344;box-shadow:0 10px 30px #0005;transition:.18s}
+.mode:active{transform:scale(.98)}
+.mode button,.case button{box-shadow:0 7px 22px #008cff30}
+.section{margin-top:22px}
+.card.case{background:linear-gradient(145deg,#16140c,#10151d);border:1px solid #4d4120}
+.case-box{font-size:54px;filter:drop-shadow(0 0 18px #ffd84d66)}
+.leaderboard{margin-bottom:15px}
+.rank-row{min-height:66px;background:linear-gradient(90deg,#121821,#0d1118);border-color:#293544}
+.rank-row:hover{border-color:#607080}
+.you-row{background:linear-gradient(90deg,#1b2810,#101820)!important;border-color:#83c72d!important}
+.nav{backdrop-filter:blur(18px);background:#0b0e14dd;border-top:1px solid #273141}
+.nav button.active{color:#b6ff00;text-shadow:0 0 12px #b6ff0055}
+.online-pill{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border:1px solid #284a36;background:#0d1b13;border-radius:999px;color:#7dffa9;font-size:10px;font-weight:900}
+
+/* GG RUSH FX */
+.fx-layer{position:fixed;inset:0;pointer-events:none;z-index:90;overflow:hidden}
+.spark{position:absolute;width:7px;height:7px;border-radius:50%;background:#d9ff5a;box-shadow:0 0 14px #d9ff5a;animation:sparkFly .7s cubic-bezier(.2,.8,.2,1) forwards}
+@keyframes sparkFly{to{transform:translate(var(--dx),var(--dy)) scale(0);opacity:0}}
+.tap-ring{position:fixed;width:30px;height:30px;border:3px solid #d9ff5a;border-radius:50%;transform:translate(-50%,-50%);animation:ring .55s ease-out forwards;pointer-events:none;z-index:91;box-shadow:0 0 20px #baff3c}
+@keyframes ring{to{width:170px;height:170px;opacity:0}}
+.token.pulse{animation:tokenPulse .32s ease-out}
+@keyframes tokenPulse{0%{filter:brightness(1)}35%{filter:brightness(1.65) drop-shadow(0 0 35px #caff45);transform:scale(1.06)}100%{filter:brightness(1);transform:scale(1)}}
+.token-wrap:after{content:"";position:absolute;width:240px;height:240px;border-radius:50%;border:1px solid #caff4530;box-shadow:0 0 80px #caff4518;animation:orbit 5s linear infinite;pointer-events:none}
+@keyframes orbit{to{transform:rotate(360deg)}}
+.live-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#6dff45;box-shadow:0 0 10px #6dff45;animation:blink 1s infinite}
+@keyframes blink{50%{opacity:.35;transform:scale(.7)}}
+.empty-board{text-align:center;padding:22px 12px;color:var(--muted);border:1px dashed #38445d;border-radius:18px;background:#101520}
+.empty-board b{display:block;color:#fff;margin-bottom:5px}
+
+/* GG RUSH v10 polish */
+:root{--lime:#c7ff39;--lime2:#78e000;--cyan:#52e8ff}
+.app{position:relative}
+.app:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;background:radial-gradient(circle at 50% 25%,#b6ff0010,transparent 28%),radial-gradient(circle at 15% 70%,#52e8ff08,transparent 25%);animation:bgpulse 5s ease-in-out infinite}
+@keyframes bgpulse{50%{opacity:.65}}
+.top,.page,.nav{position:relative}
+.token-wrap{filter:drop-shadow(0 0 26px #b6ff0030)}
+.token{box-shadow:0 0 0 7px #152006,0 0 35px #b6ff0055,0 0 90px #b6ff0022,0 18px 30px #000}
+.token.pulse{animation:tokenpulse .22s ease-out}
+@keyframes tokenpulse{50%{transform:scale(.90) rotate(-2deg);filter:brightness(1.3)}}
+.tap-ring{position:fixed;width:20px;height:20px;border:2px solid var(--lime);border-radius:50%;transform:translate(-50%,-50%);pointer-events:none;z-index:79;animation:ring .55s ease-out forwards}
+@keyframes ring{to{width:150px;height:150px;opacity:0}}
+.spark{position:fixed;width:7px;height:7px;border-radius:50%;background:var(--lime);box-shadow:0 0 10px var(--lime);pointer-events:none;z-index:78;animation:spark .7s ease-out forwards}
+@keyframes spark{to{transform:translate(var(--dx),var(--dy)) scale(.1);opacity:0}}
+.mode,.card,.hero,.tap-card,.stat{transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease}
+.mode:active,.stat:active{transform:scale(.98)}
+.greenbtn,.mode button,.darkbtn{transition:transform .12s ease,filter .12s ease}
+.greenbtn:active,.mode button:active,.darkbtn:active{transform:scale(.97);filter:brightness(1.12)}
+#fxLayer{position:fixed;inset:0;pointer-events:none;z-index:75;overflow:hidden}
+.toast{box-shadow:0 10px 40px #0009}
+
+/* ===== GG RUSH v11: progression + i18n + premium effects ===== */
+:root{--ggr:#b9ff38;--ggr2:#70d900;--blue:#5be7ff;--panel:#0a101d;--stroke:#263653}
+.lang-switch{display:flex;gap:5px;align-items:center;background:#09101b;border:1px solid var(--stroke);padding:4px;border-radius:14px}
+.lang-switch button{border:0;background:transparent;color:#71819c;padding:6px 8px;border-radius:9px;font-size:9px;font-weight:900;cursor:pointer}
+.lang-switch button.active{background:#b9ff38;color:#061006}
+.progress-card{padding:15px 16px;margin-top:12px;background:linear-gradient(135deg,#0d1828,#09101a);border:1px solid #273957;border-radius:20px}
+.progress-head{display:flex;justify-content:space-between;align-items:center;font-size:11px}
+.progress-head b{font-size:13px}.progress-head span{color:#8c9ab2;font-size:9px}
+.progress-track{height:9px;background:#1b2740;border-radius:99px;overflow:hidden;margin-top:9px;box-shadow:inset 0 1px 4px #000}
+.progress-track i{display:block;height:100%;width:0;background:linear-gradient(90deg,#65ce00,#d5ff67);box-shadow:0 0 15px #aaff45;transition:width .45s cubic-bezier(.2,.8,.2,1)}
+.level-reward{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}
+.level-reward span{padding:5px 8px;border-radius:8px;background:#111e32;color:#9aabc5;font-size:8px}
+.difficulty{margin-top:10px;color:#8291aa;font-size:9px;display:flex;justify-content:space-between}
+.diff-dots{display:flex;gap:3px}.diff-dots i{width:6px;height:6px;border-radius:50%;background:#283650}.diff-dots i.on{background:#b9ff38;box-shadow:0 0 8px #b9ff38}
+.upgrade-v11{position:relative;overflow:hidden}
+.upgrade-v11:after{content:"";position:absolute;inset:-80px auto auto -40px;width:120px;height:120px;border-radius:50%;background:#b9ff3810;filter:blur(15px);pointer-events:none}
+.cost-hard{font-size:8px;color:#8292ab;margin-top:3px}
+#fxLayer{position:fixed;inset:0;pointer-events:none;z-index:100;overflow:hidden}
+.tap-ripple{position:fixed;width:18px;height:18px;border:2px solid #caff63;border-radius:50%;transform:translate(-50%,-50%);animation:ripple .62s ease-out forwards}
+@keyframes ripple{to{width:180px;height:180px;opacity:0}}
+.tap-spark{position:fixed;width:6px;height:6px;border-radius:50%;background:#caff63;box-shadow:0 0 12px #caff63;animation:spark .65s cubic-bezier(.1,.8,.2,1) forwards}
+@keyframes spark{to{transform:translate(var(--x),var(--y)) scale(.05);opacity:0}}
+.crit-pop{position:fixed;color:#fff;font-size:19px;font-weight:1000;text-shadow:0 0 18px #b9ff38;animation:crit .8s ease-out forwards;pointer-events:none}
+@keyframes crit{0%{transform:translate(-50%,-50%) scale(.5);opacity:0}20%{opacity:1}100%{transform:translate(-50%,-135px) scale(1.2);opacity:0}}
+.shake{animation:shake .24s ease-out}@keyframes shake{25%{transform:translateX(-3px)}50%{transform:translateX(3px)}75%{transform:translateX(-2px)}}
+.lang-panel{position:absolute;right:0;top:46px;z-index:50;display:none;padding:8px;background:#0a101c;border:1px solid #2a3956;border-radius:14px;box-shadow:0 18px 45px #000b}
+.lang-panel.open{display:flex;gap:5px}.lang-panel button{border:0;border-radius:9px;background:#14223a;color:#b5c3d8;padding:8px 10px;font-size:9px;font-weight:900}
+</style>
+</head>
+<body><div class="fx-layer" id="fxLayer"></div>
+<div class="app">
+<header class="top">
+<div class="brand"><b>GG</b> RUSH<small>TAP • EARN • WIN</small></div>
+<div class="top-tools"><button class="iconbtn" id="netBtn" onclick="toast('🟢 Online')">⌁</button><button class="iconbtn" onclick="document.querySelector('[data-tab=profile]').click()">⚙</button>
+<div class="balance-pill"><span class="coin-dot">💎</span><span class="gg" id="gg">0</span><button class="plus" onclick="toast('+ GG скоро')">+</button></div></div>
+<div id="langCtl" style="position:relative"><button class="darkbtn" id="langBtn">🌐 <span id="langCurrent">UA</span></button><div id="langPanel" class="lang-panel"><button data-lang="uk">UA</button><button data-lang="en">EN</button><button data-lang="pl">PL</button></div></div></header>
+<main class="page">
+
+<section id="home" class="tab active">
+<div class="hero"><span class="badge">🟢 <span data-i18n="live">LIVE GAME</span></span><h2 data-i18n="heroTitle">Тапай GG. Качайся. Забирай нагороди.</h2><p data-i18n="heroText">Твій GG баланс росте з кожним тапом. Відкривай кейси, грай режими та клич друзів.</p><div class="balance"><span data-i18n="balance">ТВОЇ GG</span><br><span id="bigGG">0</span></div></div>
+<div class="tap-card">
+<div class="token-label">GG TOKEN • TAP TO EARN</div>
+<div class="token-wrap" id="token"><div class="token"><img src="assets/gg-token-transparent.png" alt="GG Token"><span>GG</span><small>TAP TOKEN</small></div></div>
+<div class="tap-sub" data-i18n="tapHint">НАТИСКАЙ НА GG TOKEN • КОЖЕН ТАП ДАЄ GG</div>
+</div>
+<div class="stats"><div class="stat"><strong id="power">1</strong><small data-i18n="power">Power</small></div><div class="stat"><strong id="taps">0</strong><small data-i18n="taps">Тапів</small></div><div class="stat"><strong id="refs">0</strong><small data-i18n="friends">Друзів</small></div></div>
+
+<div class="section"><h3 data-i18n="modes">🎮 Режими</h3><span data-i18n="choose">Обирай режим</span></div>
+<div class="grid">
+
+<div class="mode"><div class="icon">🎯</div><h4 data-i18n="combo">Combo</h4><p data-i18n="comboText">Швидкі тапи заряджають комбо.</p><button onclick="toast(t('comboToast'))" data-i18n="how">ЯК ГРАТИ</button></div>
+<div class="mode"><div class="icon">🏆</div><h4 data-i18n="missions">Місії</h4><p data-i18n="missionText">100 тапів → +250 GG.</p><button onclick="mission()" data-i18n="claim">ЗАБРАТИ</button></div>
+</div>
+
+<div class="section"><h3 data-i18n="daily">🎁 Безкоштовний кейс</h3><span data-i18n="once">1 раз / 24 год</span></div>
+<div class="card case"><div class="case-box">🎁</div><div class="reward" id="reward"></div><button id="caseBtn" data-i18n="openCase">ВІДКРИТИ БЕЗКОШТОВНО</button><p id="caseStatus"></p></div>
+</section>
+
+<section id="ref" class="tab"><div class="card" style="background:linear-gradient(145deg,#10231a,#0d141b);border-color:#315d3b">
+<div class="section" style="margin-top:0"><h3>📢 GG RUSH канал</h3><span>КВЕСТ</span></div>
+<p style="color:#8993ad;font-size:12px">Підпишись на <b>@ggrushReady</b> та слідкуй за новинами гри.</p>
+<button class="greenbtn" onclick="window.open('https://t.me/ggrushReady','_blank')">📢 ПІДПИСАТИСЯ</button>
+</div>
+<div class="hero"><span class="badge">👥 INVITE</span><h2 data-i18n="refTitle">Запрошуй друзів — отримуй GG</h2><p data-i18n="refText">Ділись посиланням на @Giftedg1ft_bot. Бот може використати start-код для обліку запрошень.</p></div>
+<div class="refbox"><b data-i18n="yourLink">Твоє реферальне посилання</b><div class="refcode" id="refCode">...</div><div class="row"><button class="greenbtn" id="copyRef" data-i18n="copy">📋 Копіювати</button><button class="darkbtn" id="shareRef" data-i18n="invite">🚀 Запросити</button></div><div class="progress"><i id="refProgress"></i></div><div style="display:flex;justify-content:space-between;color:#8993ad;font-size:11px"><span data-i18n="invited">Запрошено</span><b id="refText">0 / 5</b></div></div>
+<div class="section"><h3 data-i18n="rewards">🎁 Нагороди</h3></div><div class="mini-list"><div class="mini"><div class="mi">👤</div><div><b>1 <span data-i18n="friend">друг</span> → +100 GG</b><span data-i18n="reward1">Перша рефералка</span></div></div><div class="mini"><div class="mi">👥</div><div><b>3 <span data-i18n="friends2">друзі</span> → +500 GG</b><span data-i18n="reward2">Командний бонус</span></div></div><div class="mini"><div class="mi">🔥</div><div><b>5 <span data-i18n="friends3">друзів</span> → +1 500 GG</b><span data-i18n="reward3">Максимальний бонус</span></div></div></div>
+</section>
+
+<section id="shop" class="tab">
+<div class="hero"><span class="badge">⚡ UPGRADE</span><h2 data-i18n="shopTitle">Прокачай свій GG</h2><p data-i18n="shopText">Чим більше Power — тим швидше росте баланс.</p></div>
+<div class="grid"><div class="mode"><div class="icon">⚡</div><h4 data-i18n="powerUp">Power +1</h4><p data-i18n="powerText">+1 GG за кожен тап.</p><button id="upgrade">КУПИТИ • <span id="price">50</span> GG</button></div><div class="mode"><div class="icon">🔥</div><h4>Combo Boost</h4><p data-i18n="comboBuy">Увімкни бонус за швидкі тапи.</p><button id="combo">100 GG</button></div></div>
+<div class="section"><h3 data-i18n="statsTitle">📊 Статистика</h3></div><div class="card"><div class="mini-list"><div class="mini">💰 <b><span data-i18n="balanceLabel">Баланс</span>: <span id="shopGG">0</span> GG</b></div><div class="mini">⚡ <b>Power: <span id="shopPower">1</span></b></div><div class="mini">🔥 <b>Combo: <span id="comboState">OFF</span></b></div></div></div>
+</section>
+
+
+<section id="leaders" class="tab">
+<div class="hero">
+  <span class="badge">🏆 TOP GG</span><span class="online-pill" id="leaderStatus">● ONLINE</span>
+  <h2 data-i18n="leadersTitle">Лідерборд</h2>
+  <p data-i18n="leadersText">Топ гравців за кількістю GG. Тапай, прокачуй Power і піднімайся вище.</p>
+</div>
+<div class="section"><h3 data-i18n="topPlayers">👑 Топ гравців</h3><span id="leaderSync" data-i18n="syncing">Синхронізація</span></div>
+<div class="leaderboard" id="leaderboardBox">
+  <div class="empty-board" id="leaderEmpty">
+    <b data-i18n="realOnly">🏆 Тут тільки реальні гравці</b>
+    <span data-i18n="realWaiting">Коли сервер буде підключений, тут з'являться гравці, які реально грають.</span>
+  </div>
+  <div class="rank-row you-row"><div class="rank-num">—</div><div class="rank-avatar">GG</div><div class="rank-info"><div class="rank-name" id="leaderName" data-i18n="you">Ти</div><div class="rank-sub" data-i18n="yourPlace">Твоє місце змінюється з балансом</div></div><div class="rank-score" id="leaderYou">0 GG</div></div>
+</div>
+</section>
+
+<section id="profile" class="tab">
+<div class="hero profile"><div class="avatar">GG</div><span class="badge">PLAYER</span><h2 data-i18n="profileTitle">Твій профіль</h2><p id="uid"></p></div>
+<div class="card"><b data-i18n="language">🌐 Мова</b><div class="langs"><button class="lang active" data-lang="uk">🇺🇦 Українська</button><button class="lang" data-lang="en">🇬🇧 English</button><button class="lang" data-lang="ru">🇷🇺 Русский</button></div></div>
+<div class="card"><b data-i18n="statsTitle">📊 Статистика</b><p>GG: <b id="pGG">0</b></p><p data-i18n="tapsLine">Тапів: <b id="pTaps">0</b></p><p data-i18n="refsLine">Рефералів: <b id="pRefs">0</b></p></div>
+<button class="darkbtn" id="reset" data-i18n="reset">Скинути локальний прогрес</button>
+</section>
+</main>
+<div id="v11Progress" class="progress-card">
+<div class="progress-head"><b id="v11Level">LEVEL 1</b><span id="v11Xp">0 / 100 XP</span></div>
+<div class="progress-track"><i id="v11Bar"></i></div>
+<div class="difficulty"><span id="v11Diff">Difficulty: Easy</span><div class="diff-dots"><i></i><i></i><i></i><i></i><i></i></div></div>
+<div class="level-reward"><span id="v11Next">NEXT: +0.01 GG</span><span id="v11Cost">UPGRADES GET MORE EXPENSIVE</span></div>
+</div>
+<nav class="nav"><button class="active" data-tab="home"><i>🎮</i><span data-i18n="navGame">Гра</span></button><button data-tab="ref"><i>👥</i><span data-i18n="navFriends">Друзі</span></button><button data-tab="leaders"><i>🏆</i><span data-i18n="navLeaders">Топ</span></button><button data-tab="shop"><i>🚀</i><span data-i18n="navShop">Прокачка</span></button><button data-tab="profile"><i>👤</i><span data-i18n="navProfile">Профіль</span></button></nav>
+<div id="fxLayer"></div><div class="toast" id="toast"></div>
+<div class="modal" id="caseModal"><div class="sheet"><div class="eyebrow">FREE DAILY CASE</div><h2 data-i18n="caseOpened">🎁 Кейс відкрито!</h2><div class="openbox">🎁</div><div class="case-reward" id="caseReward">+0 GG</div><p data-i18n="caseInfo">Наступний безкоштовний кейс буде доступний через 24 години.</p><button class="greenbtn" onclick="closeCase()" data-i18n="take">ЗАБРАТИ НАГОРОДУ</button></div></div>
+</div>
+<script src="https://telegram.org/js/telegram-web-app.js">
+// v8 online leaderboard adapter.
+// For real players, set API_URL to your backend endpoint that returns:
+// [{name:"Player", avatar:"url", gg:12345}]
+// POST /api/leaderboard with {name, avatar, gg} after each save.
+const API_URL = ""; // e.g. "https://YOUR-WORKER.workers.dev"
+async function syncRealLeaderboard(){
+  if(!API_URL){
+    const el=$('leaderSync'); if(el) el.textContent=t('demoMode'); const st=$('leaderStatus'); if(st) st.textContent=t('waiting');
+    return;
+  }
+  try{
+    const r=await fetch(API_URL+'/api/leaderboard',{cache:'no-store'});
+    if(!r.ok) throw new Error('leaderboard');
+    const players=await r.json();
+    const box=document.querySelector('.leaderboard');
+    if(!box || !Array.isArray(players)) return;
+    const empty=$('leaderEmpty'); if(empty) empty.style.display=players.length?'none':'block';
+    const me=players.find(p=>p.me);
+    box.querySelectorAll('.rank-row:not(.you-row)').forEach(x=>x.remove());
+    const you=box.querySelector('.you-row');
+    players.filter(p=>!p.me).slice(0,5).forEach((p,i)=>{
+      const row=document.createElement('div'); row.className='rank-row';
+      row.innerHTML=`<div class="rank-num">${i+1}</div><div class="rank-avatar">${p.avatar?`<img src="${p.avatar}" style="width:43px;height:43px;border-radius:14px;object-fit:cover">`:'GG'}</div><div class="rank-info"><div class="rank-name">${escapeHtml(p.name||'Player')}</div><div class="rank-sub">GG • ${Number(p.gg||0).toLocaleString()}</div></div><div class="rank-score">${Number(p.gg||0).toLocaleString()}</div>`;
+      box.insertBefore(row,you);
+    });
+    if(me) $('leaderYou').textContent=Number(me.gg||0).toLocaleString()+' GG';
+    const el=$('leaderSync'); if(el) el.textContent=t('liveSync');
+    const st=$('leaderStatus'); if(st) st.textContent='● LIVE';
+  }catch(e){
+    const el=$('leaderSync'); if(el) el.textContent=t('offlineSync');
+    const st=$('leaderStatus'); if(st) st.textContent='● OFFLINE';
+  }
+}
+function escapeHtml(s){return String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));}
+setInterval(syncRealLeaderboard,15000);
+</script>
+<script>
+const KEY='gg_rush_v9';
+const dict={
+uk:{live:'LIVE GAME',heroTitle:'Тапай GG. Качайся. Забирай нагороди.',heroText:'Твій GG баланс росте з кожним тапом. Відкривай кейси, грай режими та клич друзів.',balance:'ТВОЇ GG',tapHint:'НАТИСКАЙ НА ТОКЕН • КОЖЕН ТАП ДАЄ GG',power:'Power',taps:'Тапів',friends:'Друзів',modes:'🎮 Режими',choose:'Обирай режим',combo:'Combo',comboText:'Швидкі тапи заряджають комбо.',how:'ЯК ГРАТИ',missions:'Місії',missionText:'100 тапів → +250 GG.',claim:'ЗАБРАТИ',comboToast:'🔥 Тапай швидко для комбо!',daily:'🎁 Безкоштовний кейс',once:'1 раз / 24 год',openCase:'ВІДКРИТИ БЕЗКОШТОВНО',refTitle:'Запрошуй друзів — отримуй GG',refText:'Ділись посиланням на @Giftedg1ft_bot. Бот може використати start-код для обліку запрошень.',yourLink:'Твоє реферальне посилання',copy:'📋 Копіювати',invite:'🚀 Запросити',invited:'Запрошено',rewards:'🎁 Нагороди',friend:'друг',friends2:'друзі',friends3:'друзів',reward1:'Перша рефералка',reward2:'Командний бонус',reward3:'Максимальний бонус',shopTitle:'Прокачай свій GG',shopText:'Чим більше Power — тим швидше росте баланс.',powerUp:'Power +1',powerText:'+1 GG за кожен тап.',comboBuy:'Увімкни бонус за швидкі тапи.',statsTitle:'📊 Статистика',balanceLabel:'Баланс',profileTitle:'Твій профіль',language:'🌐 Мова',tapsLine:'Тапів:',refsLine:'Рефералів:',reset:'Скинути локальний прогрес',navGame:'Гра',navFriends:'Друзі',navLeaders:'Топ',navShop:'Прокачка',navProfile:'Профіль',leadersTitle:'Лідерборд',syncing:'Синхронізація',demoMode:'Демо • підключи сервер для реальних гравців',liveSync:'LIVE • оновлено',offlineSync:'Офлайн • повторна спроба',leadersText:'Топ гравців за кількістю GG. Тапай, прокачуй Power і піднімайся вище.',topPlayers:'👑 Топ гравців',today:'Сьогодні',you:'Ти',yourPlace:'Твоє місце змінюється з балансом',waiting:'Очікування',realOnly:'🏆 Тут тільки реальні гравці',realWaiting:'Коли сервер буде підключений, тут з\'являться гравці, які реально грають.',caseOpened:'🎁 Кейс відкрито!',caseInfo:'Наступний безкоштовний кейс буде доступний через 24 години.',take:'ЗАБРАТИ НАГОРОДУ'},
+en:{live:'LIVE GAME',heroTitle:'Tap GG. Upgrade. Claim rewards.',heroText:'Grow your GG balance with every tap. Open cases, play modes and invite friends.',balance:'YOUR GG',tapHint:'TAP THE TOKEN • EVERY TAP GIVES GG',power:'Power',taps:'Taps',friends:'Friends',modes:'🎮 Modes',choose:'Choose a mode',combo:'Combo',comboText:'Fast taps charge your combo.',how:'HOW TO',missions:'Missions',missionText:'100 taps → +250 GG.',claim:'CLAIM',comboToast:'🔥 Tap fast for combo!',daily:'🎁 Free daily case',once:'Once / 24h',openCase:'OPEN FOR FREE',refTitle:'Invite friends — earn GG',refText:'Share your @Giftedg1ft_bot link. The bot can use the start code to track invites.',yourLink:'Your referral link',copy:'📋 Copy',invite:'🚀 Invite',invited:'Invited',rewards:'🎁 Rewards',friend:'friend',friends2:'friends',friends3:'friends',reward1:'First referral',reward2:'Team bonus',reward3:'Maximum bonus',shopTitle:'Upgrade your GG',shopText:'More Power means faster growth.',powerUp:'Power +1',powerText:'+1 GG per tap.',comboBuy:'Enable a bonus for fast taps.',statsTitle:'📊 Statistics',balanceLabel:'Balance',profileTitle:'Your profile',language:'🌐 Language',tapsLine:'Taps:',refsLine:'Referrals:',reset:'Reset local progress',navGame:'Game',navFriends:'Friends',navLeaders:'Top',navShop:'Upgrade',navProfile:'Profile',leadersTitle:'Leaderboard',syncing:'Syncing',demoMode:'Demo • connect a server for real players',liveSync:'LIVE • updated',offlineSync:'Offline • retrying',leadersText:'Top players by GG. Tap, upgrade Power and climb higher.',topPlayers:'👑 Top players',today:'Today',you:'You',yourPlace:'Your place changes with your balance',waiting:'Waiting',realOnly:'🏆 Real players only',realWaiting:'Players who actually play will appear here once the server is connected.',caseOpened:'🎁 Case opened!',caseInfo:'Your next free case will be available in 24 hours.',take:'CLAIM REWARD'},
+ru:{live:'LIVE GAME',heroTitle:'Тапай GG. Улучшайся. Забирай награды.',heroText:'Увеличивай баланс GG каждым тапом. Открывай кейсы, играй режимы и приглашай друзей.',balance:'ТВОИ GG',tapHint:'ТАПАЙ ПО ТОКЕНУ • КАЖДЫЙ ТАП ДАЁТ GG',power:'Power',taps:'Тапов',friends:'Друзей',modes:'🎮 Режимы',choose:'Выбирай режим',combo:'Combo',comboText:'Быстрые тапи заряжают комбо.',how:'КАК ИГРАТЬ',missions:'Миссии',missionText:'100 тапов → +250 GG.',claim:'ЗАБРАТЬ',comboToast:'🔥 Тапай быстро для комбо!',daily:'🎁 Бесплатный кейс',once:'1 раз / 24 ч',openCase:'ОТКРЫТЬ БЕСПЛАТНО',refTitle:'Приглашай друзей — получай GG',refText:'Делись ссылкой на @Giftedg1ft_bot. Бот может использовать start-код для учёта приглашений.',yourLink:'Твоя реферальная ссылка',copy:'📋 Копировать',invite:'🚀 Пригласить',invited:'Приглашено',rewards:'🎁 Награды',friend:'друг',friends2:'друга',friends3:'друзей',reward1:'Первая рефералка',reward2:'Командный бонус',reward3:'Максимальный бонус',shopTitle:'Прокачай свой GG',shopText:'Больше Power — быстрее растёт баланс.',powerUp:'Power +1',powerText:'+1 GG за каждый тап.',comboBuy:'Включи бонус за быстрые тапи.',statsTitle:'📊 Статистика',balanceLabel:'Баланс',profileTitle:'Твой профиль',language:'🌐 Язык',tapsLine:'Тапов:',refsLine:'Рефералов:',reset:'Сбросить локальный прогресс',navGame:'Игра',navFriends:'Друзья',navLeaders:'Топ',navShop:'Прокачка',navProfile:'Профиль',leadersTitle:'Лидерборд',syncing:'Синхронизация',demoMode:'Демо • подключи сервер для реальных игроков',liveSync:'LIVE • обновлено',offlineSync:'Офлайн • повторная попытка',leadersText:'Топ игроков по GG. Тапай, улучшай Power и поднимайся выше.',topPlayers:'👑 Топ игроков',today:'Сегодня',you:'Ты',yourPlace:'Твоё место меняется вместе с балансом',waiting:'Ожидание',realOnly:'🏆 Здесь только реальные игроки',realWaiting:'Игроки, которые реально играют, появятся здесь после подключения сервера.',caseOpened:'🎁 Кейс открыт!',caseInfo:'Следующий бесплатный кейс будет доступен через 24 часа.',take:'ЗАБРАТЬ НАГРАДУ'}
+};
+let s=JSON.parse(localStorage.getItem(KEY)||'null')||{gg:0,power:1,taps:0,refs:0,lastCaseTs:0,refCode:'',combo:false,lang:'uk'};
+const $=id=>document.getElementById(id); const t=k=>dict[s.lang]?.[k]||dict.uk[k]||k;
+function save(){localStorage.setItem(KEY,JSON.stringify(s));render()}
+function toast(x){$('toast').textContent=x;$('toast').classList.add('show');clearTimeout(window.tt);window.tt=setTimeout(()=>$('toast').classList.remove('show'),1500)}
+function makeCode(){return 'GG-'+Math.random().toString(36).slice(2,8).toUpperCase()}
+if(!s.refCode)s.refCode=makeCode();
+function referral(){let u=window.Telegram?.WebApp?.initDataUnsafe?.user;let code=u?.id?'ref_'+u.id:s.refCode;return 'https://t.me/Giftedg1ft_bot?start='+encodeURIComponent(code)}
+
+function selectMulti(el){document.querySelectorAll('.multi').forEach(x=>x.style.outline='none');el.style.outline='2px solid #55e6ff';el.style.outlineOffset='1px';toast('🎯 '+el.textContent)}
+function placeBet(){let cost=10;if(s.gg<cost){toast('❌ Потрібно 10 GG');return}s.gg-=cost;let mult=[1.03,1.09,1.25,1.69,2.33,5.21,7.41][Math.floor(Math.random()*7)];let win=Math.floor(cost*mult);s.gg+=win;toast('🚀 x'+mult+' • +'+win+' GG');save()}
+function render(){
+$('gg').textContent=s.gg.toLocaleString();$('bigGG').textContent=s.gg.toLocaleString();$('leaderYou').textContent=s.gg.toLocaleString()+' GG';$('power').textContent=s.power;$('taps').textContent=s.taps.toLocaleString();$('refs').textContent=s.refs;
+$('refCode').textContent=referral();$('refText').textContent=Math.min(s.refs,5)+' / 5';$('refProgress').style.width=Math.min(s.refs/5*100,100)+'%';
+$('price').textContent=50*s.power;$('shopGG').textContent=s.gg.toLocaleString();$('shopPower').textContent=s.power;$('comboState').textContent=s.combo?'ON':'OFF';$('pGG').textContent=s.gg.toLocaleString();$('pTaps').textContent=s.taps.toLocaleString();$('pRefs').textContent=s.refs;$('uid').textContent='ID: '+s.refCode;
+let used=Date.now()-s.lastCaseTs<86400000;$('caseBtn').disabled=used;$('caseStatus').textContent=used?'⏰ '+t('once'):'🎁 '+t('openCase');
+document.querySelectorAll('[data-i18n]').forEach(el=>{let k=el.dataset.i18n;if(dict[s.lang][k])el.textContent=dict[s.lang][k]});
+document.querySelectorAll('.lang').forEach(b=>b.classList.toggle('active',b.dataset.lang===s.lang));
+document.documentElement.lang=s.lang;
+}
+document.querySelectorAll('.nav button').forEach(b=>b.onclick=()=>{document.querySelectorAll('.nav button').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));$(b.dataset.tab).classList.add('active');window.scrollTo({top:0,behavior:'smooth'})});
+function tapToken(e){
+ if(e&&e.preventDefault)e.preventDefault();
+ s.gg+=s.power;s.taps++;
+ let x=e?.clientX||innerWidth/2,y=e?.clientY||innerHeight/2;
+ let f=document.createElement('div');f.className='float';f.textContent='+'+s.power+' GG';f.style.left=x+'px';f.style.top=y+'px';document.body.appendChild(f);setTimeout(()=>f.remove(),700);
+ let ring=document.createElement('div');ring.className='tap-ring';ring.style.left=x+'px';ring.style.top=y+'px';document.body.appendChild(ring);setTimeout(()=>ring.remove(),600);
+ let token=document.querySelector('.token');token.classList.remove('pulse');void token.offsetWidth;token.classList.add('pulse');
+ for(let i=0;i<10;i++){let p=document.createElement('i');p.className='spark';p.style.left=x+'px';p.style.top=y+'px';p.style.setProperty('--dx',((Math.random()-.5)*180)+'px');p.style.setProperty('--dy',((Math.random()-.5)*180)+'px');document.getElementById('fxLayer').appendChild(p);setTimeout(()=>p.remove(),750)}
+ save()
+}
+let lastTap=0;
+$('token').addEventListener('pointerdown',e=>{if(Date.now()-lastTap<80)return;lastTap=Date.now();tapToken(e)},{passive:false});
+$('caseBtn').onclick=()=>{if(Date.now()-s.lastCaseTs<86400000)return;let r=[50,100,200,500,1000][Math.floor(Math.random()*5)];s.lastCaseTs=Date.now();s.gg+=r;$('caseReward').textContent='+'+r+' GG';$('caseModal').classList.add('show');save()};
+function closeCase(){$('caseModal').classList.remove('show');toast('🎁 '+t('take'))}
+function mission(){if(s.taps<100){toast('🎯 '+(100-s.taps)+' taps');return}s.gg+=250;s.taps-=100;toast('🏆 +250 GG');save()}
+$('upgrade').onclick=()=>{let cost=50*s.power;if(s.gg<cost){toast('❌ '+cost+' GG');return}s.gg-=cost;s.power++;toast('⚡ Power '+s.power);save()};
+$('combo').onclick=()=>{if(s.combo){toast('🔥 Combo ON');return}if(s.gg<100){toast('❌ 100 GG');return}s.gg-=100;s.combo=true;toast('🔥 Combo ON');save()};
+$('copyRef').onclick=async()=>{try{await navigator.clipboard.writeText(referral());toast('📋 '+t('copy'))}catch(e){toast(referral())}};
+$('shareRef').onclick=()=>{let l=referral();let txt=encodeURIComponent('🎁 GG RUSH — грай зі мною та заробляй GG!');window.open('https://t.me/share/url?url='+encodeURIComponent(l)+'&text='+txt,'_blank')};
+document.querySelectorAll('.lang').forEach(b=>b.onclick=()=>{s.lang=b.dataset.lang;save();toast(b.textContent)});
+$('reset').onclick=()=>{if(confirm('Reset?')){localStorage.removeItem(KEY);location.reload()}};
+if(window.Telegram?.WebApp){Telegram.WebApp.ready();Telegram.WebApp.expand();Telegram.WebApp.setHeaderColor('#07090e');Telegram.WebApp.setBackgroundColor('#07090e')}
+render();
+</script>
+
+<script>
+/* GG RUSH v11 systems */
+(()=> {
+ const FX=document.getElementById('fxLayer')||(()=>{const x=document.createElement('div');x.id='fxLayer';document.body.appendChild(x);return x})();
+ const LANG={
+  uk:{home:"ГОЛОВНА",quests:"КВЕСТИ",cases:"КЕЙС",top:"ТОП",level:"РІВЕНЬ",xp:"XP",easy:"Легко",hard:"Складно",next:"ДАЛІ",up:"АПГРЕЙДИ ДОРОЖЧАЮТЬ",critical:"💎 CRITICAL!",channel:"ПІДПИСАТИСЯ"},
+  en:{home:"HOME",quests:"QUESTS",cases:"CASE",top:"TOP",level:"LEVEL",xp:"XP",easy:"Easy",hard:"Hard",next:"NEXT",up:"UPGRADES GET HARDER",critical:"💎 CRITICAL!",channel:"SUBSCRIBE"},
+  pl:{home:"GŁÓWNA",quests:"MISJE",cases:"SKRZYNIA",top:"TOP",level:"POZIOM",xp:"XP",easy:"Łatwo",hard:"Trudno",next:"DALEJ",up:"ULEPSZENIA DROŻEJĄ",critical:"💎 CRITICAL!",channel:"SUBSKRYBUJ"}
+ };
+ let lang=localStorage.ggLang||"uk";
+ const L=()=>LANG[lang]||LANG.uk;
+ function applyLang(){
+   document.documentElement.lang=lang;
+   const nav=document.querySelectorAll(".nav button");
+   const names=[L().home,L().quests,L().cases,L().top];
+   nav.forEach((b,i)=>{if(b) {const br=b.querySelector("br"); if(br && br.nextSibling) br.nextSibling.textContent=names[i]||"";}});
+   const lc=document.getElementById("langCurrent"); if(lc)lc.textContent=lang.toUpperCase();
+   const panel=document.getElementById("langPanel"); if(panel)panel.classList.remove("open");
+   updateProgress();
+ }
+ document.querySelectorAll("#langPanel button").forEach(b=>b.onclick=()=>{lang=b.dataset.lang;localStorage.ggLang=lang;applyLang()});
+ const lb=document.getElementById("langBtn"),lp=document.getElementById("langPanel");
+ if(lb&&lp)lb.onclick=()=>lp.classList.toggle("open");
+
+ function getState(){
+   try{
+     let raw=localStorage.ggRushState||localStorage.ggRushNew||localStorage.ggRush;
+     return raw?JSON.parse(raw):{};
+   }catch(e){return {}}
+ }
+ function saveState(x){try{localStorage.ggRushState=JSON.stringify(x)}catch(e){}}
+ function levelData(taps){
+   // Deliberately steep curve: each level needs substantially more taps.
+   let level=1, need=100, used=0;
+   while(taps>=used+need && level<1000){used+=need;level++;need=Math.floor(100*Math.pow(1.085,level-1));}
+   return {level,used,need,into:taps-used};
+ }
+ function updateProgress(){
+   const st=getState(), taps=Number(st.taps||0), d=levelData(taps), pct=Math.min(100,d.into/d.need*100);
+   const a=document.getElementById("v11Level"),b=document.getElementById("v11Xp"),bar=document.getElementById("v11Bar"),diff=document.getElementById("v11Diff"),next=document.getElementById("v11Next");
+   if(a)a.textContent=L().level+" "+d.level;
+   if(b)b.textContent=d.into+" / "+d.need+" "+L().xp;
+   if(bar)bar.style.width=pct+"%";
+   const diffLevel=Math.min(5,Math.ceil(d.level/5));
+   if(diff)diff.textContent=(d.level<6?L().easy:L().hard)+" • ×"+(1+diffLevel*.15).toFixed(2);
+   document.querySelectorAll(".diff-dots i").forEach((x,i)=>x.classList.toggle("on",i<diffLevel));
+   if(next)next.textContent=L().next+" "+(d.level<2?".01":(0.01*(1+d.level*.035)).toFixed(3))+" GG";
+ }
+ window.GGRushV11={levelData,updateProgress};
+
+ // Stronger tap visuals, independent from the old handler.
+ document.addEventListener("click",e=>{
+   const token=e.target.closest("#token,.token,#coin");
+   if(!token)return;
+   const x=e.clientX,y=e.clientY;
+   const ring=document.createElement("div");ring.className="tap-ripple";ring.style.left=x+"px";ring.style.top=y+"px";FX.appendChild(ring);setTimeout(()=>ring.remove(),650);
+   for(let i=0;i<16;i++){
+     const p=document.createElement("div");p.className="tap-spark";p.style.left=x+"px";p.style.top=y+"px";
+     const ang=Math.PI*2*i/16,dist=45+Math.random()*85;p.style.setProperty("--x",Math.cos(ang)*dist+"px");p.style.setProperty("--y",Math.sin(ang)*dist+"px");FX.appendChild(p);setTimeout(()=>p.remove(),700);
+   }
+   token.classList.remove("pulse");void token.offsetWidth;token.classList.add("pulse");
+   updateProgress();
+ });
+ // Critical visual if the existing app exposes a crit event/text.
+ window.GGRushCritical=(x,y)=>{const p=document.createElement("div");p.className="crit-pop";p.textContent=L().critical;p.style.left=x+"px";p.style.top=y+"px";FX.appendChild(p);setTimeout(()=>p.remove(),850)};
+ updateProgress();
+ setInterval(updateProgress,1000);
+ applyLang();
+})();
+</script>
+</body>
+</html>
