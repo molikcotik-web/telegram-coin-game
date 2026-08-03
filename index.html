@@ -1,0 +1,12 @@
+<!DOCTYPE html><html lang='uk'><head><meta charset='UTF-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>GG Rush v11 UI</title><style>
+body{margin:0;font-family:Arial;background:radial-gradient(circle at top,#173b22,#08110c 60%,#040404);color:#fff;display:flex;justify-content:center}
+.bg:before,.bg:after{content:'';position:fixed;width:300px;height:300px;border-radius:50%;filter:blur(80px);background:#21ff8f55;animation:f 8s ease-in-out infinite}
+.bg:after{right:0;bottom:0;animation-delay:4s}
+@keyframes f{50%{transform:translateY(60px) scale(1.2)}}
+.wrap{width:min(430px,100vw);padding:20px}
+.card{background:rgba(255,255,255,.06);backdrop-filter:blur(16px);border:1px solid #2cff8a33;border-radius:26px;padding:18px;box-shadow:0 0 30px #00ff8840}
+.top{text-align:center}.gg{font-size:42px;font-weight:bold;color:#65ffae;text-shadow:0 0 20px #2cff8a}
+.car{margin:24px auto;width:260px;transition:.12s}.car:active{transform:scale(.94)}
+.progress{height:14px;background:#1b1b1b;border-radius:20px;overflow:hidden}.bar{width:64%;height:100%;background:linear-gradient(90deg,#2cff8a,#b7ff53)}
+.nav{display:flex;justify-content:space-between;margin-top:22px}.btn{flex:1;margin:4px;padding:14px;border-radius:18px;background:#151515;border:1px solid #2cff8a55;text-align:center}
+</style></head><body><div class='bg'></div><div class='wrap'><div class='card top'><div>GG</div><div class='gg'>12 654</div><div>Level 3</div></div><div class='card' style='margin-top:18px;text-align:center'><h2>ВАЗ‑2107</h2><img class='car' src='assets/cars/vaz2107.png' onerror="this.outerHTML='<div style=&quot;font-size:120px&quot;>🚗</div>'"><div class='progress'><div class='bar'></div></div><p>Торкнись машини</p></div><div class='nav'><div class='btn'>🚗<br>Garage</div><div class='btn'>🎰<br>Slots</div><div class='btn'>🏆<br>Top</div><div class='btn'>👤<br>Profile</div></div></div></body></html>
