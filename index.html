@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<title>GG RUSH • Garage</title><link rel="preload" as="image" href="assets/zhygul-small.webp">
+<style>
+:root{--bg:#07090e;--card:#101522;--card2:#151b2a;--line:#263049;--muted:#8993ad;--lime:#b6ff00;--lime2:#72d900;--blue:#42cfff;--gold:#ffd84d;--danger:#ff5d79}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}html,body{margin:0;background:#000;color:#fff;font-family:Inter,system-ui,-apple-system,Segoe UI,Arial,sans-serif}body{min-height:100vh}
+button{font:inherit}.app{width:min(520px,100%);min-height:100vh;margin:auto;background:radial-gradient(600px 300px at 50% -50px,#23365b 0,#0c111d 52%,#06080c 100%);padding-bottom:105px;overflow:hidden}
+.top{position:sticky;top:0;z-index:20;padding:12px 14px 10px;display:flex;justify-content:space-between;align-items:center;background:rgba(7,9,14,.82);backdrop-filter:blur(18px);border-bottom:1px solid #1b2335}
+.brand{font-size:22px;font-weight:1000;letter-spacing:-1px}.brand b{color:var(--lime)}.brand small{display:block;color:var(--muted);font-size:9px;letter-spacing:2px;margin-top:-2px}
+.wallet{display:flex;align-items:center;gap:7px;padding:6px 7px 6px 11px;border:1px solid #34405a;border-radius:22px;background:#0e1320;font-weight:950}.wallet .gg{color:var(--lime)}.wallet .plus{width:28px;height:28px;border:0;border-radius:50%;background:var(--lime);font-weight:1000}
+.page{padding:14px}.tab{display:none}.tab.active{display:block}
+.hero{position:relative;overflow:hidden;border:1px solid #2b3650;border-radius:27px;background:linear-gradient(145deg,#172238,#0d121d 65%);padding:18px;margin-bottom:12px;box-shadow:0 18px 55px #0006}.hero:after{content:"";position:absolute;width:170px;height:170px;right:-80px;top:-80px;border-radius:50%;background:#a9ff0010;filter:blur(5px)}
+.eyebrow{color:var(--lime);font-size:10px;font-weight:1000;letter-spacing:2px}.hero h2{font-size:27px;line-height:1.04;margin:7px 0}.hero p{color:var(--muted);margin:0;line-height:1.45;font-size:13px}.balance{margin-top:14px;font-size:35px;font-weight:1000;letter-spacing:-1px}.balance span:first-child{font-size:10px;color:var(--muted);letter-spacing:2px}
+.tap-card{border:1px solid #263550;border-radius:30px;background:radial-gradient(circle at 50% 35%,#1b2946,#0c111b 62%);padding:15px 12px 19px;text-align:center;box-shadow:inset 0 1px #ffffff0b,0 20px 60px #0008;margin-bottom:12px}
+.token-label{font-size:11px;color:var(--lime);font-weight:1000;letter-spacing:2px;margin-bottom:3px}.tap-sub{font-size:11px;color:var(--muted);margin-top:8px}
+.token-wrap{position:relative;width:100%;max-width:380px;height:290px;margin:0 auto;display:grid;place-items:center;cursor:pointer;touch-action:manipulation;contain:layout paint}
+.token-wrap:before{content:"";position:absolute;width:250px;height:130px;bottom:22px;border-radius:50%;background:#71ff0018;filter:blur(25px);box-shadow:0 0 55px #71ff0015}
+.token-wrap:after{content:"";position:absolute;inset:16px 18px 8px;border:1px dashed #38dfff22;border-radius:50%;animation:spin 18s linear infinite}
+.token{width:100%;height:100%;background:transparent;border:0;box-shadow:none;display:grid;place-items:center;position:relative;overflow:visible;transition:transform .08s;user-select:none}
+.token:before{display:none}.token img{display:block;width:100%;height:100%;object-fit:contain;border-radius:24px;filter:drop-shadow(0 18px 20px #0009) drop-shadow(0 0 18px #49ff0045);user-select:none;-webkit-user-drag:none;mix-blend-mode:screen}
+.token span,.token small{display:none}.token:active{transform:scale(.95) rotate(-.6deg)}
+@keyframes spin{to{transform:rotate(360deg)}}.pulse{animation:carPulse .28s ease-out}@keyframes carPulse{50%{transform:scale(.93) rotate(-1deg);filter:drop-shadow(0 0 26px #9cff28aa)}}
+.tap-sub{font-size:11px;color:#a6abb0;margin-top:0}
+.multis{display:flex;gap:7px;overflow:hidden;margin-bottom:11px}
+.multi{flex:0 0 auto;padding:8px 13px;border-radius:12px;border:1px solid #536070;background:#253038;color:#b7c3cc;font-weight:1000;font-size:13px}
+.multi.green{border-color:#27c777;color:#55f2a1;background:#153b2b}
+.multi.pink{border-color:#db6a74;color:#ffb0b7;background:#422528}
+.multi.purple{border-color:#9a63db;color:#d6b5ff;background:#332645}
+.betbtn{width:100%;border:0;border-radius:16px;padding:15px;background:linear-gradient(135deg,#19a9e7,#2765e9);color:#fff;font-size:17px;font-weight:1000;box-shadow:0 8px 22px #146de94d}
+.betbtn:active{transform:scale(.98)}
+.player-list{display:grid;gap:8px;margin-top:10px}
+.player{display:flex;align-items:center;justify-content:space-between;border:1px solid #315c65;background:#202b2e;border-radius:17px;padding:10px 12px}
+.player-left{display:flex;align-items:center;gap:10px}.player-avatar{width:42px;height:42px;border-radius:13px;background:linear-gradient(135deg,#354e59,#101519);display:grid;place-items:center;font-size:21px}
+.player-name{font-weight:900}.player-bet{font-size:12px;color:#52dff4;background:#183f46;border-radius:10px;padding:5px 8px;margin-top:3px;display:inline-block}
+.player-win{font-weight:1000;color:#54e6ff;background:#183f46;border-radius:14px;padding:9px 12px}
+.stats{grid-template-columns:repeat(3,1fr);gap:7px;margin:8px 0}
+.stat{background:#1b1e20;border-color:#303437;border-radius:15px;padding:10px 5px}
+.section{margin-top:16px}
+.mode{background:#1b1e20;border-color:#303437;border-radius:18px}
+.card{background:#1b1e20;border-color:#303437}
+.case{background:radial-gradient(circle at 50% 0,#34214c,#171a1d 62%);border-color:#64407e}
+.nav{bottom:max(8px,env(safe-area-inset-bottom));width:calc(100% - 8px);border-radius:23px;background:rgba(31,33,35,.96);border-color:#3b3f42}
+.nav button{font-size:9px;padding:8px 2px}
+.nav button.active{background:#2a2d30;color:#fff;box-shadow:inset 0 0 0 1px #4a4e51}
+@media(max-width:380px){.token-wrap{position:relative;width:245px;height:245px}.token,.token img{width:220px;height:220px}.tap-card{min-height:340px}.hero h2{font-size:20px}}
+
+.leaderboard{display:grid;gap:9px}
+.rank-row{display:flex;align-items:center;gap:10px;padding:11px 12px;border:1px solid #303437;background:#202426;border-radius:17px}
+.rank-num{width:30px;text-align:center;font-size:16px;font-weight:1000;color:#b7c0c9}
+.rank-row:nth-child(1) .rank-num{color:#ffd84d}
+.rank-row:nth-child(2) .rank-num{color:#d8e1e8}
+.rank-row:nth-child(3) .rank-num{color:#d69a62}
+.rank-avatar{width:43px;height:43px;border-radius:14px;display:grid;place-items:center;font-size:22px;background:linear-gradient(145deg,#37454a,#15191b);border:1px solid #475256}
+.rank-info{flex:1;min-width:0}.rank-name{font-weight:950;font-size:13px}.rank-sub{font-size:10px;color:#8993ad;margin-top:3px}
+.rank-score{font-weight:1000;color:#bfff4d;font-size:13px}
+.you-row{border-color:#86b832;background:linear-gradient(90deg,#1e2920,#202426)}
+
+/* GG RUSH v8 premium UI */
+.page{padding-bottom:110px}
+.hero{background:radial-gradient(circle at 80% 10%,#2a3c0c 0,#111724 34%,#0b0e15 75%);border:1px solid #283244;box-shadow:0 18px 50px #0008}
+.tap-card{background:linear-gradient(180deg,#101823,#0a0d13);border:1px solid #2b3748;box-shadow:0 20px 70px #0009}
+.token-wrap{position:relative;margin:14px auto 8px;width:300px;height:300px}
+.token{width:280px;height:280px;display:grid;place-items:center}
+.token img{width:280px;height:280px;filter:drop-shadow(0 0 25px #8cff3d88) drop-shadow(0 0 65px #39e5ff35)}
+.token-wrap:before{border:1px solid #9dff3b55;box-shadow:0 0 75px #66ff0025}
+.token-label{letter-spacing:1.5px;color:#c9d3e0}
+.balance{background:linear-gradient(135deg,#15220d,#101820);border:1px solid #3d5727}
+.balance #bigGG{font-size:38px;font-weight:1000;text-shadow:0 0 22px #b6ff0080}
+.mode{background:linear-gradient(145deg,#121a24,#0c1118);border:1px solid #273344;box-shadow:0 10px 30px #0005;transition:.18s}
+.mode:active{transform:scale(.98)}
+.mode button,.case button{box-shadow:0 7px 22px #008cff30}
+.section{margin-top:22px}
+.card.case{background:linear-gradient(145deg,#16140c,#10151d);border:1px solid #4d4120}
+.case-box{font-size:54px;filter:drop-shadow(0 0 18px #ffd84d66)}
+.leaderboard{margin-bottom:15px}
+.rank-row{min-height:66px;background:linear-gradient(90deg,#121821,#0d1118);border-color:#293544}
+.rank-row:hover{border-color:#607080}
+.you-row{background:linear-gradient(90deg,#1b2810,#101820)!important;border-color:#83c72d!important}
+.nav{backdrop-filter:blur(18px);background:#0b0e14dd;border-top:1px solid #273141}
+.nav button.active{color:#b6ff00;text-shadow:0 0 12px #b6ff0055}
+.online-pill{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border:1px solid #284a36;background:#0d1b13;border-radius:999px;color:#7dffa9;font-size:10px;font-weight:900}
+
+/* GG RUSH FX */
+.fx-layer{position:fixed;inset:0;pointer-events:none;z-index:90;overflow:hidden}
+.spark{position:absolute;width:7px;height:7px;border-radius:50%;background:#d9ff5a;box-shadow:0 0 14px #d9ff5a;animation:sparkFly .7s cubic-bezier(.2,.8,.2,1) forwards}
+@keyframes sparkFly{to{transform:translate(var(--dx),var(--dy)) scale(0);opacity:0}}
+.tap-ring{position:fixed;width:30px;height:30px;border:3px solid #d9ff5a;border-radius:50%;transform:translate(-50%,-50%);animation:ring .55s ease-out forwards;pointer-events:none;z-index:91;box-shadow:0 0 20px #baff3c}
+@keyframes ring{to{width:170px;height:170px;opacity:0}}
+.token.pulse{animation:tokenPulse .32s ease-out}
+@keyframes tokenPulse{0%{filter:brightness(1)}35%{filter:brightness(1.65) drop-shadow(0 0 35px #caff45);transform:scale(1.06)}100%{filter:brightness(1);transform:scale(1)}}
+.token-wrap:after{content:"";position:absolute;width:240px;height:240px;border-radius:50%;border:1px solid #caff4530;box-shadow:0 0 80px #caff4518;animation:orbit 5s linear infinite;pointer-events:none}
+@keyframes orbit{to{transform:rotate(360deg)}}
+.live-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#6dff45;box-shadow:0 0 10px #6dff45;animation:blink 1s infinite}
+@keyframes blink{50%{opacity:.35;transform:scale(.7)}}
+.empty-board{text-align:center;padding:22px 12px;color:var(--muted);border:1px dashed #38445d;border-radius:18px;background:#101520}
+.empty-board b{display:block;color:#fff;margin-bottom:5px}
+</style>
+</head>
+<body><div class="fx-layer" id="fxLayer"></div>
+<div class="app">
+<header class="top">
+<div class="brand"><b>GG</b> RUSH<small>TAP • EARN • WIN</small></div>
+<div class="top-tools"><button class="iconbtn" id="netBtn" onclick="toast('🟢 Online')">⌁</button><button class="iconbtn" onclick="document.querySelector('[data-tab=profile]').click()">⚙</button>
+<div class="balance-pill"><span class="coin-dot">💎</span><span class="gg" id="gg">0</span><button class="plus" onclick="toast('+ GG скоро')">+</button></div></div>
+</header>
+<main class="page">
+
+<section id="home" class="tab active">
+<div class="hero"><span class="badge">🟢 <span data-i18n="live">LIVE GAME</span></span><h2 data-i18n="heroTitle">Тапай GG. Качайся. Забирай нагороди.</h2><p data-i18n="heroText">Твій GG баланс росте з кожним тапом. Відкривай кейси, грай режими та клич друзів.</p><div class="balance"><span data-i18n="balance">ТВОЇ GG</span><br><span id="bigGG">0</span></div></div>
+<div class="tap-card">
+<div class="token-label">GG TOKEN • TAP TO EARN</div>
+<div class="token-wrap" id="token"><div class="token"><picture><source media="(max-width:520px)" srcset="assets/zhygul-small.webp"><img src="assets/zhygul.webp" alt="Жигуль" decoding="async"></picture></div></div>
+<div class="tap-sub" data-i18n="tapHint">НАТИСКАЙ НА ЖИГУЛЯ • КОЖЕН ТАП ДАЄ GG</div>
+</div>
+<div class="stats"><div class="stat"><strong id="power">1</strong><small data-i18n="power">Power</small></div><div class="stat"><strong id="taps">0</strong><small data-i18n="taps">Тапів</small></div><div class="stat"><strong id="refs">0</strong><small data-i18n="friends">Друзів</small></div></div>
+
+<div class="section"><h3 data-i18n="modes">🎮 Режими</h3><span data-i18n="choose">Обирай режим</span></div>
+<div class="grid">
+
+<div class="mode"><div class="icon">🎯</div><h4 data-i18n="combo">Combo</h4><p data-i18n="comboText">Швидкі тапи заряджають комбо.</p><button onclick="toast(t('comboToast'))" data-i18n="how">ЯК ГРАТИ</button></div>
+<div class="mode"><div class="icon">🏆</div><h4 data-i18n="missions">Місії</h4><p data-i18n="missionText">100 тапів → +250 GG.</p><button onclick="mission()" data-i18n="claim">ЗАБРАТИ</button></div>
+</div>
+
+<div class="section"><h3 data-i18n="daily">🎁 Безкоштовний кейс</h3><span data-i18n="once">1 раз / 24 год</span></div>
+<div class="card case"><div class="case-box">🎁</div><div class="reward" id="reward"></div><button id="caseBtn" data-i18n="openCase">ВІДКРИТИ БЕЗКОШТОВНО</button><p id="caseStatus"></p></div>
+</section>
+
+<section id="ref" class="tab">
+<div class="hero"><span class="badge">👥 INVITE</span><h2 data-i18n="refTitle">Запрошуй друзів — отримуй GG</h2><p data-i18n="refText">Ділись посиланням на @Giftedg1ft_bot. Бот може використати start-код для обліку запрошень.</p></div>
+<div class="refbox"><b data-i18n="yourLink">Твоє реферальне посилання</b><div class="refcode" id="refCode">...</div><div class="row"><button class="greenbtn" id="copyRef" data-i18n="copy">📋 Копіювати</button><button class="darkbtn" id="shareRef" data-i18n="invite">🚀 Запросити</button></div><div class="progress"><i id="refProgress"></i></div><div style="display:flex;justify-content:space-between;color:#8993ad;font-size:11px"><span data-i18n="invited">Запрошено</span><b id="refText">0 / 5</b></div></div>
+<div class="section"><h3 data-i18n="rewards">🎁 Нагороди</h3></div><div class="mini-list"><div class="mini"><div class="mi">👤</div><div><b>1 <span data-i18n="friend">друг</span> → +100 GG</b><span data-i18n="reward1">Перша рефералка</span></div></div><div class="mini"><div class="mi">👥</div><div><b>3 <span data-i18n="friends2">друзі</span> → +500 GG</b><span data-i18n="reward2">Командний бонус</span></div></div><div class="mini"><div class="mi">🔥</div><div><b>5 <span data-i18n="friends3">друзів</span> → +1 500 GG</b><span data-i18n="reward3">Максимальний бонус</span></div></div></div>
+</section>
+
+<section id="shop" class="tab">
+<div class="hero"><span class="badge">⚡ UPGRADE</span><h2 data-i18n="shopTitle">Прокачай свій GG</h2><p data-i18n="shopText">Чим більше Power — тим швидше росте баланс.</p></div>
+<div class="grid"><div class="mode"><div class="icon">⚡</div><h4 data-i18n="powerUp">Power +1</h4><p data-i18n="powerText">+1 GG за кожен тап.</p><button id="upgrade">КУПИТИ • <span id="price">50</span> GG</button></div><div class="mode"><div class="icon">🔥</div><h4>Combo Boost</h4><p data-i18n="comboBuy">Увімкни бонус за швидкі тапи.</p><button id="combo">100 GG</button></div></div>
+<div class="section"><h3 data-i18n="statsTitle">📊 Статистика</h3></div><div class="card"><div class="mini-list"><div class="mini">💰 <b><span data-i18n="balanceLabel">Баланс</span>: <span id="shopGG">0</span> GG</b></div><div class="mini">⚡ <b>Power: <span id="shopPower">1</span></b></div><div class="mini">🔥 <b>Combo: <span id="comboState">OFF</span></b></div></div></div>
+</section>
+
+
+<section id="leaders" class="tab">
+<div class="hero">
+  <span class="badge">🏆 TOP GG</span><span class="online-pill" id="leaderStatus">● ONLINE</span>
+  <h2 data-i18n="leadersTitle">Лідерборд</h2>
+  <p data-i18n="leadersText">Топ гравців за кількістю GG. Тапай, прокачуй Power і піднімайся вище.</p>
+</div>
+<div class="section"><h3 data-i18n="topPlayers">👑 Топ гравців</h3><span id="leaderSync" data-i18n="syncing">Синхронізація</span></div>
+<div class="leaderboard" id="leaderboardBox">
+  <div class="empty-board" id="leaderEmpty">
+    <b data-i18n="realOnly">🏆 Тут тільки реальні гравці</b>
+    <span data-i18n="realWaiting">Коли сервер буде підключений, тут з'являться гравці, які реально грають.</span>
+  </div>
+  <div class="rank-row you-row"><div class="rank-num">—</div><div class="rank-avatar">GG</div><div class="rank-info"><div class="rank-name" id="leaderName" data-i18n="you">Ти</div><div class="rank-sub" data-i18n="yourPlace">Твоє місце змінюється з балансом</div></div><div class="rank-score" id="leaderYou">0 GG</div></div>
+</div>
+</section>
+
+<section id="profile" class="tab">
+<div class="hero profile"><div class="avatar">GG</div><span class="badge">PLAYER</span><h2 data-i18n="profileTitle">Твій профіль</h2><p id="uid"></p></div>
+<div class="card"><b data-i18n="language">🌐 Мова</b><div class="langs"><button class="lang active" data-lang="uk">🇺🇦 Українська</button><button class="lang" data-lang="en">🇬🇧 English</button><button class="lang" data-lang="ru">🇷🇺 Русский</button></div></div>
+<div class="card"><b data-i18n="statsTitle">📊 Статистика</b><p>GG: <b id="pGG">0</b></p><p data-i18n="tapsLine">Тапів: <b id="pTaps">0</b></p><p data-i18n="refsLine">Рефералів: <b id="pRefs">0</b></p></div>
+<button class="darkbtn" id="reset" data-i18n="reset">Скинути локальний прогрес</button>
+</section>
+<div class="gu-modal off" id="rouletteUltra">
+  <div class="gu-modal-card">
+    <div class="gu-modal-top"><span>GARAGE DROP</span><button id="guClose">×</button></div>
+    <div class="gu-wheel" id="guWheel"><div class="gu-wheel-glow"></div><div class="gu-wheel-car" id="guWheelCar">🚗</div></div>
+    <small class="gu-spin-label">ВИЗНАЧАЄМО ТВОЮ МАШИНУ...</small>
+    <h2 id="guResultName">VAZ-2107</h2><div id="guResultRare">COMMON</div>
+    <button class="gu-claim" id="guClaim">ЗАБРАТИ В ГАРАЖ</button>
+  </div>
+</div></main>
+
+<section id="garageUltra" class="gu">
+  <div class="gu-head"><div><small>MY GARAGE</small><h2>Мої машини</h2></div><div class="gu-count"><b id="guOwned">1</b><small>/ 3</small></div></div>
+  <div class="gu-showcase">
+    <div class="gu-rarity" id="guRarity">COMMON</div>
+    <div class="gu-car-icon" id="guCarIcon">🚗</div>
+    <div class="gu-car-name" id="guCarName">VAZ-2107</div>
+    <div class="gu-stats"><span>⚡ <b id="guPower">1.0x</b></span><span>⛽ <b id="guFuel">100%</b></span><span>👆 <b id="guTaps">0</b></span></div>
+  </div>
+  <div class="gu-slots" id="guSlots"></div>
+  <button class="gu-open" id="guOpen">🎰 ВІДКРИТИ МАШИНУ</button>
+</section>
+<nav class="nav"><button class="active" data-tab="home"><i>🎮</i><span data-i18n="navGame">Гра</span></button><button data-tab="ref"><i>👥</i><span data-i18n="navFriends">Друзі</span></button><button data-tab="leaders"><i>🏆</i><span data-i18n="navLeaders">Топ</span></button><button data-tab="shop"><i>🚀</i><span data-i18n="navShop">Прокачка</span></button><button data-tab="profile"><i>👤</i><span data-i18n="navProfile">Профіль</span></button></nav>
+<div class="toast" id="toast"></div>
+<div class="modal" id="caseModal"><div class="sheet"><div class="eyebrow">FREE DAILY CASE</div><h2 data-i18n="caseOpened">🎁 Кейс відкрито!</h2><div class="openbox">🎁</div><div class="case-reward" id="caseReward">+0 GG</div><p data-i18n="caseInfo">Наступний безкоштовний кейс буде доступний через 24 години.</p><button class="greenbtn" onclick="closeCase()" data-i18n="take">ЗАБРАТИ НАГОРОДУ</button></div></div>
+</div>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<script>
+const API_URL = ""; // Встав URL вашого Cloudflare Worker без / в кінці
+async function syncRealLeaderboard(){
+  if(!API_URL){
+    const el=$('leaderSync'); if(el) el.textContent=t('demoMode'); const st=$('leaderStatus'); if(st) st.textContent=t('waiting');
+    return;
+  }
+  try{
+    const initData=window.Telegram?.WebApp?.initData || '';
+    const r=await fetch(API_URL+'/api/leaderboard',{cache:'no-store',headers:{'X-Telegram-Init-Data':initData}});
+    if(!r.ok) throw new Error('leaderboard');
+    const players=await r.json();
+    const box=document.querySelector('.leaderboard');
+    if(!box || !Array.isArray(players)) return;
+    const empty=$('leaderEmpty'); if(empty) empty.style.display=players.length?'none':'block';
+    box.querySelectorAll('.rank-row:not(.you-row)').forEach(x=>x.remove());
+    const you=box.querySelector('.you-row');
+    players.filter(p=>!p.me).slice(0,5).forEach((p,i)=>{
+      const row=document.createElement('div'); row.className='rank-row';
+      const avatar=p.avatar?`<img src="${escapeHtml(p.avatar)}" style="width:43px;height:43px;border-radius:14px;object-fit:cover">`:'GG';
+      row.innerHTML=`<div class="rank-num">${i+1}</div><div class="rank-avatar">${avatar}</div><div class="rank-info"><div class="rank-name">${escapeHtml(p.name||'Player')}</div><div class="rank-sub">GG • ${Number(p.gg||0).toLocaleString()}</div></div><div class="rank-score">${Number(p.gg||0).toLocaleString()}</div>`;
+      box.insertBefore(row,you);
+    });
+    const me=players.find(p=>p.me); if(me) $('leaderYou').textContent=Number(me.gg||0).toLocaleString()+' GG';
+    const el=$('leaderSync'); if(el) el.textContent=t('liveSync');
+    const st=$('leaderStatus'); if(st) st.textContent='● LIVE';
+  }catch(e){
+    const el=$('leaderSync'); if(el) el.textContent=t('offlineSync');
+    const st=$('leaderStatus'); if(st) st.textContent='● OFFLINE';
+  }
+}
+async function syncPlayer(){
+  if(!API_URL || !window.Telegram?.WebApp?.initData) return;
+  try{
+    await fetch(API_URL+'/api/player',{method:'POST',headers:{'content-type':'application/json','X-Telegram-Init-Data':window.Telegram.WebApp.initData},body:JSON.stringify({gg:s.gg})});
+  }catch(e){}
+}
+function escapeHtml(s){return String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));}
+setInterval(syncRealLeaderboard,15000);
+</script>
+<script>
+const KEY='gg_rush_v10';
+const dict={
+uk:{live:'LIVE GAME',heroTitle:'Тапай GG. Качайся. Забирай нагороди.',heroText:'Твій GG баланс росте з кожним тапом. Відкривай кейси, грай режими та клич друзів.',balance:'ТВОЇ GG',tapHint:'НАТИСКАЙ НА ТОКЕН • КОЖЕН ТАП ДАЄ GG',power:'Power',taps:'Тапів',friends:'Друзів',modes:'🎮 Режими',choose:'Обирай режим',combo:'Combo',comboText:'Швидкі тапи заряджають комбо.',how:'ЯК ГРАТИ',missions:'Місії',missionText:'100 тапів → +250 GG.',claim:'ЗАБРАТИ',comboToast:'🔥 Тапай швидко для комбо!',daily:'🎁 Безкоштовний кейс',once:'1 раз / 24 год',openCase:'ВІДКРИТИ БЕЗКОШТОВНО',refTitle:'Запрошуй друзів — отримуй GG',refText:'Ділись посиланням на @Giftedg1ft_bot. Бот може використати start-код для обліку запрошень.',yourLink:'Твоє реферальне посилання',copy:'📋 Копіювати',invite:'🚀 Запросити',invited:'Запрошено',rewards:'🎁 Нагороди',friend:'друг',friends2:'друзі',friends3:'друзів',reward1:'Перша рефералка',reward2:'Командний бонус',reward3:'Максимальний бонус',shopTitle:'Прокачай свій GG',shopText:'Чим більше Power — тим швидше росте баланс.',powerUp:'Power +1',powerText:'+1 GG за кожен тап.',comboBuy:'Увімкни бонус за швидкі тапи.',statsTitle:'📊 Статистика',balanceLabel:'Баланс',profileTitle:'Твій профіль',language:'🌐 Мова',tapsLine:'Тапів:',refsLine:'Рефералів:',reset:'Скинути локальний прогрес',navGame:'Гра',navFriends:'Друзі',navLeaders:'Топ',navShop:'Прокачка',navProfile:'Профіль',leadersTitle:'Лідерборд',syncing:'Синхронізація',demoMode:'Демо • підключи сервер для реальних гравців',liveSync:'LIVE • оновлено',offlineSync:'Офлайн • повторна спроба',leadersText:'Топ гравців за кількістю GG. Тапай, прокачуй Power і піднімайся вище.',topPlayers:'👑 Топ гравців',today:'Сьогодні',you:'Ти',yourPlace:'Твоє місце змінюється з балансом',waiting:'Очікування',realOnly:'🏆 Тут тільки реальні гравці',realWaiting:'Коли сервер буде підключений, тут з\'являться гравці, які реально грають.',caseOpened:'🎁 Кейс відкрито!',caseInfo:'Наступний безкоштовний кейс буде доступний через 24 години.',take:'ЗАБРАТИ НАГОРОДУ'},
+en:{live:'LIVE GAME',heroTitle:'Tap GG. Upgrade. Claim rewards.',heroText:'Grow your GG balance with every tap. Open cases, play modes and invite friends.',balance:'YOUR GG',tapHint:'TAP THE TOKEN • EVERY TAP GIVES GG',power:'Power',taps:'Taps',friends:'Friends',modes:'🎮 Modes',choose:'Choose a mode',combo:'Combo',comboText:'Fast taps charge your combo.',how:'HOW TO',missions:'Missions',missionText:'100 taps → +250 GG.',claim:'CLAIM',comboToast:'🔥 Tap fast for combo!',daily:'🎁 Free daily case',once:'Once / 24h',openCase:'OPEN FOR FREE',refTitle:'Invite friends — earn GG',refText:'Share your @Giftedg1ft_bot link. The bot can use the start code to track invites.',yourLink:'Your referral link',copy:'📋 Copy',invite:'🚀 Invite',invited:'Invited',rewards:'🎁 Rewards',friend:'friend',friends2:'friends',friends3:'friends',reward1:'First referral',reward2:'Team bonus',reward3:'Maximum bonus',shopTitle:'Upgrade your GG',shopText:'More Power means faster growth.',powerUp:'Power +1',powerText:'+1 GG per tap.',comboBuy:'Enable a bonus for fast taps.',statsTitle:'📊 Statistics',balanceLabel:'Balance',profileTitle:'Your profile',language:'🌐 Language',tapsLine:'Taps:',refsLine:'Referrals:',reset:'Reset local progress',navGame:'Game',navFriends:'Friends',navLeaders:'Top',navShop:'Upgrade',navProfile:'Profile',leadersTitle:'Leaderboard',syncing:'Syncing',demoMode:'Demo • connect a server for real players',liveSync:'LIVE • updated',offlineSync:'Offline • retrying',leadersText:'Top players by GG. Tap, upgrade Power and climb higher.',topPlayers:'👑 Top players',today:'Today',you:'You',yourPlace:'Your place changes with your balance',waiting:'Waiting',realOnly:'🏆 Real players only',realWaiting:'Players who actually play will appear here once the server is connected.',caseOpened:'🎁 Case opened!',caseInfo:'Your next free case will be available in 24 hours.',take:'CLAIM REWARD'},
+ru:{live:'LIVE GAME',heroTitle:'Тапай GG. Улучшайся. Забирай награды.',heroText:'Увеличивай баланс GG каждым тапом. Открывай кейсы, играй режимы и приглашай друзей.',balance:'ТВОИ GG',tapHint:'ТАПАЙ ПО ТОКЕНУ • КАЖДЫЙ ТАП ДАЁТ GG',power:'Power',taps:'Тапов',friends:'Друзей',modes:'🎮 Режимы',choose:'Выбирай режим',combo:'Combo',comboText:'Быстрые тапи заряжают комбо.',how:'КАК ИГРАТЬ',missions:'Миссии',missionText:'100 тапов → +250 GG.',claim:'ЗАБРАТЬ',comboToast:'🔥 Тапай быстро для комбо!',daily:'🎁 Бесплатный кейс',once:'1 раз / 24 ч',openCase:'ОТКРЫТЬ БЕСПЛАТНО',refTitle:'Приглашай друзей — получай GG',refText:'Делись ссылкой на @Giftedg1ft_bot. Бот может использовать start-код для учёта приглашений.',yourLink:'Твоя реферальная ссылка',copy:'📋 Копировать',invite:'🚀 Пригласить',invited:'Приглашено',rewards:'🎁 Награды',friend:'друг',friends2:'друга',friends3:'друзей',reward1:'Первая рефералка',reward2:'Командный бонус',reward3:'Максимальный бонус',shopTitle:'Прокачай свой GG',shopText:'Больше Power — быстрее растёт баланс.',powerUp:'Power +1',powerText:'+1 GG за каждый тап.',comboBuy:'Включи бонус за быстрые тапи.',statsTitle:'📊 Статистика',balanceLabel:'Баланс',profileTitle:'Твой профиль',language:'🌐 Язык',tapsLine:'Тапов:',refsLine:'Рефералов:',reset:'Сбросить локальный прогресс',navGame:'Игра',navFriends:'Друзья',navLeaders:'Топ',navShop:'Прокачка',navProfile:'Профиль',leadersTitle:'Лидерборд',syncing:'Синхронизация',demoMode:'Демо • подключи сервер для реальных игроков',liveSync:'LIVE • обновлено',offlineSync:'Офлайн • повторная попытка',leadersText:'Топ игроков по GG. Тапай, улучшай Power и поднимайся выше.',topPlayers:'👑 Топ игроков',today:'Сегодня',you:'Ты',yourPlace:'Твоё место меняется вместе с балансом',waiting:'Ожидание',realOnly:'🏆 Здесь только реальные игроки',realWaiting:'Игроки, которые реально играют, появятся здесь после подключения сервера.',caseOpened:'🎁 Кейс открыт!',caseInfo:'Следующий бесплатный кейс будет доступен через 24 часа.',take:'ЗАБРАТЬ НАГРАДУ'}
+};
+let s=JSON.parse(localStorage.getItem(KEY)||'null')||{gg:0,power:1,taps:0,refs:0,lastCaseTs:0,refCode:'',combo:false,lang:'uk'};
+const $=id=>document.getElementById(id); const t=k=>dict[s.lang]?.[k]||dict.uk[k]||k;
+function save(){localStorage.setItem(KEY,JSON.stringify(s));render();syncPlayer()}
+function toast(x){$('toast').textContent=x;$('toast').classList.add('show');clearTimeout(window.tt);window.tt=setTimeout(()=>$('toast').classList.remove('show'),1500)}
+function makeCode(){return 'GG-'+Math.random().toString(36).slice(2,8).toUpperCase()}
+if(!s.refCode)s.refCode=makeCode();
+function referral(){let u=window.Telegram?.WebApp?.initDataUnsafe?.user;let code=u?.id?'ref_'+u.id:s.refCode;return 'https://t.me/Giftedg1ft_bot?start='+encodeURIComponent(code)}
+
+function selectMulti(el){document.querySelectorAll('.multi').forEach(x=>x.style.outline='none');el.style.outline='2px solid #55e6ff';el.style.outlineOffset='1px';toast('🎯 '+el.textContent)}
+function placeBet(){let cost=10;if(s.gg<cost){toast('❌ Потрібно 10 GG');return}s.gg-=cost;let mult=[1.03,1.09,1.25,1.69,2.33,5.21,7.41][Math.floor(Math.random()*7)];let win=Math.floor(cost*mult);s.gg+=win;toast('🚀 x'+mult+' • +'+win+' GG');save()}
+function render(){
+$('gg').textContent=s.gg.toLocaleString();$('bigGG').textContent=s.gg.toLocaleString();$('leaderYou').textContent=s.gg.toLocaleString()+' GG';$('power').textContent=s.power;$('taps').textContent=s.taps.toLocaleString();$('refs').textContent=s.refs;
+$('refCode').textContent=referral();$('refText').textContent=Math.min(s.refs,5)+' / 5';$('refProgress').style.width=Math.min(s.refs/5*100,100)+'%';
+$('price').textContent=50*s.power;$('shopGG').textContent=s.gg.toLocaleString();$('shopPower').textContent=s.power;$('comboState').textContent=s.combo?'ON':'OFF';$('pGG').textContent=s.gg.toLocaleString();$('pTaps').textContent=s.taps.toLocaleString();$('pRefs').textContent=s.refs;$('uid').textContent='ID: '+s.refCode;
+let used=Date.now()-s.lastCaseTs<86400000;$('caseBtn').disabled=used;$('caseStatus').textContent=used?'⏰ '+t('once'):'🎁 '+t('openCase');
+document.querySelectorAll('[data-i18n]').forEach(el=>{let k=el.dataset.i18n;if(dict[s.lang][k])el.textContent=dict[s.lang][k]});
+document.querySelectorAll('.lang').forEach(b=>b.classList.toggle('active',b.dataset.lang===s.lang));
+document.documentElement.lang=s.lang;
+}
+document.querySelectorAll('.nav button').forEach(b=>b.onclick=()=>{document.querySelectorAll('.nav button').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));$(b.dataset.tab).classList.add('active');window.scrollTo({top:0,behavior:'smooth'})});
+function tapToken(e){
+ if(e&&e.preventDefault)e.preventDefault();
+ s.gg+=s.power;s.taps++;
+ let x=e?.clientX||innerWidth/2,y=e?.clientY||innerHeight/2;
+ let f=document.createElement('div');f.className='float';f.textContent='+'+s.power+' GG';f.style.left=x+'px';f.style.top=y+'px';document.body.appendChild(f);setTimeout(()=>f.remove(),700);
+ let ring=document.createElement('div');ring.className='tap-ring';ring.style.left=x+'px';ring.style.top=y+'px';document.body.appendChild(ring);setTimeout(()=>ring.remove(),600);
+ let token=document.querySelector('.token');token.classList.remove('pulse');void token.offsetWidth;token.classList.add('pulse');
+ for(let i=0;i<10;i++){let p=document.createElement('i');p.className='spark';p.style.left=x+'px';p.style.top=y+'px';p.style.setProperty('--dx',((Math.random()-.5)*180)+'px');p.style.setProperty('--dy',((Math.random()-.5)*180)+'px');document.getElementById('fxLayer').appendChild(p);setTimeout(()=>p.remove(),750)}
+ save()
+}
+$('token').addEventListener('pointerdown',tapToken,{passive:false});
+$('token').addEventListener('touchstart',tapToken,{passive:false});
+$('caseBtn').onclick=()=>{if(Date.now()-s.lastCaseTs<86400000)return;let r=[50,100,200,500,1000][Math.floor(Math.random()*5)];s.lastCaseTs=Date.now();s.gg+=r;$('caseReward').textContent='+'+r+' GG';$('caseModal').classList.add('show');save()};
+function closeCase(){$('caseModal').classList.remove('show');toast('🎁 '+t('take'))}
+function mission(){if(s.taps<100){toast('🎯 '+(100-s.taps)+' taps');return}s.gg+=250;s.taps-=100;toast('🏆 +250 GG');save()}
+$('upgrade').onclick=()=>{let cost=50*s.power;if(s.gg<cost){toast('❌ '+cost+' GG');return}s.gg-=cost;s.power++;toast('⚡ Power '+s.power);save()};
+$('combo').onclick=()=>{if(s.combo){toast('🔥 Combo ON');return}if(s.gg<100){toast('❌ 100 GG');return}s.gg-=100;s.combo=true;toast('🔥 Combo ON');save()};
+$('copyRef').onclick=async()=>{try{await navigator.clipboard.writeText(referral());toast('📋 '+t('copy'))}catch(e){toast(referral())}};
+$('shareRef').onclick=()=>{let l=referral();let txt=encodeURIComponent('🎁 GG RUSH — грай зі мною та заробляй GG!');window.open('https://t.me/share/url?url='+encodeURIComponent(l)+'&text='+txt,'_blank')};
+document.querySelectorAll('.lang').forEach(b=>b.onclick=()=>{s.lang=b.dataset.lang;save();toast(b.textContent)});
+$('reset').onclick=()=>{if(confirm('Reset?')){localStorage.removeItem(KEY);location.reload()}};
+if(window.Telegram?.WebApp){Telegram.WebApp.ready();Telegram.WebApp.expand();Telegram.WebApp.setHeaderColor('#07090e');Telegram.WebApp.setBackgroundColor('#07090e')}
+render();
+syncPlayer();
+syncRealLeaderboard();
+</script>
+
+<nav id="mainNavV14" class="main-nav-v14" aria-label="Основна навігація">
+  <button class="nav-v14 active" data-page="home"><span class="nav-icon">⌂</span><span>ГОЛОВНА</span></button>
+  <button class="nav-v14" data-page="garage"><span class="nav-icon">▣</span><span>ГАРАЖ</span></button>
+  <button class="nav-v14" data-page="top"><span class="nav-icon">♜</span><span>ТОП</span></button>
+  <button class="nav-v14" data-page="shop"><span class="nav-icon">▾</span><span>МАГАЗИН</span></button>
+  <button class="nav-v14" data-page="profile"><span class="nav-icon">●</span><span>ПРОФІЛЬ</span></button>
+</nav>
+</body>
+</html>
