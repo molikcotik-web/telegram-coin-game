@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<title>CAR MY GAR • GG RUSH</title>
+<style>
+:root{--bg:#05080c;--card:#0c1117;--line:#202b35;--muted:#7f8a91;--lime:#a9ff27;--red:#ff3d4f}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}html,body{margin:0;background:#000;color:#f7faf8;font-family:Inter,system-ui,-apple-system,Segoe UI,Arial,sans-serif}body{min-height:100vh}button{font:inherit}
+.app{width:min(495px,100%);min-height:100vh;margin:auto;background:radial-gradient(500px 260px at 50% 15%,#18261e 0,#0a1015 48%,#05080c 100%);padding-bottom:88px;overflow:hidden}
+.header{height:67px;padding:7px 11px 5px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #172029;background:#070b10}.brand{font-weight:1000;font-size:20px;letter-spacing:-1px;line-height:.9}.brand b{color:var(--lime)}.brand small{display:block;font-size:8px;color:#6e777d;letter-spacing:1.5px;margin-top:4px}.header-right{display:flex;gap:6px}.lang,.settings{height:30px;border:1px solid #1e2933;border-radius:10px;background:#0b1117;color:#b8c0c5;font-size:9px}.settings{width:30px;font-size:16px}.lang{padding:0 8px}
+.page{padding:7px 10px 18px}.tab{display:none}.tab.active{display:block}.top-row{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:7px}.mini-card{height:52px;border:1px solid #17212a;border-radius:13px;background:linear-gradient(145deg,#0d131a,#080c11);display:flex;align-items:center;padding:7px 10px;gap:8px}.coin{width:33px;height:33px;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle,#baff51,#4b8f13);box-shadow:0 0 16px #9cff2830;font-size:12px}.mini-card strong{font-size:16px;line-height:1}.mini-card small{display:block;color:#7e898f;font-size:8px;margin-top:3px}.mini-card b{color:var(--lime);font-size:9px}.bonus{justify-content:space-between}.bonus .gift{font-size:18px}.bonus .arrow{font-size:19px;color:#9ca5aa}
+.hero{border:1px solid #253039;border-radius:18px;background:linear-gradient(145deg,#10171b,#080d12);padding:10px 12px;margin-bottom:7px}.hero-top{display:flex;justify-content:space-between;align-items:center}.hero small{font-size:8px;color:#7f8a91;letter-spacing:1.2px}.hero .gg-total{font-size:12px;color:#b9c2c7}.hero .gg-total b{font-size:16px;color:#fff}
+.car-card{position:relative;height:330px;border:1px solid #202d35;border-radius:18px;overflow:hidden;background:radial-gradient(circle at 50% 60%,#1b2820 0,#0c1218 48%,#080c11 100%);box-shadow:0 18px 45px #000a}.car-card:before{content:"";position:absolute;inset:0;background:linear-gradient(transparent 65%,#8dff2420 100%);pointer-events:none}.car-title{position:absolute;top:7px;left:0;right:0;text-align:center;z-index:5;font-weight:1000;font-size:17px}.car-meta{margin-top:2px;display:flex;justify-content:center;gap:4px;font-size:7px;color:#899299}.pill{padding:3px 7px;border-radius:7px;background:#394147;color:#c6cdd0}
+.car-img-wrap{position:absolute;inset:38px 0 45px;display:grid;place-items:center}.car-img{width:96%;height:100%;object-fit:contain;display:block;filter:drop-shadow(0 16px 18px #000) drop-shadow(0 0 13px #a4ff2d28);user-select:none;-webkit-user-drag:none;pointer-events:none;transition:transform .1s}.car-card.tap .car-img{transform:scale(.955)} .car-img-wrap{cursor:pointer;touch-action:manipulation} .car-img-wrap:active{transform:scale(.985)}.car-floor{position:absolute;bottom:44px;width:64%;height:22px;border-radius:50%;border:1px solid #aaff3166;box-shadow:0 0 28px #9cff2835}
+.fuel-left,.fuel-box,.refuel-box{position:absolute;padding:8px;border-radius:11px;background:#091016dd;border:1px solid #1d2931;z-index:6}.fuel-left{left:7px;top:11px;width:120px}.fuel-box{right:7px;top:11px;width:122px}.refuel-box{right:7px;bottom:9px;width:122px}.fuel-left small,.fuel-box small,.refuel-box small{display:block;color:#7e898f;font-size:7px;letter-spacing:1px}.fuel-num{font-size:27px;font-weight:1000;color:var(--lime);line-height:1.05}.fuel-bar{height:7px;border-radius:5px;background:#1d252b;overflow:hidden;margin-top:4px}.fuel-fill{height:100%;width:75%;background:linear-gradient(90deg,#8cff24,#4bdc15);border-radius:5px;transition:width .2s}.fuel-count{font-size:7px;color:#879198;margin-top:4px}.fuel-box .danger{color:var(--red);font-size:9px;font-weight:1000;margin-top:2px}.fuel-box .danger.ok{color:var(--lime)}.fuel-box p{margin:3px 0 0;color:#8a949a;font-size:7px;line-height:1.25}.refuel-box b{display:block;color:var(--lime);font-size:14px;margin-top:2px}
+.tap-zone{position:absolute;left:50%;bottom:6px;transform:translateX(-50%);z-index:8;width:178px;height:68px;border-radius:50%;border:2px solid #b1ff43;background:radial-gradient(ellipse,#243d1d,#0c1410 67%);box-shadow:0 0 20px #9cff2860,0 0 55px #9cff2835,inset 0 0 22px #9cff2820;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#c8ff7c;cursor:pointer;touch-action:manipulation}.tap-zone strong{font-size:29px;line-height:1;font-weight:1000;letter-spacing:1px}.tap-zone small{font-size:8px;color:#9da7a5;margin-top:3px}
+.plus{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-size:21px;color:#d3ff85;font-weight:1000;opacity:0;pointer-events:none;text-shadow:0 0 16px #9cff28}.plus.show{animation:plus .6s ease-out forwards}@keyframes plus{0%{opacity:0;transform:translate(-50%,0) scale(.7)}20%{opacity:1}100%{opacity:0;transform:translate(-50%,-70px) scale(1.1)}}
+.slots-title{font-size:9px;font-weight:1000;letter-spacing:1px;margin:10px 5px 5px;color:#c5cdd0}.slots{display:grid;grid-template-columns:repeat(5,1fr);gap:4px}.slot{min-width:0;height:108px;padding:5px 3px;border-radius:10px;border:1px solid #26333b;background:linear-gradient(#10171d,#0b1116);color:#fff;text-align:center}.slot.active{border-color:#7fbd31;box-shadow:0 0 12px #9cff2818}.slot small{font-size:6px;color:#a3adb2;display:block}.slot .slot-car{height:43px;display:grid;place-items:center;margin-top:2px;font-size:29px;color:#3b6c91}.slot img{width:58px;height:42px;object-fit:contain;filter:drop-shadow(0 5px 5px #000)}.slot b{display:block;font-size:8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.slot span{display:block;font-size:6px;color:#8e999f;margin:1px 0 3px}.buy{height:19px;width:94%;border:0;border-radius:5px;background:linear-gradient(#87dc2d,#4e9e18);color:#061006;font-size:7px;font-weight:1000}
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-top:6px}.info{border:1px solid #202a32;border-radius:11px;background:#0b1117;padding:8px;min-height:95px}.info h3{font-size:8px;margin:0 0 6px;color:#aeb7bb}.rates{display:grid;gap:4px}.rate{display:flex;justify-content:space-between;font-size:7px;color:#89939a}.rate b{font-size:7px}.common{color:#a7b0b5}.uncommon{color:#6dff91}.rare{color:#4abaff}.epic{color:#b66cff}.legendary{color:#ffd12f}.steps{display:grid;gap:5px}.step{display:grid;grid-template-columns:17px 1fr;gap:4px;font-size:7px;color:#a0aaaf;line-height:1.25}.step i{width:15px;height:15px;border-radius:50%;background:#77d91f;color:#0a1007;font-style:normal;font-weight:1000;text-align:center;line-height:15px}
+.bottom{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(495px,100%);height:70px;z-index:100;background:#070a0ef7;border-top:1px solid #1b242c;display:grid;grid-template-columns:repeat(5,1fr);padding:4px 4px max(4px,env(safe-area-inset-bottom));backdrop-filter:blur(15px)}.navbtn{border:0;background:transparent;color:#687279;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;border-radius:11px;cursor:pointer}.navicon{font-size:22px;line-height:21px}.navbtn b{font-size:7px}.navbtn.active{color:var(--lime)} .navbtn:active,.buy:active,.upgrade button:active,.settings:active,.lang:active{transform:scale(.96);opacity:.82}.navbtn.active .navicon{filter:drop-shadow(0 0 7px #9cff2855)}
+.subpage{border:1px solid #202b33;border-radius:17px;background:#0b1117;padding:12px}.subpage h2{margin:0 0 3px;font-size:21px}.subpage>small{color:#7f898f;font-size:8px}.garage-hero{margin-top:10px;border-radius:17px;background:radial-gradient(circle,#1a2b21,#0b1117 65%);border:1px solid #25333a;text-align:center;padding:10px}.garage-hero img{width:100%;height:250px;object-fit:contain;filter:drop-shadow(0 15px 20px #000)}.garage-hero strong{display:block;font-size:18px}.garage-hero small{color:#9aa4a9;font-size:7px}.garage-slots{display:grid;grid-template-columns:repeat(2,1fr);gap:6px;margin-top:7px}.garage-slot{border:1px solid #27343b;border-radius:12px;background:#0d141a;color:#fff;padding:10px;text-align:left}.garage-slot b{display:block;font-size:11px}.garage-slot small{display:block;color:#8b969b;font-size:7px;margin-top:3px}.shop-grid{display:grid;gap:7px;margin-top:10px}.upgrade{border:1px solid #25323a;border-radius:13px;background:#0d1419;padding:11px;display:flex;justify-content:space-between;align-items:center}.upgrade b{font-size:10px}.upgrade small{display:block;color:#818c91;font-size:7px;margin-top:3px}.upgrade button{border:0;border-radius:8px;background:#8ee72d;padding:8px;color:#061005;font-size:8px;font-weight:1000}.profile-card{margin-top:10px;display:grid;gap:8px}.profile-stat{display:flex;justify-content:space-between;border-bottom:1px solid #19242c;padding:8px 0;font-size:10px}.profile-stat span{color:#808b91}.toast{position:fixed;left:50%;bottom:82px;transform:translateX(-50%);z-index:200;padding:8px 12px;border:1px solid #2d3c43;background:#0b1116;color:#dbe3df;border-radius:11px;font-size:9px;opacity:0;pointer-events:none;transition:.2s;max-width:90%;text-align:center}.toast.show{opacity:1}
+@media(max-width:380px){.car-card{height:315px}.fuel-left,.fuel-box,.refuel-box{width:105px}.tap-zone{width:160px;height:63px}.tap-zone strong{font-size:25px}.slots{gap:2px}.slot{height:103px}}
+</style>
+<style>
+.car-img-wrap{cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+.car-img-wrap img{pointer-events:none;user-select:none;-webkit-user-drag:none}
+.navbtn,.buy,.upgrade button,.settings,.lang{cursor:pointer}
+.navbtn:active,.buy:active,.upgrade button:active,.settings:active,.lang:active{transform:scale(.96)}
+</style></head>
+<body>
+<div class="app">
+<header class="header"><div class="brand"><b>CAR</b> MY GAR<small>TAP • EARN • UPGRADE</small></div><div class="header-right"><button class="settings" id="settings">⚙</button><button class="lang" id="lang">🌐 UA⌄</button></div></header>
+<main class="page">
+<section id="home" class="tab active">
+<div class="top-row">
+<div class="mini-card"><div class="coin">GG</div><div><strong id="balance">0</strong> <b>KM</b><small>Твій баланс</small></div></div>
+<div class="mini-card bonus"><div><small>🎁 Щоденний бонус</small><b id="bonusTimer">23:59:12</b></div><span class="arrow">›</span></div>
+</div>
+<div class="hero"><div class="hero-top"><small>БАЛАНС • KM</small><span class="gg-total">🪙 <b id="heroGG">0</b> KM</span></div></div>
+<div class="car-card" id="carCard">
+<div class="car-title">ЖИГУЛЬ<div class="car-meta"><span class="pill">COMMON</span><span class="pill">слот 1</span></div></div>
+<div class="fuel-left"><small>ПАЛИВО</small><div class="fuel-num" id="fuelPct">75%</div><div class="fuel-bar"><div class="fuel-fill" id="fuelFill"></div></div><div class="fuel-count" id="fuelCount">75 000 / 100 000</div></div>
+<div class="fuel-box"><small>⛽ ПАЛИВО</small><div class="danger" id="fuelStatus">ЗАПОВНЮЄТЬСЯ</div><p>100% = Повний бак<br>Після 100% — заправка</p></div>
+<div class="car-img-wrap" id="carTapTarget" role="button" tabindex="0" aria-label="Тапнути по Жигулю" title="Тапай по Жигулю"><img class="car-img" src="assets/zhygul.png" alt="Жигуль"></div><div class="car-floor"></div>
+<div class="refuel-box"><small>◷ ЗАПРАВКА</small><b id="refuelTimer">12:00:00</b><small>Машина заправляється</small></div>
+<button class="tap-zone" id="tap"><strong>ТАП</strong><small>Тапай по машині!</small></button><div class="plus" id="plus">+1 GG</div>
+</div>
+<div class="slots-title">МОЇ СЛОТИ</div><div class="slots" id="slots"></div>
+<div class="info-grid">
+<div class="info"><h3>МОЖЛИВІ МАШИНИ</h3><div class="rates">
+<div class="rate"><b class="common">COMMON</b><span>Жигуль, Lada <b>50%</b></span></div><div class="rate"><b class="uncommon">UNCOMMON</b><span>Lada, VAZ 2107 <b class="uncommon">30%</b></span></div><div class="rate"><b class="rare">RARE</b><span>BMW <b class="rare">15%</b></span></div><div class="rate"><b class="epic">EPIC</b><span>Porsche <b class="epic">4%</b></span></div><div class="rate"><b class="legendary">LEGENDARY</b><span>Lamborghini <b class="legendary">1%</b></span></div>
+</div></div>
+<div class="info"><h3>ЯК ЦЕ ПРАЦЮЄ?</h3><div class="steps"><div class="step"><i>1</i><span>Тапай по машині, щоб заповнити паливо</span></div><div class="step"><i>2</i><span>Дотапав до 100% — машина заправляється</span></div><div class="step"><i>3</i><span>Заправка триває 12 годин</span></div><div class="step"><i>4</i><span>Купуй нові слоти та отримуй машини</span></div></div></div>
+</div>
+</section>
+<section id="garage" class="tab"><div class="subpage"><h2>Гараж</h2><small>Твої машини та слоти</small></div><div class="garage-hero"><img src="assets/zhygul.png" alt="Жигуль"><strong>ЖИГУЛЬ</strong><small>COMMON • СЛОТ 1</small></div><div class="garage-slots" id="garageSlots"></div></section>
+<section id="leaders" class="tab"><div class="subpage"><h2>Топ гравців</h2><small>Найбільше GG</small></div><div id="leaderList" class="shop-grid"></div></section>
+<section id="shop" class="tab"><div class="subpage"><h2>Магазин</h2><small>Купуй слоти та покращення</small></div><div class="shop-grid">
+<div class="upgrade"><div><b>⚡ Power +1</b><small>+1 GG за кожен тап</small></div><button onclick="buyPower()">1 000 KM</button></div>
+<div class="upgrade"><div><b>⛽ Паливо +10%</b><small>Додає 10 000 до бака</small></div><button onclick="buyFuel()">2 500 GG</button></div>
+<div class="upgrade"><div><b>🚗 Слот #2</b><small>Відкриває нову машину</small></div><button onclick="buySlot(1)">1 000 KM</button></div>
+<div class="upgrade"><div><b>🚙 Слот #3</b><small>Ще один шанс на рідкісне авто</small></div><button onclick="buySlot(2)">10 000 KM</button></div>
+<div class="upgrade"><div><b>🏎️ Слот #4</b><small>Для колекції</small></div><button onclick="buySlot(3)">100 000 KM</button></div>
+<div class="upgrade"><div><b>🏆 Слот #5</b><small>Максимальний слот</small></div><button onclick="buySlot(4)">1 000 000 KM</button></div>
+</div></section>
+<section id="profile" class="tab"><div class="subpage"><h2>Профіль</h2><small>Твій прогрес</small></div><div class="profile-card">
+<div class="profile-stat"><span>KM баланс</span><b id="profileGG">0 KM</b></div><div class="profile-stat"><span>Тапів</span><b id="profileTaps">0</b></div><div class="profile-stat"><span>Power</span><b id="profilePower">1 GG</b></div><div class="profile-stat"><span>Машин</span><b id="profileCars">1 / 5</b></div>
+</div></section>
+</main>
+<nav class="bottom"><button class="navbtn active" data-tab="home"><span class="navicon">⌂</span><b>ГОЛОВНА</b></button><button class="navbtn" data-tab="garage"><span class="navicon">▣</span><b>ГАРАЖ</b></button><button class="navbtn" data-tab="leaders"><span class="navicon">♜</span><b>ТОП</b></button><button class="navbtn" data-tab="shop"><span class="navicon">▾</span><b>МАГАЗИН</b></button><button class="navbtn" data-tab="profile"><span class="navicon">●</span><b>ПРОФІЛЬ</b></button></nav>
+<div class="toast" id="toast"></div>
+</div>
+<script>
+const CAR_IMG="assets/zhygul.png";
+const SAVE_KEY="car_my_gar_v22";
+const state=JSON.parse(localStorage.getItem(SAVE_KEY)||"null")||{km:0,fuel:0,taps:0,power:1,activeSlot:0,refuelUntil:0,slots:[{name:"ЖИГУЛЬ",rare:"COMMON",img:CAR_IMG}]};
+const cars=[{name:"ЖИГУЛЬ",rare:"COMMON",img:CAR_IMG},{name:"LADA VAZ 2107",rare:"UNCOMMON",img:CAR_IMG},{name:"BMW",rare:"RARE",img:CAR_IMG},{name:"PORSCHE",rare:"EPIC",img:CAR_IMG},{name:"LAMBORGHINI",rare:"LEGENDARY",img:CAR_IMG}];
+const costs=[1000,10000,100000,1000000];
+const $=id=>document.getElementById(id),fmt=n=>Number(n||0).toLocaleString("uk-UA",{minimumFractionDigits:0,maximumFractionDigits:2});
+function save(){localStorage.setItem(SAVE_KEY,JSON.stringify(state))}
+function isRefueling(){return state.refuelUntil>0 && Date.now()<state.refuelUntil}
+function finishRefuelIfReady(){if(state.refuelUntil && Date.now()>=state.refuelUntil){state.refuelUntil=0;state.fuel=0;save();toast("⛽ Заправка завершена — машина доступна!");return true}return false}
+function weightedCar(){const n=Math.random()*100;if(n<50)return cars[0];if(n<80)return cars[1];if(n<95)return cars[2];if(n<99)return cars[3];return cars[4]}
+function toast(t){const e=$("toast");e.textContent=t;e.classList.add("show");clearTimeout(window.tt);window.tt=setTimeout(()=>e.classList.remove("show"),1500)}
+function render(){
+ finishRefuelIfReady();
+ const locked=isRefueling(), car=state.slots[state.activeSlot]||state.slots[0];
+ $("balance").textContent=fmt(state.km);$("heroGG").textContent=fmt(state.km);
+ $("fuelPct").textContent=Math.floor(state.fuel/1000)+"%";$("fuelFill").style.width=(state.fuel/1000)+"%";$("fuelCount").textContent=fmt(state.fuel)+" / 100 000";
+ $("fuelStatus").textContent=locked?"ЗАПРАВКА 12 ГОД":(state.fuel>=100000?"ПАЛИВО ЗАКІНЧИЛОСЬ":"ЗАПОВНЮЄТЬСЯ");$("fuelStatus").classList.toggle("ok",locked);
+ $("profileGG").textContent=fmt(state.km)+" KM";$("profileTaps").textContent=fmt(state.taps);$("profilePower").textContent=state.power+" GG";$("profileCars").textContent=state.slots.length+" / 5";
+ if(car){document.querySelectorAll(".car-img").forEach(x=>x.src=car.img);document.querySelector(".car-title").childNodes[0].nodeValue=car.name+" ";document.querySelector(".car-meta").innerHTML='<span class="pill">'+car.rare+'</span><span class="pill">слот '+(state.activeSlot+1)+'</span>'}
+ $("tap").disabled=locked;$("tap").style.opacity=locked?".45":"1";$("tap").querySelector("strong").textContent=locked?"🔒":"ТАП";$("tap").querySelector("small").textContent=locked?"Машина недоступна":"Тапай по машині!";
+ const rb=$("refuelTimer"); if(locked){let sec=Math.max(0,Math.ceil((state.refuelUntil-Date.now())/1000));rb.textContent=String(Math.floor(sec/3600)).padStart(2,"0")+":"+String(Math.floor(sec%3600/60)).padStart(2,"0")+":"+String(sec%60).padStart(2,"0")}else rb.textContent="12:00:00";
+ const box=$("slots");box.innerHTML="";
+ for(let i=0;i<5;i++){const el=document.createElement("div");el.className="slot"+(i===state.activeSlot?" active":"");if(state.slots[i]){const x=state.slots[i];el.innerHTML=`<small>СЛОТ ${i+1}</small><div class="slot-car"><img src="${x.img}"></div><b>${x.name}</b><span>${x.rare}</span><button class="buy" onclick="selectSlot(${i})">${i===state.activeSlot?"АКТИВНИЙ":"ВИБРАТИ"}</button>`}else{const cost=costs[i-1]||1000000;el.innerHTML=`<small>СЛОТ ${i+1}</small><div class="slot-car">🔒</div><b>ЗАКРИТО</b><span>Купити</span><button class="buy" onclick="buySlot(${i})">${fmt(cost)} KM</button>`}box.appendChild(el)}
+ $("garageSlots").innerHTML=state.slots.map((x,i)=>`<div class="garage-slot"><b>СЛОТ ${i+1} • ${x.name}</b><small>${x.rare}</small><button class="buy" style="margin-top:6px" onclick="selectSlot(${i})">${i===state.activeSlot?"ОБРАНО":"ВИБРАТИ"}</button></div>`).join("")+Array.from({length:5-state.slots.length},(_,i)=>`<div class="garage-slot"><b>🔒 СЛОТ ${state.slots.length+i+1}</b><small>Купи у магазині</small></div>`).join("");
+ $("leaderList").innerHTML=["GG Racer","LADA KING","V8 Master","Garage Boss","Turbo"].map((n,i)=>`<div class="upgrade"><div><b>${i+1}. ${n}</b><small>GG • ${fmt(Math.max(10000,state.gg-i*3210))}</small></div><b>#${i+1}</b></div>`).join("");
+ save();
+}
+function tap(){
+ if(finishRefuelIfReady()){render();return}
+ if(isRefueling())return toast("🔒 Машина зараз на заправці");
+ if(state.fuel>=100000){state.refuelUntil=Date.now()+12*60*60*1000;toast("⛽ 100%! Заправка почалась на 12 годин");render();return}
+ state.fuel=Math.min(100000,state.fuel+1000);state.km=Math.round((state.km+0.01)*100)/100;state.taps++;
+ const c=$("carCard");c.classList.remove("tap");void c.offsetWidth;c.classList.add("tap");
+ const p=$("plus");p.textContent="+0.01 KM";p.classList.remove("show");void p.offsetWidth;p.classList.add("show");
+ if(state.fuel>=100000){state.refuelUntil=Date.now()+12*60*60*1000;toast("💯 100%! Машина недоступна 12 годин")}
+ render();
+}
+function selectSlot(i){if(!state.slots[i])return toast("🔒 Спочатку купи слот");if(isRefueling())return toast("🔒 Дочекайся заправки");state.activeSlot=i;state.fuel=0;state.refuelUntil=0;toast("🚗 Активна: "+state.slots[i].name);render()}
+function buySlot(i){if(state.slots[i])return selectSlot(i);if(i===0)return toast("Перший слот уже відкритий");const cost=costs[i-1]||1000000;if(state.km<cost)return toast("❌ Недостатньо KM");state.km-=cost;const c=weightedCar();state.slots[i]={...c};toast("🎰 "+c.name+" • "+c.rare);render()}
+function buyPower(){if(isRefueling())return toast("🔒 Машина на заправці");if(state.km<1000)return toast("❌ Недостатньо KM");state.km-=1000;state.power++;toast("⚡ Power підвищено");render()}
+function buyFuel(){if(isRefueling())return toast("🔒 Машина на заправці");if(state.km<2500)return toast("❌ Недостатньо KM");state.km-=2500;state.fuel=Math.min(100000,state.fuel+10000);toast("⛽ +10% палива");render()}
+function switchTab(id){document.querySelectorAll(".tab").forEach(x=>x.classList.remove("active"));$(id).classList.add("active");document.querySelectorAll(".navbtn").forEach(x=>x.classList.toggle("active",x.dataset.tab===id));window.scrollTo({top:0,behavior:"smooth"})}
+document.querySelectorAll(".navbtn").forEach(b=>{
+  b.addEventListener("click",()=>{
+    const id=b.dataset.tab;
+    if($(id)) switchTab(id);
+  });
+});
+$("settings").onclick=()=>toast("⚙ Налаштування: прогрес зберігається автоматично");
+$("lang").onclick=()=>toast("🌐 Українська мова");
+$("tap").onclick=tap;
+const carTapTarget=$("carTapTarget");
+if(carTapTarget){
+  carTapTarget.addEventListener("click",tap);
+  carTapTarget.addEventListener("keydown",e=>{
+    if(e.key==="Enter"||e.key===" "){e.preventDefault();tap();}
+  });
+  carTapTarget.addEventListener("touchend",e=>{
+    e.preventDefault(); tap();
+  },{passive:false});
+}
+
+setInterval(()=>{render();const left=24*3600-(Math.floor(Date.now()/1000)%86400);$("bonusTimer").textContent=String(Math.floor(left/3600)).padStart(2,"0")+":"+String(Math.floor(left%3600/60)).padStart(2,"0")+":"+String(left%60).padStart(2,"0")},1000);
+render();
+</script>
+</body></html>
