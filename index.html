@@ -441,6 +441,144 @@
   .car-slots-stage .slot .buy{font-size:6px!important;height:19px!important;min-height:19px!important}
 }
 </style>
+
+<style id="v31-big-swipe-slots">
+/* V31: remove the crossed-out duplicate KM balance row */
+#home > .hero{display:none!important}
+
+/* Bigger slot cards + horizontal swipe carousel */
+.car-slots-stage{
+  display:flex!important;
+  flex-direction:row!important;
+  align-items:center!important;
+  justify-content:flex-start!important;
+  gap:14px!important;
+  width:100%!important;
+  max-width:1400px!important;
+  min-height:430px!important;
+  overflow-x:auto!important;
+  overflow-y:hidden!important;
+  padding:12px 16px 18px!important;
+  box-sizing:border-box!important;
+  scroll-snap-type:x mandatory!important;
+  -webkit-overflow-scrolling:touch!important;
+  scrollbar-width:none!important;
+  touch-action:pan-x!important;
+}
+.car-slots-stage::-webkit-scrollbar{display:none!important}
+.car-slots-stage .car-card{
+  flex:0 0 min(55vw,500px)!important;
+  width:min(55vw,500px)!important;
+  min-width:300px!important;
+  min-height:390px!important;
+  margin:0!important;
+  scroll-snap-align:start!important;
+}
+.car-slots-stage .slots{
+  position:static!important;
+  display:flex!important;
+  flex-direction:row!important;
+  flex-wrap:nowrap!important;
+  gap:12px!important;
+  overflow:visible!important;
+  flex:0 0 auto!important;
+  margin:0!important;
+  padding:0!important;
+  pointer-events:auto!important;
+}
+.car-slots-stage .slot{
+  position:static!important;
+  flex:0 0 170px!important;
+  width:170px!important;
+  min-width:170px!important;
+  height:235px!important;
+  padding:12px!important;
+  margin:0!important;
+  border-radius:18px!important;
+  scroll-snap-align:center!important;
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:center!important;
+  justify-content:center!important;
+  background:linear-gradient(150deg,#121e25,#091116)!important;
+  border:1px solid #2b3942!important;
+  box-shadow:0 14px 30px #0009!important;
+}
+.car-slots-stage .slot.active{
+  border-color:#9cff35!important;
+  box-shadow:0 0 22px #9cff3530,0 14px 30px #000a!important;
+}
+.car-slots-stage .slot img{
+  width:130px!important;
+  height:88px!important;
+  object-fit:contain!important;
+}
+.car-slots-stage .slot .slot-car{
+  width:100%!important;
+  height:95px!important;
+  display:grid!important;
+  place-items:center!important;
+  font-size:48px!important;
+}
+.car-slots-stage .slot-lock{font-size:48px!important}
+.car-slots-stage .slot b{font-size:13px!important}
+.car-slots-stage .slot span,
+.car-slots-stage .slot small{font-size:8px!important}
+.car-slots-stage .slot .buy{
+  width:90%!important;
+  height:30px!important;
+  min-height:30px!important;
+  border-radius:9px!important;
+  font-size:9px!important;
+}
+
+/* Remove the words "АКТИВНИЙ" from the slot button completely. */
+.car-slots-stage .slot .buy{font-size:0!important}
+.car-slots-stage .slot .buy::after{
+  content:"ВИБРАТИ";
+  font-size:9px;
+}
+
+/* Keep old carousel controls hidden. */
+.car-slots-stage .slots-title,
+.car-slots-stage .slot-dots,
+.car-slots-stage .slot-buy-panel{display:none!important}
+
+@media(max-width:700px){
+  .car-slots-stage{
+    min-height:375px!important;
+    gap:10px!important;
+    padding-left:10px!important;
+    padding-right:10px!important;
+  }
+  .car-slots-stage .car-card{
+    flex-basis:330px!important;
+    width:330px!important;
+    min-width:330px!important;
+    min-height:350px!important;
+  }
+  .car-slots-stage .slots{gap:9px!important}
+  .car-slots-stage .slot{
+    flex-basis:145px!important;
+    width:145px!important;
+    min-width:145px!important;
+    height:205px!important;
+    padding:10px!important;
+  }
+  .car-slots-stage .slot img{
+    width:110px!important;height:75px!important;
+  }
+  .car-slots-stage .slot .slot-car{height:78px!important;font-size:40px!important}
+  .car-slots-stage .slot-lock{font-size:42px!important}
+  .car-slots-stage .slot b{font-size:11px!important}
+  .car-slots-stage .slot span,
+  .car-slots-stage .slot small{font-size:7px!important}
+  .car-slots-stage .slot .buy{
+    height:27px!important;min-height:27px!important;
+  }
+  .car-slots-stage .slot .buy::after{font-size:8px}
+}
+</style>
 </head>
 <body>
 <div class="app">
@@ -548,7 +686,7 @@ function render(){
  $("tap").disabled=locked;$("tap").style.opacity=locked?".45":"1";$("tap").querySelector("strong").textContent=locked?"🔒":"ТАП";$("tap").querySelector("small").textContent=locked?"Машина недоступна":"Тапай по машині!";
  const rb=$("refuelTimer"); if(locked){let sec=Math.max(0,Math.ceil((state.refuelUntil-Date.now())/1000));rb.textContent=String(Math.floor(sec/3600)).padStart(2,"0")+":"+String(Math.floor(sec%3600/60)).padStart(2,"0")+":"+String(sec%60).padStart(2,"0")}else rb.textContent="12:00:00";
  const box=$("slots");box.innerHTML="";
- for(let i=0;i<5;i++){const el=document.createElement("div");el.className="slot"+(i===state.activeSlot?" active":"");if(state.slots[i]){const x=state.slots[i];el.innerHTML=`<small>СЛОТ ${i+1}</small><div class="slot-car"><img src="${x.img}"></div><b>${x.name}</b><span>${x.rare}</span><button class="buy" onclick="selectSlot(${i})">${i===state.activeSlot?"АКТИВНИЙ":"ВИБРАТИ"}</button>`}else{const cost=costs[i-1]||1000000;el.innerHTML=`<small>СЛОТ ${i+1}</small><div class="slot-car">🔒</div><b>ЗАКРИТО</b><span>Купити</span><button class="buy" onclick="buySlot(${i})">${fmt(cost)} KM</button>`}box.appendChild(el)}
+ for(let i=0;i<5;i++){const el=document.createElement("div");el.className="slot"+(i===state.activeSlot?" active":"");if(state.slots[i]){const x=state.slots[i];el.innerHTML=`<small>СЛОТ ${i+1}</small><div class="slot-car"><img src="${x.img}"></div><b>${x.name}</b><span>${x.rare}</span><button class="buy" onclick="selectSlot(${i})">ВИБРАТИ</button>`}else{const cost=costs[i-1]||1000000;el.innerHTML=`<small>СЛОТ ${i+1}</small><div class="slot-car">🔒</div><b>ЗАКРИТО</b><span>Купити</span><button class="buy" onclick="buySlot(${i})">${fmt(cost)} KM</button>`}box.appendChild(el)}
  if(window.updateSlotCarousel)setTimeout(window.updateSlotCarousel,0);
  $("garageSlots").innerHTML=state.slots.map((x,i)=>`<div class="garage-slot"><b>СЛОТ ${i+1} • ${x.name}</b><small>${x.rare}</small><button class="buy" style="margin-top:6px" onclick="selectSlot(${i})">${i===state.activeSlot?"ОБРАНО":"ВИБРАТИ"}</button></div>`).join("")+Array.from({length:5-state.slots.length},(_,i)=>`<div class="garage-slot"><b>🔒 СЛОТ ${state.slots.length+i+1}</b><small>Купи у магазині</small></div>`).join("");
  $("leaderList").innerHTML=["GG Racer","LADA KING","V8 Master","Garage Boss","Turbo"].map((n,i)=>`<div class="upgrade"><div><b>${i+1}. ${n}</b><small>GG • ${fmt(Math.max(10000,state.gg-i*3210))}</small></div><b>#${i+1}</b></div>`).join("");
@@ -767,6 +905,18 @@ render();
   }
   document.addEventListener("DOMContentLoaded",()=>setTimeout(fix,100));
   new MutationObserver(()=>setTimeout(fix,20)).observe(document.body,{childList:true,subtree:true});
+})();
+</script>
+
+<script id="v31-slot-label-fix">
+(function(){
+  function fix(){
+    document.querySelectorAll("#home .car-slots-stage .slot .buy").forEach(b=>{
+      if(b.textContent.trim()==="АКТИВНИЙ") b.textContent="ВИБРАТИ";
+    });
+  }
+  document.addEventListener("DOMContentLoaded",()=>setTimeout(fix,80));
+  new MutationObserver(()=>setTimeout(fix,10)).observe(document.body,{childList:true,subtree:true});
 })();
 </script>
 </body></html>
