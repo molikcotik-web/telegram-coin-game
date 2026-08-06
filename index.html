@@ -1,0 +1,589 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<title>CAR MY GAR • GG RUSH</title>
+<style>
+:root{--bg:#05080c;--card:#0c1117;--line:#202b35;--muted:#7f8a91;--lime:#a9ff27;--red:#ff3d4f}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}html,body{margin:0;background:#000;color:#f7faf8;font-family:Inter,system-ui,-apple-system,Segoe UI,Arial,sans-serif}body{min-height:100vh}button{font:inherit}
+.app{width:min(495px,100%);min-height:100vh;margin:auto;background:radial-gradient(500px 260px at 50% 15%,#18261e 0,#0a1015 48%,#05080c 100%);padding-bottom:88px;overflow:hidden}
+.header{height:67px;padding:7px 11px 5px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #172029;background:#070b10}.brand{font-weight:1000;font-size:20px;letter-spacing:-1px;line-height:.9}.brand b{color:var(--lime)}.brand small{display:block;font-size:8px;color:#6e777d;letter-spacing:1.5px;margin-top:4px}.header-right{display:flex;gap:6px}.lang,.settings{height:30px;border:1px solid #1e2933;border-radius:10px;background:#0b1117;color:#b8c0c5;font-size:9px}.settings{width:30px;font-size:16px}.lang{padding:0 8px}
+.page{padding:7px 10px 18px}.tab{display:none}.tab.active{display:block}.top-row{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:7px}.mini-card{height:52px;border:1px solid #17212a;border-radius:13px;background:linear-gradient(145deg,#0d131a,#080c11);display:flex;align-items:center;padding:7px 10px;gap:8px}.coin{width:33px;height:33px;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle,#baff51,#4b8f13);box-shadow:0 0 16px #9cff2830;font-size:12px}.mini-card strong{font-size:16px;line-height:1}.mini-card small{display:block;color:#7e898f;font-size:8px;margin-top:3px}.mini-card b{color:var(--lime);font-size:9px}.bonus{justify-content:space-between}.bonus .gift{font-size:18px}.bonus .arrow{font-size:19px;color:#9ca5aa}
+.hero{border:1px solid #253039;border-radius:18px;background:linear-gradient(145deg,#10171b,#080d12);padding:10px 12px;margin-bottom:7px}.hero-top{display:flex;justify-content:space-between;align-items:center}.hero small{font-size:8px;color:#7f8a91;letter-spacing:1.2px}.hero .gg-total{font-size:12px;color:#b9c2c7}.hero .gg-total b{font-size:16px;color:#fff}
+.car-card{position:relative;height:330px;border:1px solid #202d35;border-radius:18px;overflow:hidden;background:radial-gradient(circle at 50% 60%,#1b2820 0,#0c1218 48%,#080c11 100%);box-shadow:0 18px 45px #000a}.car-card:before{content:"";position:absolute;inset:0;background:linear-gradient(transparent 65%,#8dff2420 100%);pointer-events:none}.car-title{position:absolute;top:7px;left:0;right:0;text-align:center;z-index:5;font-weight:1000;font-size:17px}.car-meta{margin-top:2px;display:flex;justify-content:center;gap:4px;font-size:7px;color:#899299}.pill{padding:3px 7px;border-radius:7px;background:#394147;color:#c6cdd0}
+.car-img-wrap{position:absolute;inset:38px 0 45px;display:grid;place-items:center}.car-img{width:96%;height:100%;object-fit:contain;display:block;filter:drop-shadow(0 16px 18px #000) drop-shadow(0 0 13px #a4ff2d28);user-select:none;-webkit-user-drag:none;pointer-events:none;transition:transform .1s}.car-card.tap .car-img{transform:scale(.955)} .car-img-wrap{cursor:pointer;touch-action:manipulation} .car-img-wrap:active{transform:scale(.985)}.car-floor{position:absolute;bottom:44px;width:64%;height:22px;border-radius:50%;border:1px solid #aaff3166;box-shadow:0 0 28px #9cff2835}
+.fuel-left,.fuel-box,.refuel-box{position:absolute;padding:8px;border-radius:11px;background:#091016dd;border:1px solid #1d2931;z-index:6}.fuel-left{left:7px;top:11px;width:120px}.fuel-box{right:7px;top:11px;width:122px}.refuel-box{right:7px;bottom:9px;width:122px}.fuel-left small,.fuel-box small,.refuel-box small{display:block;color:#7e898f;font-size:7px;letter-spacing:1px}.fuel-num{font-size:27px;font-weight:1000;color:var(--lime);line-height:1.05}.fuel-bar{height:7px;border-radius:5px;background:#1d252b;overflow:hidden;margin-top:4px}.fuel-fill{height:100%;width:75%;background:linear-gradient(90deg,#8cff24,#4bdc15);border-radius:5px;transition:width .2s}.fuel-count{font-size:7px;color:#879198;margin-top:4px}.fuel-box .danger{color:var(--red);font-size:9px;font-weight:1000;margin-top:2px}.fuel-box .danger.ok{color:var(--lime)}.fuel-box p{margin:3px 0 0;color:#8a949a;font-size:7px;line-height:1.25}.refuel-box b{display:block;color:var(--lime);font-size:14px;margin-top:2px}
+.tap-zone{position:absolute;left:50%;bottom:6px;transform:translateX(-50%);z-index:8;width:178px;height:68px;border-radius:50%;border:2px solid #b1ff43;background:radial-gradient(ellipse,#243d1d,#0c1410 67%);box-shadow:0 0 20px #9cff2860,0 0 55px #9cff2835,inset 0 0 22px #9cff2820;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#c8ff7c;cursor:pointer;touch-action:manipulation}.tap-zone strong{font-size:29px;line-height:1;font-weight:1000;letter-spacing:1px}.tap-zone small{font-size:8px;color:#9da7a5;margin-top:3px}
+.plus{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-size:21px;color:#d3ff85;font-weight:1000;opacity:0;pointer-events:none;text-shadow:0 0 16px #9cff28}.plus.show{animation:plus .6s ease-out forwards}@keyframes plus{0%{opacity:0;transform:translate(-50%,0) scale(.7)}20%{opacity:1}100%{opacity:0;transform:translate(-50%,-70px) scale(1.1)}}
+.slots-title{font-size:9px;font-weight:1000;letter-spacing:1px;margin:10px 5px 5px;color:#c5cdd0}.slots{display:grid;grid-template-columns:repeat(5,1fr);gap:4px}.slot{min-width:0;height:108px;padding:5px 3px;border-radius:10px;border:1px solid #26333b;background:linear-gradient(#10171d,#0b1116);color:#fff;text-align:center}.slot.active{border-color:#7fbd31;box-shadow:0 0 12px #9cff2818}.slot small{font-size:6px;color:#a3adb2;display:block}.slot .slot-car{height:43px;display:grid;place-items:center;margin-top:2px;font-size:29px;color:#3b6c91}.slot img{width:58px;height:42px;object-fit:contain;filter:drop-shadow(0 5px 5px #000)}.slot b{display:block;font-size:8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.slot span{display:block;font-size:6px;color:#8e999f;margin:1px 0 3px}.buy{height:19px;width:94%;border:0;border-radius:5px;background:linear-gradient(#87dc2d,#4e9e18);color:#061006;font-size:7px;font-weight:1000}
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-top:6px}.info{border:1px solid #202a32;border-radius:11px;background:#0b1117;padding:8px;min-height:95px}.info h3{font-size:8px;margin:0 0 6px;color:#aeb7bb}.rates{display:grid;gap:4px}.rate{display:flex;justify-content:space-between;font-size:7px;color:#89939a}.rate b{font-size:7px}.common{color:#a7b0b5}.uncommon{color:#6dff91}.rare{color:#4abaff}.epic{color:#b66cff}.legendary{color:#ffd12f}.steps{display:grid;gap:5px}.step{display:grid;grid-template-columns:17px 1fr;gap:4px;font-size:7px;color:#a0aaaf;line-height:1.25}.step i{width:15px;height:15px;border-radius:50%;background:#77d91f;color:#0a1007;font-style:normal;font-weight:1000;text-align:center;line-height:15px}
+.bottom{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(495px,100%);height:70px;z-index:100;background:#070a0ef7;border-top:1px solid #1b242c;display:grid;grid-template-columns:repeat(5,1fr);padding:4px 4px max(4px,env(safe-area-inset-bottom));backdrop-filter:blur(15px)}.navbtn{border:0;background:transparent;color:#687279;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;border-radius:11px;cursor:pointer}.navicon{font-size:22px;line-height:21px}.navbtn b{font-size:7px}.navbtn.active{color:var(--lime)} .navbtn:active,.buy:active,.upgrade button:active,.settings:active,.lang:active{transform:scale(.96);opacity:.82}.navbtn.active .navicon{filter:drop-shadow(0 0 7px #9cff2855)}
+.subpage{border:1px solid #202b33;border-radius:17px;background:#0b1117;padding:12px}.subpage h2{margin:0 0 3px;font-size:21px}.subpage>small{color:#7f898f;font-size:8px}.garage-hero{margin-top:10px;border-radius:17px;background:radial-gradient(circle,#1a2b21,#0b1117 65%);border:1px solid #25333a;text-align:center;padding:10px}.garage-hero img{width:100%;height:250px;object-fit:contain;filter:drop-shadow(0 15px 20px #000)}.garage-hero strong{display:block;font-size:18px}.garage-hero small{color:#9aa4a9;font-size:7px}.garage-slots{display:grid;grid-template-columns:repeat(2,1fr);gap:6px;margin-top:7px}.garage-slot{border:1px solid #27343b;border-radius:12px;background:#0d141a;color:#fff;padding:10px;text-align:left}.garage-slot b{display:block;font-size:11px}.garage-slot small{display:block;color:#8b969b;font-size:7px;margin-top:3px}.shop-grid{display:grid;gap:7px;margin-top:10px}.upgrade{border:1px solid #25323a;border-radius:13px;background:#0d1419;padding:11px;display:flex;justify-content:space-between;align-items:center}.upgrade b{font-size:10px}.upgrade small{display:block;color:#818c91;font-size:7px;margin-top:3px}.upgrade button{border:0;border-radius:8px;background:#8ee72d;padding:8px;color:#061005;font-size:8px;font-weight:1000}.profile-card{margin-top:10px;display:grid;gap:8px}.profile-stat{display:flex;justify-content:space-between;border-bottom:1px solid #19242c;padding:8px 0;font-size:10px}.profile-stat span{color:#808b91}.toast{position:fixed;left:50%;bottom:82px;transform:translateX(-50%);z-index:200;padding:8px 12px;border:1px solid #2d3c43;background:#0b1116;color:#dbe3df;border-radius:11px;font-size:9px;opacity:0;pointer-events:none;transition:.2s;max-width:90%;text-align:center}.toast.show{opacity:1}
+@media(max-width:380px){.car-card{height:315px}.fuel-left,.fuel-box,.refuel-box{width:105px}.tap-zone{width:160px;height:63px}.tap-zone strong{font-size:25px}.slots{gap:2px}.slot{height:103px}}
+</style>
+<style>
+.car-img-wrap{cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+.car-img-wrap img{pointer-events:none;user-select:none;-webkit-user-drag:none}
+.navbtn,.buy,.upgrade button,.settings,.lang{cursor:pointer}
+.navbtn:active,.buy:active,.upgrade button:active,.settings:active,.lang:active{transform:scale(.96)}
+</style><style>
+.car-img-wrap{cursor:pointer;touch-action:manipulation;display:flex;align-items:center;justify-content:center;min-height:180px;overflow:hidden}
+.car-img-wrap .car-img{display:block!important;visibility:visible!important;opacity:1!important;width:100%;max-width:430px;height:auto;object-fit:contain;pointer-events:none;user-select:none;-webkit-user-drag:none}
+</style><style>
+.car-img-wrap{z-index:2;cursor:pointer;touch-action:manipulation}
+.car-img-wrap .car-img{display:block!important;visibility:visible!important;opacity:1!important;pointer-events:none!important;object-fit:contain!important}
+</style><style>
+.car-img-wrap{position:absolute!important;inset:38px 0 45px!important;display:grid!important;place-items:center!important;z-index:2!important;overflow:visible!important}
+.car-img-wrap .car-img{display:block!important;visibility:visible!important;opacity:1!important;width:96%!important;height:100%!important;max-width:none!important;object-fit:contain!important;pointer-events:none!important}
+</style><style id="quest-style-v24">
+.tab{display:none}.tab.active{display:block}
+.quest-card{display:flex;align-items:center;gap:14px;padding:16px;margin:12px 0;border:1px solid #26363e;border-radius:18px;background:#0d171b}
+.quest-icon{font-size:32px}.quest-main{flex:1}.quest-main h3{margin:0 0 6px}.quest-main p{margin:0 0 8px;color:#94a4ab}
+.quest-actions{display:flex;flex-direction:column;gap:8px}.quest-go,.quest-claim{border:0;border-radius:11px;padding:10px 13px;font-weight:900;text-decoration:none;text-align:center;cursor:pointer}
+.quest-go{background:#27353d;color:white}.quest-claim{background:#b7ff45;color:#071008}.quest-claim.done{background:#29362e;color:#9cff55}
+.quest-status,.quest-note{margin-top:10px;color:#96a5ac}
+</style>
+<style id="v25-wallet-quests">
+#quests{order:-10!important;margin-top:0!important;padding-top:6px!important}
+.quest-card{margin-top:4px!important}
+.wallet-panel{margin:8px 0 14px;padding:14px;border:1px solid #2b3c44;border-radius:16px;background:linear-gradient(145deg,#101b20,#0b1317)}
+.wallet-title{font-size:12px;color:#8d9da5;font-weight:800;text-transform:uppercase;letter-spacing:.08em}
+.wallet-row{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:8px}
+.wallet-address{font-family:monospace;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#cbd5da}
+.wallet-btn{border:0;border-radius:11px;padding:10px 14px;background:#b7ff45;color:#071008;font-weight:900;cursor:pointer}
+.wallet-btn.connected{background:#26362d;color:#9cff55}
+.wallet-note{font-size:12px;color:#7f9098;margin-top:8px}
+</style>
+
+<style id="v26-ton-connect">
+.ton-wallet-card{margin:0 0 12px;padding:15px;border:1px solid #26343c;border-radius:18px;background:linear-gradient(145deg,#11181e,#090e13);box-shadow:0 12px 30px #0007}
+.ton-wallet-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}
+.ton-wallet-title{font-size:20px;font-weight:950;letter-spacing:-.4px}.ton-wallet-sub{font-size:12px;color:#858f96;margin-top:4px;line-height:1.35}
+.ton-logo{width:42px;height:42px;border-radius:13px;display:grid;place-items:center;background:#24a9f4;color:white;font-weight:1000;font-size:11px;box-shadow:0 0 20px #24a9f455}
+.ton-connect-custom{width:100%;min-height:58px;border:0;border-radius:15px;background:#2faef0;color:#fff;display:flex;align-items:center;gap:12px;padding:0 16px;font-size:16px;font-weight:900;cursor:pointer;box-shadow:0 8px 24px #129ce33a}
+.ton-wallet-icon{width:34px;height:34px;border-radius:10px;background:#ffffff22;display:grid;place-items:center;font-size:19px}.ton-arrow{margin-left:auto;font-size:27px}
+.ton-wallet-status{margin-top:9px;color:#87949c;font-size:11px;text-align:center}
+.ton-wallet-status.connected{color:#b7ff45}
+#quests{padding-top:0!important}
+#quests .section-title{margin-top:0}
+</style>
+<script src="https://unpkg.com/@tonconnect/ui@3.0.0/dist/tonconnect-ui.min.js"></script>
+<style id="v26-gasoline-top-css">
+.gasoline-top{
+  border-color:#33452b!important;
+  box-shadow:inset 0 0 22px #9cff3510!important;
+}
+.gas-top-icon{
+  width:33px;height:33px;border-radius:50%;
+  display:grid;place-items:center;
+  background:#9cff3515;
+  font-size:17px;
+}
+.gasoline-top strong{
+  color:#9cff35;
+  font-size:16px;
+  line-height:1;
+}
+.gasoline-top small{
+  white-space:nowrap;
+}
+.gasoline-top.gas-hit{
+  animation:gasTopHit .18s ease-out;
+}
+@keyframes gasTopHit{
+  50%{transform:scale(1.025);box-shadow:0 0 22px #9cff3540}
+}
+.gas-spend-fx{
+  position:fixed;z-index:99999;pointer-events:none;
+  color:#9cff35;font-weight:900;font-size:16px;
+  text-shadow:0 2px 8px #000;
+  animation:gasSpendFx .65s ease-out forwards;
+}
+@keyframes gasSpendFx{
+  from{opacity:1;transform:translateY(0) scale(1)}
+  to{opacity:0;transform:translateY(-40px) scale(1.1)}
+}
+</style>
+
+<style id="case-v1-css">
+.case-wrap{margin-top:10px;border:1px solid #252f38;border-radius:18px;background:radial-gradient(circle at 50% 30%,#24143b,#0b1016 68%);padding:12px;overflow:hidden;box-shadow:inset 0 0 35px #8d39ff12}
+.case-head{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}.case-head h2{margin:0;font-size:21px}.case-head p{margin:3px 0 0;color:#818b92;font-size:9px}.case-free{border:1px solid #7c36e8;background:#7c36e820;color:#cda7ff;border-radius:99px;padding:5px 8px;font-size:8px;font-weight:900;white-space:nowrap}
+.case-art{display:block;width:100%;max-height:250px;object-fit:cover;border-radius:14px;margin:10px 0 6px;background:#07090d}.case-title{text-align:center;font-weight:1000;font-size:12px;letter-spacing:.5px}.case-sub{text-align:center;color:#8a949b;font-size:8px;margin-top:3px}
+.case-open{width:100%;margin-top:9px;border:0;border-radius:13px;padding:12px;background:linear-gradient(180deg,#a2f338,#5dbb19);color:#061006;font-weight:1000;font-size:12px;cursor:pointer}.case-open:disabled{opacity:.45;cursor:not-allowed}.case-timer{text-align:center;color:#a8b0b5;font-size:9px;margin-top:6px;min-height:12px}
+.case-odds{display:grid;grid-template-columns:repeat(5,1fr);gap:5px;margin-top:10px}.case-odd{border:1px solid #27333c;border-radius:10px;background:#0b1117;padding:7px 3px;text-align:center;min-width:0}.case-odd .ico{font-size:19px}.case-odd b{display:block;font-size:8px;margin-top:2px}.case-odd small{display:block;color:#8b969b;font-size:6px;margin-top:2px}.case-odd:nth-child(3){border-color:#a94cff55;box-shadow:inset 0 0 15px #a94cff0c}
+.case-modal{position:fixed;inset:0;background:#03050ad9;backdrop-filter:blur(12px);z-index:500;display:none;align-items:center;justify-content:center;padding:14px}.case-modal.show{display:flex}.case-dialog{width:min(470px,100%);border:1px solid #3c2b55;border-radius:20px;background:radial-gradient(circle at 50% 20%,#25143a,#0a0f15 65%);padding:14px;box-shadow:0 0 50px #8e39ff28;text-align:center}.case-dialog h2{margin:0;font-size:21px}.case-dialog>p{color:#89949b;font-size:9px;margin:5px 0 12px}.case-reel{position:relative;overflow:hidden;border:1px solid #2d3841;border-radius:14px;background:#070b10;padding:10px 0}.case-reel:after{content:"";position:absolute;left:50%;top:0;bottom:0;width:2px;background:#9cff35;box-shadow:0 0 12px #9cff35;transform:translateX(-50%);z-index:3}.case-track{display:flex;gap:7px;transform:translateX(0);will-change:transform}.case-item{flex:0 0 100px;height:120px;border:1px solid #2a353d;border-radius:10px;background:#0d141a;display:flex;flex-direction:column;align-items:center;justify-content:center}.case-item .ico{font-size:35px}.case-item b{font-size:9px;margin-top:6px}.case-item small{color:#8a949a;font-size:7px;margin-top:3px}.case-result{margin-top:12px;min-height:86px;display:none}.case-result.show{display:block}.case-result .win-icon{font-size:45px}.case-result h3{margin:4px 0;font-size:18px;color:#b5ff59}.case-result p{margin:0;color:#929ca2;font-size:8px}.case-claim{margin-top:10px;width:100%;border:0;border-radius:12px;padding:11px;background:#8de52e;color:#061006;font-weight:1000;font-size:11px;cursor:pointer}.case-close{margin-top:7px;background:transparent;border:0;color:#778188;font-size:8px;cursor:pointer}
+@keyframes casePulse{50%{box-shadow:0 0 30px #a84cff55,inset 0 0 35px #8d39ff20}}.case-wrap.pulse{animation:casePulse .55s ease}
+@media(max-width:380px){.case-odds{gap:2px}.case-item{flex-basis:82px;height:110px}}
+</style>
+
+<style id="daily-case-real-css">
+.daily-case{margin:10px 6px;padding:14px;border:1px solid #26323d;border-radius:22px;background:radial-gradient(circle at 50% 38%,#35116d 0,#0c1118 48%,#070a0f 100%);box-shadow:0 0 35px #8b35ff18;overflow:hidden}
+.daily-case-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.daily-case-top h2{margin:0;font-size:22px}.daily-case-top p{margin:5px 0;color:#87939d;font-size:12px;line-height:1.35}.free-badge{padding:6px 10px;border-radius:999px;background:#a9ff27;color:#071000;font-weight:900;font-size:11px}
+.daily-case-image{display:block;width:min(100%,430px);height:205px;object-fit:contain;margin:4px auto -3px;filter:drop-shadow(0 0 22px #9a35ff70)}
+.daily-case-open{text-align:center}.daily-case-open button{width:min(92%,360px);border:0;border-radius:17px;padding:15px 12px;background:linear-gradient(180deg,#b8ff3d,#72d900);color:#071000;font-weight:1000;font-size:17px;box-shadow:0 8px 24px #8cff282d}.daily-case-open button:disabled{opacity:.45;filter:grayscale(.3)}#caseTimer{margin-top:8px;color:#9ca7ae;font-size:11px}
+.case-prizes{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px;margin-top:13px}.case-prizes>div{min-width:0;padding:8px 3px;border:1px solid #26323d;border-radius:12px;text-align:center;background:#0d141b}.case-prizes span{display:block;font-size:24px}.case-prizes b{display:block;font-size:11px;white-space:nowrap}.case-prizes small{color:#9cff35;font-weight:800;font-size:9px}
+.case-modal{position:fixed;inset:0;z-index:10000;display:none;align-items:center;justify-content:center;padding:14px;background:#000b;backdrop-filter:blur(9px)}.case-modal.show{display:flex}.case-dialog{width:min(100%,500px);padding:18px;border:1px solid #5d2ca4;border-radius:24px;background:#080c12;box-shadow:0 0 60px #8d32ff45;text-align:center}.case-dialog h2{margin:0 0 5px}.case-dialog p{color:#8d969e;margin:0 0 15px}.case-reel{height:118px;overflow:hidden;border:2px solid #8d3fff;border-radius:16px;background:#0d1118;position:relative}.case-reel:after{content:"";position:absolute;top:0;bottom:0;left:50%;width:3px;background:#a9ff27;box-shadow:0 0 15px #a9ff27;transform:translateX(-50%)}.case-track{height:100%;display:flex;align-items:center;gap:8px;width:max-content}.case-item{width:99px;height:94px;flex:none;border:1px solid #293540;border-radius:12px;background:#101720;display:flex;flex-direction:column;align-items:center;justify-content:center}.case-item .ico{font-size:30px}.case-item b{font-size:12px}.case-item small{color:#9cff35}.case-result{display:none;margin-top:15px;padding:15px;border-radius:17px;background:radial-gradient(circle,#32115c,#0d1219 65%)}.case-result.show{display:block}.win-icon{font-size:58px}.case-result h3{font-size:22px;margin:5px}.case-claim{border:0;border-radius:14px;padding:13px 40px;background:#9cff35;color:#071000;font-weight:1000;font-size:16px}.case-close{margin-top:10px;border:1px solid #303a44;border-radius:12px;background:#10161d;color:#b7c0c6;padding:9px 20px}
+@media(max-width:430px){.daily-case-image{height:170px}.case-prizes{gap:4px}.case-prizes span{font-size:20px}.case-prizes b{font-size:9px}.case-prizes small{font-size:8px}}
+</style>
+
+
+<style id="duck-my-duck-ui">
+:root{
+ --dm-yellow:#f6d400;--dm-yellow2:#ffe34d;--dm-bg:#090909;
+ --dm-panel:#151515;--dm-card:#1d1d1d;--dm-card2:#242424;
+ --dm-border:#3a3a3a;--dm-text:#f7f7f7;--dm-muted:#9b9b9b;
+ --dm-green:#9cff22;--dm-red:#ff4d4d;
+}
+html,body{margin:0;background:var(--dm-bg)!important;color:var(--dm-text)!important}
+body{font-family:Inter,system-ui,-apple-system,Segoe UI,Arial,sans-serif!important}
+.app{background:linear-gradient(180deg,#101010 0,#090909 100%)!important}
+.header{background:#101010!important;border-bottom:1px solid #303030!important}
+.page{background:transparent!important}
+.subpage{
+ background:linear-gradient(145deg,#242424,#171717)!important;
+ border:1px solid #3d3d3d!important;border-radius:18px!important;
+ box-shadow:0 8px 22px #0009!important;
+}
+.subpage h2,.section-title{color:#fff!important}
+.subpage small{color:#9d9d9d!important}
+.shop-grid{display:grid!important;gap:9px!important}
+.upgrade{
+ display:flex!important;align-items:center!important;justify-content:space-between!important;
+ min-height:67px!important;padding:12px 14px!important;
+ background:linear-gradient(145deg,#242424,#171717)!important;
+ border:1px solid #3c3c3c!important;border-radius:18px!important;
+ box-shadow:0 7px 20px #0008!important;
+}
+.upgrade b{color:#fff!important;font-size:14px!important}
+.upgrade small{display:block!important;color:#999!important;margin-top:4px!important}
+.upgrade button,.buy-btn{
+ background:linear-gradient(180deg,#ffe34d,#f6d400)!important;
+ color:#111!important;border:0!important;border-radius:13px!important;
+ font-weight:1000!important;min-height:40px!important;padding:0 16px!important;
+ box-shadow:0 4px 14px #f6d40022!important;
+}
+.upgrade button:active,.buy-btn:active{transform:scale(.96)!important}
+.daily-case{
+ background:radial-gradient(circle at 50% 25%,#4a3d00 0,#20200f 38%,#151515 75%)!important;
+ border:1px solid #665700!important;
+}
+.daily-case-open button,.case-claim{
+ background:linear-gradient(180deg,#ffe34d,#f6d400)!important;
+ color:#111!important;border:0!important;font-weight:1000!important;
+}
+.case-prizes>div{
+ background:#171717!important;border:1px solid #383838!important;
+}
+.case-prizes small{color:#f6d400!important}
+.car-card{
+ background:radial-gradient(circle at 50% 48%,#3b3300 0,#181813 40%,#0d0d0d 78%)!important;
+ border-color:#635600!important;
+}
+.fuel-left,.fuel-box,.refuel-box{
+ background:#151515ee!important;border-color:#3a3a3a!important;
+}
+.fuel-num,.km,.balance,.coins{color:#f6d400!important}
+.fuel-fill{background:linear-gradient(90deg,#f6d400,#ffe34d)!important}
+.bottom{
+ background:#0d0d0d!important;border-top:1px solid #303030!important;
+}
+.navbtn{color:#8f8f8f!important}
+.navbtn.active{color:#f6d400!important}
+.navbtn.active .navicon,.navbtn.active b{color:#f6d400!important}
+.toast{background:#252525!important;color:#fff!important;border:1px solid #444!important}
+button{font-family:inherit!important}
+</style><style id="telegram-stars-ui">
+.star-currency{color:#ffd34d!important;text-shadow:0 0 10px #ffd34d44;font-weight:1000}
+.star-icon{display:inline-grid;place-items:center;width:24px;height:24px;border-radius:50%;
+background:radial-gradient(circle at 35% 30%,#fff2a0,#ffc928 55%,#d88d00);
+color:#fff;text-shadow:0 1px 2px #765000;font-size:14px;box-shadow:0 0 12px #ffd34d44}
+.daily-case-image{content:url("gg-rush-case-new.jpg")!important}
+.car-img{content:url("zhygul-new.jpg")!important}
+</style></head>
+<body>
+<div class="app">
+<header class="header"><div class="brand"><b>CAR</b> MY GAR<small>TAP • EARN • UPGRADE</small></div><div class="header-right"><button class="settings" id="settings">⚙</button><button class="lang" id="lang">🌐 UA⌄</button></div></header>
+<main class="page">
+<section id="quests" class="tab">
+<div class="section-title">🎯 КВЕСТИ</div>
+<div class="ton-wallet-card">
+  <div class="ton-wallet-head">
+    <div>
+      <div class="ton-wallet-title">Підключи TON гаманець</div>
+      <div class="ton-wallet-sub">Використовуй Wallet у Telegram або обери інший гаманець</div>
+    </div>
+    <div class="ton-logo">TON</div>
+  </div>
+  <button id="tonConnectCustom" class="ton-connect-custom" type="button">
+    <span class="ton-wallet-icon">💎</span>
+    <span id="tonConnectText">ПІДКЛЮЧИТИ ГАМАНЕЦЬ</span>
+    <span class="ton-arrow">›</span>
+  </button>
+  <div id="tonWalletStatus" class="ton-wallet-status">Гаманець не підключено</div>
+</div>
+
+
+
+<div class="quest-card">
+<div class="quest-icon">📢</div>
+<div class="quest-main"><h3>Підпишись на GG RUSH</h3>
+<p>Підпишись на Telegram-канал та отримай нагороду.</p><strong>⭐ +1 ⭐</strong></div>
+<div class="quest-actions">
+<a class="quest-go" href="https://t.me/ggrushReady" target="_blank" rel="noopener">ПІДПИСАТИСЯ</a>
+<button id="questClaim" class="quest-claim">ЗАБРАТИ</button>
+</div></div>
+<div id="questStatus" class="quest-status">Не виконано</div>
+<div class="quest-note">Після підписки повернися в гру та натисни «ЗАБРАТИ».</div>
+</section><section id="home" class="tab active">
+<div class="top-row">
+<div class="mini-card"><div class="coin">GG</div><div><strong id="balance">0</strong> <b>⭐</b><small>Твій баланс</small></div></div>
+<div class="mini-card gasoline-top" id="gasolineCard">
+<div class="gas-top-icon">⛽</div>
+<div><strong id="gasolineBalance">100.00</strong> <b>L</b>
+<small>БЕНЗИН • −0.10 L ЗА ТАП</small></div>
+</div>
+</div>
+<div class="hero"><div class="hero-top"><small>БАЛАНС • ⭐</small><span class="gg-total">⭐ <b id="heroGG">0</b> ⭐</span></div></div>
+<div class="car-card" id="carCard">
+<div class="car-title">ЖИГУЛЬ<div class="car-meta"><span class="pill">COMMON</span><span class="pill">слот 1</span></div></div>
+<div class="fuel-left"><small>ПАЛИВО</small><div class="fuel-num" id="fuelPct">75%</div><div class="fuel-bar"><div class="fuel-fill" id="fuelFill"></div></div><div class="fuel-count" id="fuelCount">75 000 / 100 000</div></div>
+<div class="fuel-box"><small>⛽ ПАЛИВО</small><div class="danger" id="fuelStatus">ЗАПОВНЮЄТЬСЯ</div><p>100% = Повний бак<br>Після 100% — заправка</p></div>
+<div class="car-img-wrap" id="carTapTarget" role="button" tabindex="0" aria-label="Тапнути по Жигулю" title="Тапай по Жигулю"><img class="car-img" src="zhygul-new.jpg" alt="Жигуль — CAR MY GAR"></div><div class="car-floor"></div>
+<div class="refuel-box"><small>◷ ЗАПРАВКА</small><b id="refuelTimer">12:00:00</b><small>Машина заправляється</small></div>
+<button class="tap-zone" id="tap"><strong>ТАП</strong><small>Тапай по машині!</small></button><div class="plus" id="plus">+1 GG</div>
+</div>
+<div class="slots-title">МОЇ СЛОТИ</div><div class="slots" id="slots"></div>
+<div class="info-grid">
+<div class="info"><h3>МОЖЛИВІ МАШИНИ</h3><div class="rates">
+<div class="rate"><b class="common">COMMON</b><span>Жигуль, Lada <b>50%</b></span></div><div class="rate"><b class="uncommon">UNCOMMON</b><span>Lada, VAZ 2107 <b class="uncommon">30%</b></span></div><div class="rate"><b class="rare">RARE</b><span>BMW <b class="rare">15%</b></span></div><div class="rate"><b class="epic">EPIC</b><span>Porsche <b class="epic">4%</b></span></div><div class="rate"><b class="legendary">LEGENDARY</b><span>Lamborghini <b class="legendary">1%</b></span></div>
+</div></div>
+<div class="info"><h3>ЯК ЦЕ ПРАЦЮЄ?</h3><div class="steps"><div class="step"><i>1</i><span>Тапай по машині, щоб заповнити паливо</span></div><div class="step"><i>2</i><span>Дотапав до 100% — машина заправляється</span></div><div class="step"><i>3</i><span>Заправка триває 12 годин</span></div><div class="step"><i>4</i><span>Купуй нові слоти та отримуй машини</span></div></div></div>
+</div>
+</section>
+<section id="garage" class="tab"><div class="subpage"><h2>Гараж</h2><small>Твої машини та слоти</small></div><div class="garage-hero"><img src="zhygul-new.jpg" alt="Жигуль — CAR MY GAR"><strong>ЖИГУЛЬ</strong><small>COMMON • СЛОТ 1</small></div><div class="garage-slots" id="garageSlots"></div></section>
+
+
+<section id="shop" class="tab">
+<div class="subpage"><h2>🎁 GG RUSH CASE</h2><small>БЕЗКОШТОВНО • 1 РАЗ НА 24 ГОДИНИ</small></div>
+
+<div class="daily-case" id="caseWrap">
+  <div class="daily-case-top">
+    <div>
+      <h2>GG RUSH CASE</h2>
+      <p>Відкрий безкоштовний кейс та виграй бензин, ⭐ або Жигуль!</p>
+    </div>
+    <span class="free-badge">FREE</span>
+  </div>
+
+  <img class="daily-case-image" src="gg-rush-case-new.jpg" alt="GG RUSH Case — Жигуль та бензин">
+
+  <div class="daily-case-open">
+    <button id="caseOpen" type="button">ВІДКРИТИ БЕЗКОШТОВНО</button>
+    <div id="caseTimer">🎁 Кейс готовий — відкриття безкоштовне</div>
+  </div>
+
+  <div class="case-prizes">
+    <div><span>🟥</span><b>500 L</b><small>15%</small></div>
+    <div><span>🟧</span><b>250 L</b><small>35%</small></div>
+    <div><span>🚗</span><b>Жигуль</b><small>20%</small></div>
+    <div><span>🟩</span><b>150 L</b><small>15%</small></div>
+    <div><span>⭐</span><b>2 ⭐</b><small>15%</small></div>
+  </div>
+</div>
+
+<div class="subpage" style="margin-top:10px"><h2>Слоти</h2><small>Купуй додаткові слоти за ⭐</small></div>
+<div class="shop-grid">
+<div class="upgrade"><div><b>🚗 Слот #2</b><small>Відкриває нову машину</small></div><button onclick="buySlot(1)">1 000 ⭐</button></div>
+<div class="upgrade"><div><b>🚙 Слот #3</b><small>Відкриває нову машину</small></div><button onclick="buySlot(2)">10 000 ⭐</button></div>
+<div class="upgrade"><div><b>🏎️ Слот #4</b><small>Відкриває нову машину</small></div><button onclick="buySlot(3)">100 000 ⭐</button></div>
+<div class="upgrade"><div><b>🏆 Слот #5</b><small>Відкриває нову машину</small></div><button onclick="buySlot(4)">1 000 000 ⭐</button></div>
+</div></section>
+<section id="profile" class="tab"><div class="subpage"><h2>Профіль</h2><small>Твій прогрес</small></div><div class="profile-card">
+<div class="profile-stat"><span>⭐ баланс</span><b id="profileGG">0 ⭐</b></div><div class="profile-stat"><span>Тапів</span><b id="profileTaps">0</b></div><div class="profile-stat"><span>Power</span><b id="profilePower">1 GG</b></div><div class="profile-stat"><span>Машин</span><b id="profileCars">1 / 5</b></div>
+</div></section>
+</main>
+<nav class="bottom"><button class="navbtn active" data-tab="home"><span class="navicon">⌂</span><b>ГОЛОВНА</b></button><button class="navbtn" data-tab="garage"><span class="navicon">▣</span><b>ГАРАЖ</b></button><button class="navbtn" data-tab="quests"><span>🎯</span><b>КВЕСТИ</b></button><button class="navbtn" data-tab="shop"><span class="navicon">▾</span><b>МАГАЗИН</b></button><button class="navbtn" data-tab="profile"><span class="navicon">●</span><b>ПРОФІЛЬ</b></button></nav>
+
+<div class="case-modal" id="caseModal" aria-hidden="true">
+  <div class="case-dialog">
+    <h2>🎁 ВИ ВІДКРИЛИ КЕЙС!</h2>
+    <p>Зараз рулетка визначить випадковий приз</p>
+    <div class="case-reel"><div class="case-track" id="caseTrack"></div></div>
+    <div class="case-result" id="caseResult">
+      <div class="win-icon" id="caseWinIcon">🚗</div>
+      <h3 id="caseWinTitle">Жигуль (Common)</h3>
+      <p id="caseWinText">20% шанс</p>
+      <button class="case-claim" id="caseClaim" type="button">ЗАБРАТИ</button>
+    </div>
+    <button class="case-close" id="caseClose" type="button">ЗАКРИТИ</button>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+</div>
+<script>
+const CAR_IMG="zhygul-new.jpg";
+const SAVE_KEY="car_my_gar_v22";
+let state;
+try {
+  const raw=localStorage.getItem(SAVE_KEY);
+  state=raw ? JSON.parse(raw) : null;
+} catch(e) {
+  console.warn("Save read error:",e);
+  state=null;
+}
+if(!state || typeof state!=="object") {
+  state={km:0,fuel:0,gasoline:0,taps:0,refuelUntil:0,slots:["zhygul","empty","empty","empty","empty"]};
+}
+
+const cars=[{name:"ЖИГУЛЬ",rare:"COMMON",img:"zhygul-new.jpg"},{name:"LADA VAZ 2107",rare:"UNCOMMON",img:"zhygul-new.jpg"},{name:"BMW",rare:"RARE",img:"zhygul-new.jpg"},{name:"PORSCHE",rare:"EPIC",img:"zhygul-new.jpg"},{name:"LAMBORGHINI",rare:"LEGENDARY",img:"zhygul-new.jpg"}];
+const costs=[1000,10000,100000,1000000];
+const $=id=>document.getElementById(id),fmt=n=>Number(n||0).toLocaleString("uk-UA",{minimumFractionDigits:0,maximumFractionDigits:2});
+
+/* GASOLINE: starts at 0; every successful car tap costs 0.10 L. */
+
+if(!Number.isFinite(state.gasoline)) state.gasoline=0;
+/* SLOT/GAS SAFETY V1 */
+if(!Array.isArray(state.slots)) state.slots=["zhygul","empty","empty","empty","empty"];
+while(state.slots.length<5) state.slots.push("empty");
+if(state.slots.length>5) state.slots=state.slots.slice(0,5);
+if(!state.slots[0] || state.slots[0]==="empty") state.slots[0]="zhygul";
+if(!Number.isFinite(state.gasoline)) state.gasoline=0;
+const GAS_PER_TAP=0.1;
+function save(){
+  try{
+    localStorage.setItem(SAVE_KEY,JSON.stringify(state));
+  }catch(e){
+    console.error("CAR MY GAR save failed:",e);
+    toast("⚠️ Не вдалося зберегти прогрес");
+  }
+}
+function isRefueling(){return state.refuelUntil>0 && Date.now()<state.refuelUntil}
+function finishRefuelIfReady(){if(state.refuelUntil && Date.now()>=state.refuelUntil){state.refuelUntil=0;state.fuel=0;save();toast("⛽ Заправка завершена — машина доступна!");return true}return false}
+if(state.slots && state.slots[0]) state.slots[0].img=CAR_IMG;
+function weightedCar(){const n=Math.random()*100;if(n<50)return cars[0];if(n<80)return cars[1];if(n<95)return cars[2];if(n<99)return cars[3];return cars[4]}
+function toast(t){const e=$("toast");e.textContent=t;e.classList.add("show");clearTimeout(window.tt);window.tt=setTimeout(()=>e.classList.remove("show"),1500)}
+
+/* FREE DAILY CASE — 24h cooldown */
+const CASE_COOLDOWN=24*60*60*1000;
+const CASE_PRIZES=[
+ {icon:"⛽",title:"500 L бензину",text:"+500 L",chance:15,kind:"gas",amount:500},
+ {icon:"⛽",title:"250 L бензину",text:"+250 L",chance:35,kind:"gas",amount:250},
+ {icon:"🚗",title:"Жигуль",text:"Common",chance:20,kind:"car",amount:1},
+ {icon:"⛽",title:"150 L бензину",text:"+150 L",chance:15,kind:"gas",amount:150},
+ {icon:"⭐",title:"2 ⭐",text:"+2 ⭐",chance:15,kind:"km",amount:2}
+];
+let caseBusy=false,casePrize=null;
+function caseRemaining(){return Math.max(0,(Number(state.caseOpenedAt)||0)+CASE_COOLDOWN-Date.now())}
+function caseAvailable(){return caseRemaining()<=0}
+function formatCaseTime(ms){let sec=Math.ceil(ms/1000);let h=Math.floor(sec/3600),m=Math.floor(sec%3600/60),s=sec%60;return String(h).padStart(2,"0")+":"+String(m).padStart(2,"0")+":"+String(s).padStart(2,"0")}
+function weightedCasePrize(){let r=Math.random()*100,acc=0;for(const p of CASE_PRIZES){acc+=p.chance;if(r<acc)return p}return CASE_PRIZES[CASE_PRIZES.length-1]}
+function caseUpdateUI(){const b=$("caseOpen"),t=$("caseTimer");if(!b||!t)return;if(caseBusy)return;const left=caseRemaining();b.disabled=left>0;b.textContent=left>0?"КЕЙС НЕДОСТУПНИЙ":"ВІДКРИТИ КЕЙС";t.textContent=left>0?"Наступне відкриття через "+formatCaseTime(left):"🎁 Кейс готовий — відкриття безкоштовне"}
+function caseItemHTML(p){return `<div class="case-item"><div class="ico">${p.icon}</div><b>${p.short}</b><small>${p.chance}%</small></div>`}
+function applyCasePrize(prize){
+  if(!prize)return;
+  if(prize.kind==="gas") state.gasoline=Math.round((Number(state.gasoline||0)+Number(prize.amount||0))*100)/100;
+  else if(prize.kind==="km") state.km=Math.round((Number(state.km||0)+Number(prize.amount||0))*100)/100;
+  else if(prize.kind==="car"){
+    if(!Array.isArray(state.slots))state.slots=["zhygul","empty","empty","empty","empty"];
+    const free=state.slots.findIndex((x,i)=>i>0&&(!x||x==="empty"));
+    if(free>=0)state.slots[free]="zhygul";
+    else state.gasoline=Math.round((Number(state.gasoline||0)+250)*100)/100;
+  }
+  save();render();
+}
+function openCase(){
+ if(caseBusy)return;
+ if(!caseAvailable())return toast("⏰ Кейс можна відкрити 1 раз на 24 години");
+ caseBusy=true;casePrize=weightedCasePrize();
+ const modal=$("caseModal"),track=$("caseTrack"),result=$("caseResult");
+ result.classList.remove("show");track.innerHTML="";
+ const seq=[];for(let i=0;i<32;i++)seq.push(CASE_PRIZES[i%CASE_PRIZES.length]);
+ seq[27]=casePrize;
+ track.innerHTML=seq.map(caseItemHTML).join("");
+ modal.classList.add("show");modal.setAttribute("aria-hidden","false");
+ const itemWidth=107, targetIndex=27, viewport=modal.querySelector(".case-reel").clientWidth;
+ const target=targetIndex*itemWidth-(viewport/2-itemWidth/2);
+ track.style.transition="none";track.style.transform="translateX(0)";void track.offsetWidth;
+ track.style.transition="transform 3.6s cubic-bezier(.08,.75,.12,1)";track.style.transform=`translateX(-${Math.max(0,target)}px)`;
+ setTimeout(()=>{
+   state.caseOpenedAt=Date.now();save();
+   $("caseWinIcon").textContent=casePrize.icon;$("caseWinTitle").textContent=casePrize.title;$("caseWinText").textContent=casePrize.chance+"% шанс";
+   result.classList.add("show");$("caseWrap").classList.add("pulse");setTimeout(()=>$("caseWrap").classList.remove("pulse"),600);
+   caseBusy=false;caseUpdateUI();render();
+ },3800);
+}
+function claimCase(){
+ if(!casePrize)return;
+ if(casePrize.key==="gas500")state.gasoline=Math.round((state.gasoline+500)*100)/100;
+ if(casePrize.key==="gas250")state.gasoline=Math.round((state.gasoline+250)*100)/100;
+ if(casePrize.key==="gas150")state.gasoline=Math.round((state.gasoline+150)*100)/100;
+ if(casePrize.key==="km2")state.km=Math.round((state.km+2)*100)/100;
+ if(casePrize.key==="car"){
+   const has=state.slots.some(x=>x&&x.name==="ЖИГУЛЬ");
+   if(has){state.gasoline=Math.round((state.gasoline+250)*100)/100;toast("🚗 Жигуль уже є — +250 L бензину компенсації");}
+   else if(state.slots.length<5){state.slots.push({name:"ЖИГУЛЬ",rare:"COMMON",img:CAR_IMG});toast("🚗 Жигуль додано в гараж!")}
+   else {state.gasoline=Math.round((state.gasoline+250)*100)/100;toast("🚗 Немає вільного слота — +250 L бензину")}
+ }
+ save();render();closeCase();
+}
+function closeCase(){if(caseBusy)return;$("caseModal").classList.remove("show");$("caseModal").setAttribute("aria-hidden","true");casePrize=null}
+
+function render(){if(!Array.isArray(state.slots))state.slots=["zhygul","empty","empty","empty","empty"];
+while(state.slots.length<5)state.slots.push("empty");
+const gas=Number(state.gasoline||0);
+const gasEl=$("gasolineBalance");if(gasEl)gasEl.textContent=gas.toFixed(2);
+
+ finishRefuelIfReady();
+ const locked=isRefueling(), car=state.slots[state.activeSlot]||state.slots[0];
+ if(car && (state.activeSlot===0 || car.name==="ЖИГУЛЬ" || !car.img)){
+   car.img=CAR_IMG;
+ }
+ $("balance").textContent=fmt(state.km);$("heroGG").textContent=fmt(state.km);
+if(gasEl)gasEl.textContent=Number(state.gasoline||0).toFixed(2);
+
+ $("fuelPct").textContent=Math.floor(state.fuel/1000)+"%";$("fuelFill").style.width=(state.fuel/1000)+"%";$("fuelCount").textContent=fmt(state.fuel)+" / 100 000";
+ $("fuelStatus").textContent=locked?"ЗАПРАВКА 12 ГОД":(state.fuel>=100000?"ПАЛИВО ЗАКІНЧИЛОСЬ":"ЗАПОВНЮЄТЬСЯ");$("fuelStatus").classList.toggle("ok",locked);
+ $("profileGG").textContent=fmt(state.km)+" ⭐";$("profileTaps").textContent=fmt(state.taps);$("profilePower").textContent=state.power+" GG";$("profileCars").textContent=state.slots.length+" / 5";
+ if(car){document.querySelectorAll(".car-img").forEach(x=>x.src=car.img);document.querySelector(".car-title").childNodes[0].nodeValue=car.name+" ";document.querySelector(".car-meta").innerHTML='<span class="pill">'+car.rare+'</span><span class="pill">слот '+(state.activeSlot+1)+'</span>'}
+ $("tap").disabled=locked;$("tap").style.opacity=locked?".45":"1";$("tap").querySelector("strong").textContent=locked?"🔒":"ТАП";$("tap").querySelector("small").textContent=locked?"Машина недоступна":"Тапай по машині!";
+ const rb=$("refuelTimer"); if(locked){let sec=Math.max(0,Math.ceil((state.refuelUntil-Date.now())/1000));rb.textContent=String(Math.floor(sec/3600)).padStart(2,"0")+":"+String(Math.floor(sec%3600/60)).padStart(2,"0")+":"+String(sec%60).padStart(2,"0")}else rb.textContent="12:00:00";
+ const box=$("slots");box.innerHTML="";
+ for(let i=0;i<5;i++){const el=document.createElement("div");el.className="slot"+(i===state.activeSlot?" active":"");if(state.slots[i]){const x=state.slots[i];el.innerHTML=`<small>СЛОТ ${i+1}</small><div class="slot-car"><img src="${x.img}"></div><b>${x.name}</b><span>${x.rare}</span><button class="buy" onclick="selectSlot(${i})">${i===state.activeSlot?"АКТИВНИЙ":"ВИБРАТИ"}</button>`}else{const cost=costs[i-1]||1000000;el.innerHTML=`<small>СЛОТ ${i+1}</small><div class="slot-car">🔒</div><b>ЗАКРИТО</b><span>Купити</span><button class="buy" onclick="buySlot(${i})">${fmt(cost)} ⭐</button>`}box.appendChild(el)}
+ $("garageSlots").innerHTML=state.slots.map((x,i)=>`<div class="garage-slot"><b>СЛОТ ${i+1} • ${x.name}</b><small>${x.rare}</small><button class="buy" style="margin-top:6px" onclick="selectSlot(${i})">${i===state.activeSlot?"ОБРАНО":"ВИБРАТИ"}</button></div>`).join("")+Array.from({length:5-state.slots.length},(_,i)=>`<div class="garage-slot"><b>🔒 СЛОТ ${state.slots.length+i+1}</b><small>Купи у магазині</small></div>`).join("");
+ $("leaderList").innerHTML=["GG Racer","LADA KING","V8 Master","Garage Boss","Turbo"].map((n,i)=>`<div class="upgrade"><div><b>${i+1}. ${n}</b><small>GG • ${fmt(Math.max(10000,state.gg-i*3210))}</small></div><b>#${i+1}</b></div>`).join("");
+ save();
+ caseUpdateUI();
+}
+function tap(){
+  if(finishRefuelIfReady()){render();return}
+  if(isRefueling())return toast("🔒 Машина зараз на заправці");
+  if(state.fuel>=100000){state.refuelUntil=Date.now()+12*60*60*1000;toast("⛽ 100%! Заправка 12 годин");render();return}
+  const gas=Number(state.gasoline||0);
+  if(gas<0.1-1e-9)return toast("⛽ Бензин закінчився");
+  state.gasoline=Math.round((gas-0.1)*100)/100;
+  state.km=Math.round((Number(state.km||0)+0.01)*100)/100;
+  state.fuel=Math.min(100000,Number(state.fuel||0)+1000);
+  state.taps=(Number(state.taps)||0)+1;
+  const c=$("carCard");if(c){c.classList.remove("tap");void c.offsetWidth;c.classList.add("tap")}
+  const p=$("plus");if(p){p.textContent="+0.01 ⭐";p.classList.remove("show");void p.offsetWidth;p.classList.add("show")}
+  save();render();
+}
+function selectSlot(i){if(!state.slots[i])return toast("🔒 Спочатку купи слот");if(isRefueling())return toast("🔒 Дочекайся заправки");state.activeSlot=i;state.fuel=0;state.refuelUntil=0;toast("🚗 Активна: "+state.slots[i].name);render()}
+function buySlot(slotIndex){
+  slotIndex=Number(slotIndex);
+  if(!Number.isInteger(slotIndex)||slotIndex<1||slotIndex>4)return toast("❌ Невірний слот");
+  if(!Array.isArray(state.slots)) state.slots=["zhygul","empty","empty","empty","empty"];
+  while(state.slots.length<5)state.slots.push("empty");
+  if(state.slots[slotIndex]!=="empty")return toast("🔓 Цей слот уже відкритий");
+  const costs=[1000,10000,100000,1000000];
+  const cost=costs[slotIndex-1];
+  if(Number(state.km||0)<cost)return toast("⭐ Недостатньо ⭐");
+  state.km=Math.round((Number(state.km)-cost)*100)/100;
+  state.slots[slotIndex]="random";
+  save();render();
+  toast("🎰 Слот відкрито! Отримуєш випадкову машину");
+}
+function switchTab(id){document.querySelectorAll(".tab").forEach(x=>x.classList.remove("active"));$(id).classList.add("active");document.querySelectorAll(".navbtn").forEach(x=>x.classList.toggle("active",x.dataset.tab===id));window.scrollTo({top:0,behavior:"smooth"})}
+document.querySelectorAll(".navbtn").forEach(b=>{
+  b.addEventListener("click",()=>{
+    const id=b.dataset.tab;
+    if($(id)) switchTab(id);
+  });
+});
+$("settings").onclick=()=>toast("⚙ Налаштування: прогрес зберігається автоматично");
+$("lang").onclick=()=>toast("🌐 Українська мова");
+$("tap").onclick=tap;
+const carTapTarget=$("carTapTarget");
+if(carTapTarget){
+  carTapTarget.addEventListener("click",tap);
+  carTapTarget.addEventListener("keydown",e=>{
+    if(e.key==="Enter"||e.key===" "){e.preventDefault();tap();}
+  });
+  carTapTarget.addEventListener("touchend",e=>{
+    e.preventDefault(); tap();
+  },{passive:false});
+}
+
+setInterval(()=>{render()},1000);
+
+$("caseOpen").addEventListener("click",openCase);
+$("caseClaim").addEventListener("click",claimCase);
+$("caseClose").addEventListener("click",closeCase);
+$("caseModal").addEventListener("click",e=>{if(e.target.id==="caseModal")closeCase()});
+setInterval(caseUpdateUI,1000);
+
+render();
+</script>
+
+
+
+<script id="v26-ton-quest-js">
+(function(){
+  const QUEST_DONE="car_my_gar_v24_quest_done", KMKEY="car_my_gar_v24_km";
+  function getKM(){const n=Number(localStorage.getItem(KMKEY));return Number.isFinite(n)?n:(typeof state!=="undefined"&&Number(state.km)||0)}
+  function setKM(n){n=Math.round(n*100)/100;localStorage.setItem(KMKEY,String(n));if(typeof state!=="undefined")state.km=n;try{if(typeof save==="function")save()}catch(e){}localStorage.setItem(KMKEY,String(n));try{if(typeof render==="function")render()}catch(e){}localStorage.setItem(KMKEY,String(n))}
+  function renderQuest(){const d=localStorage.getItem(QUEST_DONE)==="1",b=document.getElementById("questClaim"),st=document.getElementById("questStatus");if(b){b.textContent=d?"ВИКОНАНО ✓":"ЗАБРАТИ";b.disabled=d;b.classList.toggle("done",d)}if(st)st.textContent=d?"Квест виконано ✓":"Не виконано"}
+  function short(a){return a?a.slice(0,6)+"…"+a.slice(-4):""}
+  async function initTON(){
+    const btn=document.getElementById("tonConnectCustom"), txt=document.getElementById("tonConnectText"), status=document.getElementById("tonWalletStatus");
+    if(!btn)return;
+    if(!window.TON_CONNECT_UI){status.textContent="TON Connect не завантажився. Перевір інтернет.";return}
+    const manifestUrl=new URL("tonconnect-manifest.json",window.location.href).href;
+    let ui;
+    try{
+      ui=new TON_CONNECT_UI.TonConnectUI({manifestUrl:manifestUrl,analytics:{mode:"off"},restoreConnection:true});
+      ui.uiOptions={uiPreferences:{theme:"DARK",borderRadius:"m"}};
+      const update=(wallet)=>{
+        if(wallet&&wallet.account){
+          const addr=wallet.account.address||"";
+          txt.textContent="ПІДКЛЮЧЕНО · "+short(addr);
+          status.textContent="TON гаманець підключено ✓";
+          status.classList.add("connected");
+          btn.classList.add("connected");
+          btn.onclick=()=>ui.openModal();
+        }else{
+          txt.textContent="ПІДКЛЮЧИТИ ГАМАНЕЦЬ";
+          status.textContent="Гаманець не підключено";
+          status.classList.remove("connected");btn.classList.remove("connected");
+          btn.onclick=()=>ui.openModal();
+        }
+      };
+      ui.onStatusChange(update);
+      ui.connectionRestored.then(()=>update(ui.wallet)).catch(()=>update(null));
+      btn.onclick=()=>ui.openModal();
+      window.GGRushTonConnect=ui;
+    }catch(e){status.textContent="Помилка TON Connect: "+(e&&e.message?e.message:"перевір manifest");}
+  }
+  document.addEventListener("DOMContentLoaded",function(){
+    renderQuest();
+    const b=document.getElementById("questClaim");
+    if(b)b.onclick=function(){if(localStorage.getItem(QUEST_DONE)==="1")return;setKM(getKM()+1);localStorage.setItem(QUEST_DONE,"1");renderQuest();if(typeof toast==="function")toast("+1 ⭐ 🎉")};
+    initTON();
+  });
+})();
+</script>
+<script id="v26-integrity">
+(function(){
+  const problems=[];
+  if(typeof tap!=="function") problems.push("tap");
+  if(typeof render!=="function") problems.push("render");
+  if(typeof save!=="function") problems.push("save");
+  if(typeof GAS_PER_TAP!=="number" || GAS_PER_TAP!==0.1) problems.push("gas");
+  if(problems.length) console.error("CAR MY GAR integrity:",problems);
+})();
+</script>
+<script id="save-persistence-fix">
+(function(){
+  window.addEventListener("beforeunload",function(){
+    try{ localStorage.setItem(SAVE_KEY,JSON.stringify(state)); }catch(e){ console.warn("Save write error:",e); }
+  });
+  document.addEventListener("visibilitychange",function(){
+    if(document.visibilityState==="hidden"){
+      try{ localStorage.setItem(SAVE_KEY,JSON.stringify(state)); }catch(e){ console.warn("Save write error:",e); }
+    }
+  });
+})();
+</script>
+</body></html>
