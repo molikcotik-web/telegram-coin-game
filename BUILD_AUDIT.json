@@ -1,0 +1,29 @@
+{
+  "build": "V28-FIXED",
+  "javascript_syntax_ok": true,
+  "javascript_error": "",
+  "start_km": 0,
+  "start_stars": 0,
+  "start_gasoline_l": 0,
+  "tap_reward_km": 0.01,
+  "tap_cost_gasoline_l": 0.1,
+  "slot_cost_stars": 10,
+  "case_cooldown_hours": 24,
+  "case_odds": [
+    15,
+    35,
+    20,
+    15,
+    15
+  ],
+  "fixed": [
+    "navigation",
+    "quest claim",
+    "language menu",
+    "TON Connect initialization",
+    "case persistence",
+    "slot buttons",
+    "duplicate/legacy controller"
+  ],
+  "note": "Real Telegram Stars purchases require a Telegram Bot/API backend; this build uses in-game Stars awarded by quests/cases."
+}
